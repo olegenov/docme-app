@@ -9,24 +9,14 @@ import SwiftUI
 import SwiftData
 
 @main
-struct docmeApp: App {
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            Item.self,
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
-        do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
-        } catch {
-            fatalError("Could not create ModelContainer: \(error)")
-        }
-    }()
+struct DocmeApp: App {
+    @StateObject var themeController = DS.shared
 
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(themeController)
+                .environment(\.theme, themeController.currentTheme)
         }
-        .modelContainer(sharedModelContainer)
     }
 }
