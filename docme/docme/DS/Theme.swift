@@ -15,31 +15,15 @@ struct ShadowStyle {
     let y: CGFloat
 }
 
-struct ThemeShadows {
-    let overlayShadow: ShadowStyle
-}
-
-struct ThemeGradients {
-    let background: RadialGradient
-}
-
-struct ThemeColors {
-    let brandPurple: Color
-    let overlay: Color
-    let overlaySelection: Color
-    let text: Color
-    let textSecondary: Color
-    let outline: Color
-    let outlineSecondary: Color
-    let brandMagenta: Color
-    let brandGreen: Color
-    let brandCyan: Color
+struct BackgroundBlurStyle {
+    let radius: CGFloat
 }
 
 struct Theme {
-    let colors: ThemeColors
-    let shadows: ThemeShadows
-    let gradients: ThemeGradients
+    let colors: Theme.Colors
+    let shadows: Theme.Shadows
+    let blurs: Theme.Blurs
+    let gradients: Theme.Gradients
 
     static func resolve(using mode: ThemeMode) -> Theme {
         switch mode {
@@ -74,6 +58,7 @@ extension Theme {
                 y: 2
             )
         ),
+        blurs: .init(overlayBackgroundBlur: .init(radius: 8)),
         gradients: .init(
             background: RadialGradient(
                 gradient: Gradient(
@@ -107,6 +92,7 @@ extension Theme {
                 y: 2
             )
         ),
+        blurs: .init(overlayBackgroundBlur: .init(radius: 8)),
         gradients: .init(
             background: RadialGradient(
                 gradient: Gradient(colors: [Color(hex: "#2C181E"), Color(hex: "#161422")]),
@@ -116,6 +102,33 @@ extension Theme {
             )
         )
     )
+}
+
+extension Theme {
+    struct Shadows {
+        let overlayShadow: ShadowStyle
+    }
+
+    struct Blurs {
+        let overlayBackgroundBlur: BackgroundBlurStyle
+    }
+
+    struct Gradients {
+        let background: RadialGradient
+    }
+
+    struct Colors {
+        let brandPurple: Color
+        let overlay: Color
+        let overlaySelection: Color
+        let text: Color
+        let textSecondary: Color
+        let outline: Color
+        let outlineSecondary: Color
+        let brandMagenta: Color
+        let brandGreen: Color
+        let brandCyan: Color
+    }
 }
 
 private struct ThemeKey: EnvironmentKey {

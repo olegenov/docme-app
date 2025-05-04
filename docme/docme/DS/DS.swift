@@ -17,7 +17,7 @@ enum DS {
         shared.mode
     }
     
-    struct Size {
+    enum Size {
         static let m = CGFloat(2)
         static let m2 = CGFloat(4)
         static let m4 = CGFloat(8)
@@ -32,7 +32,7 @@ enum DS {
         static let m32 = CGFloat(64)
     }
 
-    struct Spacing {
+    enum Spacing {
         static let m = CGFloat(2)
         static let m2 = CGFloat(4)
         static let m4 = CGFloat(8)
@@ -47,7 +47,7 @@ enum DS {
         static let m32 = CGFloat(64)
     }
 
-    struct Rounding {
+    enum Rounding {
         static let m = CGFloat(2)
         static let m2 = CGFloat(4)
         static let m4 = CGFloat(8)
