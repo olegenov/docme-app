@@ -23,6 +23,10 @@
 		0D102DFB2DC817330017073B /* BottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D102DFA2DC8172F0017073B /* BottomBar.swift */; };
 		0D102E002DC818AC0017073B /* View+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D102DFF2DC8189D0017073B /* View+Shadow.swift */; };
 		0D102E022DC8D4200017073B /* DocumentCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D102E012DC8D41B0017073B /* DocumentCard.swift */; };
+		0D102E052DC8D6B90017073B /* DefaultImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D102E042DC8D6B50017073B /* DefaultImageManager.swift */; };
+		0D102E0A2DC8DAC50017073B /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D102E092DC8DAC20017073B /* ImageManager.swift */; };
+		0D102E0C2DC8E3210017073B /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D102E0B2DC8E2F50017073B /* ActivityIndicator.swift */; };
+		0D102E0F2DC8F22C0017073B /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D102E0E2DC8F22A0017073B /* Date+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +47,10 @@
 		0D102DFA2DC8172F0017073B /* BottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBar.swift; sourceTree = "<group>"; };
 		0D102DFF2DC8189D0017073B /* View+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Shadow.swift"; sourceTree = "<group>"; };
 		0D102E012DC8D41B0017073B /* DocumentCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCard.swift; sourceTree = "<group>"; };
+		0D102E042DC8D6B50017073B /* DefaultImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultImageManager.swift; sourceTree = "<group>"; };
+		0D102E092DC8DAC20017073B /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
+		0D102E0B2DC8E2F50017073B /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
+		0D102E0E2DC8F22A0017073B /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +133,7 @@
 		0D102DEC2DC80BD10017073B /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				0D102E032DC8D69C0017073B /* Managers */,
 				0D102DED2DC80BFD0017073B /* Components */,
 			);
 			path = Common;
@@ -133,6 +142,7 @@
 		0D102DED2DC80BFD0017073B /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				0D102E0B2DC8E2F50017073B /* ActivityIndicator.swift */,
 				0D102E012DC8D41B0017073B /* DocumentCard.swift */,
 				0D102DFA2DC8172F0017073B /* BottomBar.swift */,
 				0D102DF82DC815E80017073B /* Title.swift */,
@@ -154,6 +164,7 @@
 		0D102DF52DC80FF90017073B /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
+				0D102E0E2DC8F22A0017073B /* Date+.swift */,
 				0D102DF62DC810020017073B /* String+.swift */,
 			);
 			path = Foundation;
@@ -165,6 +176,23 @@
 				0D102DFF2DC8189D0017073B /* View+Shadow.swift */,
 			);
 			path = "View+";
+			sourceTree = "<group>";
+		};
+		0D102E032DC8D69C0017073B /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				0D102E082DC8DAAA0017073B /* ImageManager */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		0D102E082DC8DAAA0017073B /* ImageManager */ = {
+			isa = PBXGroup;
+			children = (
+				0D102E092DC8DAC20017073B /* ImageManager.swift */,
+				0D102E042DC8D6B50017073B /* DefaultImageManager.swift */,
+			);
+			path = ImageManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -204,7 +232,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 0D102DAA2DC7F39C0017073B /* Build configuration list for PBXProject "Docme" */;
+			buildConfigurationList = 0D102DAA2DC7F39C0017073B /* Build configuration list for PBXProject "docme" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -246,14 +274,18 @@
 				0D102DF92DC815EA0017073B /* Title.swift in Sources */,
 				0D102DF72DC810050017073B /* String+.swift in Sources */,
 				0D102DEB2DC806DF0017073B /* Text+.swift in Sources */,
+				0D102E052DC8D6B90017073B /* DefaultImageManager.swift in Sources */,
 				0D102E002DC818AC0017073B /* View+Shadow.swift in Sources */,
 				0D102DF12DC80C890017073B /* ImageIcon.swift in Sources */,
+				0D102E0F2DC8F22C0017073B /* Date+.swift in Sources */,
 				0D102DE82DC806B70017073B /* Font.swift in Sources */,
 				0D102DE62DC7FBDE0017073B /* DS.swift in Sources */,
+				0D102E0A2DC8DAC50017073B /* ImageManager.swift in Sources */,
 				0D102DFB2DC817330017073B /* BottomBar.swift in Sources */,
 				0D102DEF2DC80C110017073B /* Fab.swift in Sources */,
 				0D102DD72DC7F6510017073B /* Theme.swift in Sources */,
 				0D102DCF2DC7F51F0017073B /* DocmeApp.swift in Sources */,
+				0D102E0C2DC8E3210017073B /* ActivityIndicator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -440,7 +472,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0D102DAA2DC7F39C0017073B /* Build configuration list for PBXProject "Docme" */ = {
+		0D102DAA2DC7F39C0017073B /* Build configuration list for PBXProject "docme" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0D102DBD2DC7F39D0017073B /* Debug */,
