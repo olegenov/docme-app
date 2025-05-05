@@ -32,6 +32,7 @@
 		0D102E162DC93B550017073B /* ItemsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D102E152DC93B300017073B /* ItemsList.swift */; };
 		0D102E192DC93C460017073B /* ListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D102E182DC93C420017073B /* ListItem.swift */; };
 		0D102E1B2DC940BC0017073B /* Separator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D102E1A2DC940B80017073B /* Separator.swift */; };
+		0D102E1D2DC946BD0017073B /* Captions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D102E1C2DC946B30017073B /* Captions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +62,7 @@
 		0D102E152DC93B300017073B /* ItemsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsList.swift; sourceTree = "<group>"; };
 		0D102E182DC93C420017073B /* ListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItem.swift; sourceTree = "<group>"; };
 		0D102E1A2DC940B80017073B /* Separator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Separator.swift; sourceTree = "<group>"; };
+		0D102E1C2DC946B30017073B /* Captions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Captions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 		0D102DD52DC7F6300017073B /* DS */ = {
 			isa = PBXGroup;
 			children = (
+				0D102E1C2DC946B30017073B /* Captions.swift */,
 				0D102DE72DC806B20017073B /* Font.swift */,
 				0D102DE52DC7FBDD0017073B /* DS.swift */,
 				0D102DD62DC7F64E0017073B /* Theme.swift */,
@@ -293,6 +296,7 @@
 			files = (
 				0D102E022DC8D4200017073B /* DocumentCard.swift in Sources */,
 				0D102DCE2DC7F51F0017073B /* ContentView.swift in Sources */,
+				0D102E1D2DC946BD0017073B /* Captions.swift in Sources */,
 				0D102DDE2DC7F7B30017073B /* Color+.swift in Sources */,
 				0D102DF92DC815EA0017073B /* Title.swift in Sources */,
 				0D102E192DC93C460017073B /* ListItem.swift in Sources */,

@@ -16,6 +16,8 @@ struct ImageIcon: View {
         case profileFilled
         case chevronRightOutline
         case crossOutline
+        case documentOutline
+        case folderOutline
     }
     
     let name: Name
