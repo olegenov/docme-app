@@ -61,7 +61,7 @@ struct DocumentCardView: View {
         GeometryReader { geometry in
             ZStack {
                 theme.colors.overlay
-                ActivityIndicator()
+                ActivityIndicator(size: .md)
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFill()

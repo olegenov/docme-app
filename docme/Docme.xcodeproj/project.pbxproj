@@ -31,6 +31,7 @@
 		0D102E142DC934130017073B /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D102E132DC9340F0017073B /* Tag.swift */; };
 		0D102E162DC93B550017073B /* ItemsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D102E152DC93B300017073B /* ItemsList.swift */; };
 		0D102E192DC93C460017073B /* ListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D102E182DC93C420017073B /* ListItem.swift */; };
+		0D102E1B2DC940BC0017073B /* Separator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D102E1A2DC940B80017073B /* Separator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +60,7 @@
 		0D102E132DC9340F0017073B /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		0D102E152DC93B300017073B /* ItemsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsList.swift; sourceTree = "<group>"; };
 		0D102E182DC93C420017073B /* ListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItem.swift; sourceTree = "<group>"; };
+		0D102E1A2DC940B80017073B /* Separator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Separator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,6 +211,7 @@
 		0D102E172DC93B580017073B /* ItemsList */ = {
 			isa = PBXGroup;
 			children = (
+				0D102E1A2DC940B80017073B /* Separator.swift */,
 				0D102E182DC93C420017073B /* ListItem.swift */,
 				0D102E152DC93B300017073B /* ItemsList.swift */,
 			);
@@ -297,6 +300,7 @@
 				0D102DEB2DC806DF0017073B /* Text+.swift in Sources */,
 				0D102E162DC93B550017073B /* ItemsList.swift in Sources */,
 				0D102E052DC8D6B90017073B /* DefaultImageManager.swift in Sources */,
+				0D102E1B2DC940BC0017073B /* Separator.swift in Sources */,
 				0D102E002DC818AC0017073B /* View+Shadow.swift in Sources */,
 				0D102DF12DC80C890017073B /* ImageIcon.swift in Sources */,
 				0D102E0F2DC8F22C0017073B /* Date+.swift in Sources */,

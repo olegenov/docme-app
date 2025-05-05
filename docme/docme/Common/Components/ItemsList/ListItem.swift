@@ -8,6 +8,8 @@ struct ListItem: View {
     enum TrailingView {
         case empty
         case chevron
+        case cross
+        case loading
     }
     
     let title: String
@@ -32,6 +34,7 @@ struct ListItem: View {
             Text(title)
                 .applyFont(.body(.sm, .bold))
                 .foregroundStyle(theme.colors.text)
+                .lineLimit(1)
             
             Spacer()
             
@@ -50,6 +53,8 @@ struct ListItem: View {
             switch trailingView {
             case .empty: EmptyView()
             case .chevron: ImageIcon(name: .chevronRightOutline, size: .sm)
+            case .cross: ImageIcon(name: .crossOutline, size: .sm)
+            case .loading: ActivityIndicator(size: .sm)
             }
         }
     }
@@ -60,6 +65,7 @@ struct ListItem: View {
             Text(trailingText)
                 .applyFont(.body(.sm, .regular))
                 .foregroundStyle(theme.colors.textSecondary)
+                .lineLimit(1)
         }
     }
 }
@@ -69,5 +75,7 @@ struct ListItem: View {
         ListItem(title: "123", trailingText: "123", trailingView: .chevron)
         ListItem(title: "123", trailingText: "123", trailingView: .empty)
         ListItem(title: "123", trailingView: .chevron)
+        ListItem(title: "123", trailingView: .cross)
+        ListItem(title: "123", trailingView: .loading)
     }
 }

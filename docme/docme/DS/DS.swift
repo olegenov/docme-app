@@ -18,6 +18,7 @@ enum DS {
     }
     
     enum Size {
+        static let m05 = CGFloat(1)
         static let m = CGFloat(2)
         static let m2 = CGFloat(4)
         static let m4 = CGFloat(8)
