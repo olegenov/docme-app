@@ -27,7 +27,7 @@ struct Fab: View {
         .padding(.trailing, trailingPadding)
         .background(theme.colors.overlay)
         .cornerRadius(DS.Rounding.m8)
-        .applyOverlayShadow(theme)
+        .applyShadow(theme.shadows.overlayShadow)
     }
     
     private var trailingPadding: CGFloat {

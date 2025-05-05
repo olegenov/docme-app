@@ -3,11 +3,11 @@ import SwiftUI
 
 
 extension View {
-    func applyOverlayShadow(_ theme: Theme) -> some View {
+    func applyShadow(_ shadow: ShadowStyle) -> some View {
         self
             .modifier(
                 DSShadowModifier(
-                    shadow: theme.shadows.overlayShadow
+                    shadow: shadow
                 )
             )
     }

@@ -21,7 +21,7 @@
 		0D102DF72DC810050017073B /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D102DF62DC810020017073B /* String+.swift */; };
 		0D102DF92DC815EA0017073B /* Title.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D102DF82DC815E80017073B /* Title.swift */; };
 		0D102DFB2DC817330017073B /* BottomBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D102DFA2DC8172F0017073B /* BottomBar.swift */; };
-		0D102E002DC818AC0017073B /* View+OverlayShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D102DFF2DC8189D0017073B /* View+OverlayShadow.swift */; };
+		0D102E002DC818AC0017073B /* View+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D102DFF2DC8189D0017073B /* View+Shadow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,7 +40,7 @@
 		0D102DF62DC810020017073B /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		0D102DF82DC815E80017073B /* Title.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Title.swift; sourceTree = "<group>"; };
 		0D102DFA2DC8172F0017073B /* BottomBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBar.swift; sourceTree = "<group>"; };
-		0D102DFF2DC8189D0017073B /* View+OverlayShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+OverlayShadow.swift"; sourceTree = "<group>"; };
+		0D102DFF2DC8189D0017073B /* View+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Shadow.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,7 +159,7 @@
 		0D102DFE2DC817B70017073B /* View+ */ = {
 			isa = PBXGroup;
 			children = (
-				0D102DFF2DC8189D0017073B /* View+OverlayShadow.swift */,
+				0D102DFF2DC8189D0017073B /* View+Shadow.swift */,
 			);
 			path = "View+";
 			sourceTree = "<group>";
@@ -242,7 +242,7 @@
 				0D102DF92DC815EA0017073B /* Title.swift in Sources */,
 				0D102DF72DC810050017073B /* String+.swift in Sources */,
 				0D102DEB2DC806DF0017073B /* Text+.swift in Sources */,
-				0D102E002DC818AC0017073B /* View+OverlayShadow.swift in Sources */,
+				0D102E002DC818AC0017073B /* View+Shadow.swift in Sources */,
 				0D102DF12DC80C890017073B /* Icon.swift in Sources */,
 				0D102DE82DC806B70017073B /* Font.swift in Sources */,
 				0D102DE62DC7FBDE0017073B /* DS.swift in Sources */,
