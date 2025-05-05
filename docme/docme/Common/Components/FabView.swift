@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 
-struct Fab: View {
+struct FabView: View {
     @Environment(\.theme) var theme
     
     enum Content {
@@ -42,7 +42,7 @@ struct Fab: View {
 
 #Preview {
     VStack {
-        Fab(
+        FabView(
             content: .icon(.init(
                 name: .starOutline,
                 size: .md,
@@ -50,7 +50,7 @@ struct Fab: View {
             ))
         )
         
-        Fab(
+        FabView(
             content: .iconText(
                 .init(name: .starOutline, size: .md, color: .blue),
                 "123"

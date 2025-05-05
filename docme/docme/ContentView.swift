@@ -9,53 +9,29 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
-    
+    @Environment(\.theme) var theme
+    @EnvironmentObject var themeController: DSThemeController
+
     var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-                    }
+        VStack {
+            TitleView(text: "Some title")
+            Picker("Тема", selection: Binding(
+                get: { themeController.mode },
+                set: { newMode in
+                    DS.setMode(newMode)
                 }
-                .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
+            )) {
+                ForEach(ThemeMode.allCases) { mode in
+                    Text(mode.rawValue.capitalized).tag(mode)
                 }
             }
-        } detail: {
-            Text("Select an item")
+            .pickerStyle(SegmentedPickerStyle())
+            .padding()
         }
-    }
-    
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
-    }
-    
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
-            }
-        }
+        .background(theme.gradients.background)
     }
 }
 
 #Preview {
     ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
 }

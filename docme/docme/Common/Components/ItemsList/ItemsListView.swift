@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 
-struct ItemsList<Content: View>: View {
+struct ItemsListView<Content: View>: View {
     @Environment(\.theme) var theme
     
     @ViewBuilder let content: () -> Content
@@ -20,11 +20,11 @@ struct ItemsList<Content: View>: View {
 }
 
 #Preview {
-    ItemsList {
-        ListItem(title: "Text")
-        Separator()
-        ListItem(title: "Text")
-        Separator()
-        ListItem(title: "Text", trailingView: .loading)
+    ItemsListView {
+        ListItemView(title: "Text")
+        SeparatorView()
+        ListItemView(title: "Text")
+        SeparatorView()
+        ListItemView(title: "Text", trailingView: .loading)
     }
 }

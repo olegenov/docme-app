@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 
-struct Title: View {
+struct TitleView: View {
     @Environment(\.theme) var theme
     
     let text: String
@@ -15,5 +15,5 @@ struct Title: View {
 }
 
 #Preview {
-    Title(text: "Hello World")
+    TitleView(text: "Hello World")
 }

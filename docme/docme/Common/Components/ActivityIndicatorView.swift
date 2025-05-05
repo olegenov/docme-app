@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 
-struct ActivityIndicator: View {
+struct ActivityIndicatorView: View {
     @Environment(\.theme) var theme
     
     enum Size {
@@ -52,7 +52,7 @@ struct ActivityIndicator: View {
 
 #Preview {
     VStack {
-        ActivityIndicator(size: .md)
-        ActivityIndicator(size: .sm)
+        ActivityIndicatorView(size: .md)
+        ActivityIndicatorView(size: .sm)
     }
 }

@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 
-struct BottomBar: View {
+struct BottomBarView: View {
     @Environment(\.theme) var theme
     
     enum Selection {
@@ -75,7 +75,7 @@ struct BottomBar: View {
         VStack(spacing: DS.Spacing.m4) {
             closeBar
             
-            ListItem(
+            ListItemView(
                 title: Captions.addFolder,
                 leadingView: .icon(
                     .init(name: .folderOutline, size: .md)
@@ -84,9 +84,9 @@ struct BottomBar: View {
                 onTapAction: { }
             )
             
-            Separator()
+            SeparatorView()
             
-            ListItem(
+            ListItemView(
                 title: Captions.addDocument,
                 leadingView: .icon(
                     .init(name: .documentOutline, size: .md)
@@ -101,23 +101,23 @@ struct BottomBar: View {
         VStack(spacing: DS.Spacing.m4) {
             closeBar
             
-            ListItem(
+            ListItemView(
                 title: Captions.camera,
                 trailingView: .chevron,
                 onTapAction: { }
             )
             
-            Separator()
+            SeparatorView()
             
-            ListItem(
+            ListItemView(
                 title: Captions.gallery,
                 trailingView: .chevron,
                 onTapAction: { }
             )
             
-            Separator()
+            SeparatorView()
             
-            ListItem(
+            ListItemView(
                 title: Captions.files,
                 trailingView: .chevron,
                 onTapAction: { }
@@ -142,9 +142,9 @@ struct BottomBar: View {
 }
 
 #Preview {
-    @Previewable @State var selected: BottomBar.Selection = .home
+    @Previewable @State var selected: BottomBarView.Selection = .home
     
-    BottomBar(
+    BottomBarView(
         selection: $selected,
         homeTapAction: {
             selected = .home

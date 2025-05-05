@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 
-struct ListItem: View {
+struct ListItemView: View {
     @Environment(\.theme) var theme
     
     enum LeadingView {
@@ -77,7 +77,7 @@ struct ListItem: View {
             case .empty: EmptyView()
             case .chevron: ImageIcon(name: .chevronRightOutline, size: .sm)
             case .cross: ImageIcon(name: .crossOutline, size: .sm)
-            case .loading: ActivityIndicator(size: .sm)
+            case .loading: ActivityIndicatorView(size: .sm)
             }
         }
     }
@@ -95,11 +95,11 @@ struct ListItem: View {
 
 #Preview {
     VStack {
-        ListItem(title: "123", trailingText: "123", trailingView: .chevron)
-        ListItem(title: "123", trailingText: "123", trailingView: .empty)
-        ListItem(title: "123", trailingView: .chevron)
-        ListItem(title: "123", trailingView: .cross)
-        ListItem(title: "123", trailingView: .loading)
-        ListItem(title: "123", leadingView: .icon(.init(name: .starOutline, size: .md)))
+        ListItemView(title: "123", trailingText: "123", trailingView: .chevron)
+        ListItemView(title: "123", trailingText: "123", trailingView: .empty)
+        ListItemView(title: "123", trailingView: .chevron)
+        ListItemView(title: "123", trailingView: .cross)
+        ListItemView(title: "123", trailingView: .loading)
+        ListItemView(title: "123", leadingView: .icon(.init(name: .starOutline, size: .md)))
     }
 }

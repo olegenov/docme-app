@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 
-struct Separator: View {
+struct SeparatorView: View {
     @Environment(\.theme) var theme
     
     var body: some View {
@@ -13,5 +13,5 @@ struct Separator: View {
 }
 
 #Preview {
-    Separator()
+    SeparatorView()
 }
