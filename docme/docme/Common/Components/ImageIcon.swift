@@ -9,6 +9,7 @@ struct ImageIcon: View {
     
     enum Name: String {
         case starOutline
+        case starFilled
         case addOutline
         case homeOutline
         case homeFilled
@@ -18,6 +19,12 @@ struct ImageIcon: View {
         case crossOutline
         case documentOutline
         case folderOutline
+        case searchOutline
+        case passportOutline
+        case driverOutline
+        case governmentOutline
+        case internationalOutline
+        case chevronLeftOutline
     }
     
     let name: Name

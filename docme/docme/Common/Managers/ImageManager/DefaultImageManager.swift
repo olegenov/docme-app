@@ -1,7 +1,6 @@
 import SwiftUI
 
 
-@MainActor
 class DefaultImageManager: ImageManager, ObservableObject {
     static let shared = DefaultImageManager()
     

@@ -11,14 +11,20 @@ struct DocumentCardView: View {
         case lg(imageUrl: String, date: Date)
     }
     
-    let configuration: DisplayMode
-    let icon: ImageIcon
-    let title: String
+    enum LeadingView {
+        case icon(ImageIcon.Name, Color)
+        case tag(TagsView.TagColor)
+    }
     
+    let configuration: DisplayMode
+    let leadingView: LeadingView
+    let title: String
     let isFavorite: Bool
+    let imageManager: ImageManager
+    
+    var onFavoriteTap: (() -> Void)? = nil
     
     @State private var image: UIImage = UIImage()
-    private let imageManager: ImageManager = DefaultImageManager.shared
     
     var body: some View {
         VStack {
@@ -38,7 +44,7 @@ struct DocumentCardView: View {
     
     private var headerView: some View {
         HStack(spacing: DS.Spacing.m4) {
-            icon
+            leadingViewContent
             
             Text(title)
                 .applyFont(.body(.sm, .bold))
@@ -47,8 +53,28 @@ struct DocumentCardView: View {
         }
     }
     
+    @ViewBuilder
+    private var leadingViewContent: some View {
+        switch leadingView {
+        case .icon(let name, let color):
+            ImageIcon(
+                name: name,
+                size: .md,
+                color: color
+            )
+        case .tag(let color):
+            TagsView(colors: [color])
+        }
+    }
+    
     private var favoriteView: some View {
-        ImageIcon(name: .starOutline, size: .sm)
+        ImageIcon(
+            name: isFavorite ? .starFilled : .starOutline,
+            size: .sm
+        )
+            .onTapGesture {
+                onFavoriteTap?()
+            }
     }
     
     private var smallView: some View {
@@ -128,23 +154,26 @@ struct DocumentCardView: View {
     VStack {
         DocumentCardView(
             configuration: .sm,
-            icon: .init(name: .starOutline, size: .md),
+            leadingView: .icon(.governmentOutline, .red),
             title: "123123",
-            isFavorite: true
+            isFavorite: true,
+            imageManager: DefaultImageManager.shared
         )
         
         DocumentCardView(
             configuration: .md(imageUrl: "https://i.pinimg.com/originals/62/f3/a3/62f3a39cfdbc521cdfabdf1757a9026e.jpg"),
-            icon: .init(name: .starOutline, size: .md),
+            leadingView: .icon(.driverOutline, .cyan),
             title: "123123",
-            isFavorite: true
+            isFavorite: true,
+            imageManager: DefaultImageManager.shared
         ).frame(maxWidth: 200)
         
         DocumentCardView(
             configuration: .lg(imageUrl: "https://i.pinimg.com/originals/62/f3/a3/62f3a39cfdbc521cdfabdf1757a9026e.jpg", date: .now),
-            icon: .init(name: .starOutline, size: .md),
+            leadingView: .tag(.red),
             title: "123123",
-            isFavorite: true
+            isFavorite: true,
+            imageManager: DefaultImageManager.shared
         )
     }
 }

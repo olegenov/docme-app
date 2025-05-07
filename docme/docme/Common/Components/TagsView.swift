@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 
-struct TagView: View {
+struct TagsView: View {
     @Environment(\.theme) var theme
     
     enum TagColor {
@@ -12,7 +12,22 @@ struct TagView: View {
         case green
     }
     
-    var color: TagColor
+    let colors: [TagColor]
+    
+    var body: some View {
+        HStack(spacing: -6) {
+            ForEach(colors, id: \.self) { color in
+                TagView(color: color)
+            }
+        }
+        .frame(width: DS.Size.m12, height: DS.Size.m12)
+    }
+}
+
+private struct TagView: View {
+    @Environment(\.theme) var theme
+    
+    let color: TagsView.TagColor
     
     var body: some View {
         switch color {
@@ -25,14 +40,12 @@ struct TagView: View {
         Circle()
             .strokeBorder(borderColor, lineWidth: DS.Size.m)
             .frame(width: DS.Size.m6, height: DS.Size.m6)
-            .frame(width: DS.Size.m12, height: DS.Size.m12)
     }
     
     private var coloredCircle: some View {
         Circle()
             .foregroundStyle(foregroundColor)
             .frame(width: DS.Size.m6, height: DS.Size.m6)
-            .frame(width: DS.Size.m12, height: DS.Size.m12)
     }
     
     private var foregroundColor: Color {
@@ -54,9 +67,10 @@ struct TagView: View {
 
 #Preview {
     VStack {
-        TagView(color: .empty)
-        TagView(color: .yellow)
-        TagView(color: .red)
-        TagView(color: .green)
+        TagsView(colors: [.empty])
+        TagsView(colors: [.yellow])
+        TagsView(colors: [.red])
+        TagsView(colors: [.green])
+        TagsView(colors: [.red, .yellow, .green])
     }
 }

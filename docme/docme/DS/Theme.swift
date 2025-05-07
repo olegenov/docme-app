@@ -75,7 +75,7 @@ extension Theme {
         colors: .init(
             brandPurple: Color(hex: "#998CE2"),
             overlay: Color(hex: "#333238").opacity(0.8),
-            overlaySelection: Color(hex: "#2F2E33").opacity(0.8),
+            overlaySelection: Color(hex: "#232226").opacity(0.8),
             text: Color(hex: "#EAE9F2"),
             textSecondary: Color(hex: "#ADA3E5"),
             outline: Color(hex: "#8A7ECC"),

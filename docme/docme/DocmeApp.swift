@@ -14,9 +14,15 @@ struct DocmeApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environmentObject(themeController)
+            documentList
                 .environment(\.theme, themeController.currentTheme)
         }
+    }
+    
+    var documentList: some View {
+        let provider: DocumentListProvider = DocumentListProviderImpl()
+        let coordinator = DocumentListCoordinator(provider: provider)
+        
+        return coordinator.start()
     }
 }

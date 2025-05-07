@@ -6,4 +6,12 @@ enum Captions {
     static let camera = "Камера"
     static let gallery = "Галерея"
     static let files = "Файлы"
+    
+    static let favotites = "Избранное"
+    static let myDocs = "Мои документы"
+    
+    static let search = "Поиск"
+    static let searchDocs = "Поиск по документам"
+    
+    static let all = "Все"
 }
