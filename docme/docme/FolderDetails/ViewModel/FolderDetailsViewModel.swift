@@ -1,48 +1,52 @@
 import Foundation
 
 
-protocol DocumentListViewModel: ObservableObject, AnyObject {
-    var favorites: [DocumentCardUI] { get }
+protocol FolderDetailsViewModel: ObservableObject, AnyObject {
+    var selectedFolder: FolderUI { get }
+    
     var folders: [FolderUI] { get }
     var documents: [DocumentCardUI] { get }
     
     var selectedTags: [DocumentCardUI.Color] { get }
     
     func toggleFavorite(for card: DocumentCardUI)
-    func searchDocuments(by query: String)
-    func cancelSearch()
     
     func selectTag(_ tag: DocumentCardUI.Color)
     func deselectTag(_ tag: DocumentCardUI.Color)
     func selectAllTags()
     
     func selectFolder(_ folder: FolderUI)
+    func closeFolder()
+    func closeAllFolders()
     
     func loadData() async
 }
 
-class DocumentListViewModelImpl: DocumentListViewModel {
-    @Published private(set) var favorites = [DocumentCardUI]()
+class FolderDetailsViewModelImpl: FolderDetailsViewModel {
+    let selectedFolder: FolderUI
+    
     @Published private(set) var documents = [DocumentCardUI]()
     @Published private(set) var folders = [FolderUI]()
     @Published private(set) var selectedTags = [DocumentCardUI.Color]()
     
     private var allDocuments: [DocumentCardUI] = []
-    
-    private let provider: DocumentListProvider
+
+    private let provider: FolderDetailsProvider
     private let router = Router.shared
 
-    init(provider: DocumentListProvider) {
+    init(folder: FolderUI, provider: FolderDetailsProvider) {
+        self.selectedFolder = folder
         self.provider = provider
     }
     
-    @MainActor
     func loadData() async {
-        folders = await provider.fetchFolders()
-        allDocuments = await provider.fetchDocuments()
+        folders = await provider.fetchFolders(for: selectedFolder.id)
+        
+        allDocuments = await provider.fetchDocuments(
+            for: selectedFolder.id
+        )
         
         updateDocumentFiltering()
-        updateFavoriteDocuments()
     }
     
     func toggleFavorite(for card: DocumentCardUI) {
@@ -51,52 +55,42 @@ class DocumentListViewModelImpl: DocumentListViewModel {
         ) else { return }
         
         //documents[index].isFavorite.toggle()
-        
-        updateFavoriteDocuments()
-    }
-    
-    func searchDocuments(by query: String) {
-        documents = allDocuments.filter {
-            $0.title.lowercased().contains(query.lowercased())
-        }
-    }
-    
-    func cancelSearch() {
-        documents = allDocuments
     }
     
     func selectTag(_ tag: DocumentCardUI.Color) {
         selectedTags.append(tag)
         updateDocumentFiltering()
-        updateFavoriteDocuments()
     }
     
     func deselectTag(_ tag: DocumentCardUI.Color) {
         selectedTags.removeAll { $0 == tag }
         updateDocumentFiltering()
-        updateFavoriteDocuments()
     }
     
     func selectAllTags() {
         selectedTags.removeAll()
         updateDocumentFiltering()
-        updateFavoriteDocuments()
     }
     
     func selectFolder(_ folder: FolderUI) {
         Router.shared.pushScreen(
-            DocumentListRoutes.folderDetails(folder: folder),
+            DocumentListRoutes.folderDetails(
+                folder: folder
+            ),
             for: .documents
         )
     }
-}
-
-
-private extension DocumentListViewModelImpl {
-    func updateFavoriteDocuments() {
-        favorites = documents.filter { $0.isFavorite }
+    
+    func closeFolder() {
+        Router.shared.popScreen(for: .documents)
     }
     
+    func closeAllFolders() {
+        Router.shared.resetToRoot(for: .documents)
+    }
+}
+
+private extension FolderDetailsViewModelImpl {
     func updateDocumentFiltering() {
         if selectedTags.isEmpty {
             documents = allDocuments

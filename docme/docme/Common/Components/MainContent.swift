@@ -2,36 +2,41 @@ import Foundation
 import SwiftUI
 
 
-struct MainContent<TabbarView: View, Content: View>: View {
+struct MainContent<Content: View>: View {
     @Environment(\.theme) var theme
     
-    @ViewBuilder let tabbar: () -> TabbarView
     @ViewBuilder let content: () -> Content
     
     var body: some View {
         ZStack {
             theme.gradients.background
-            .ignoresSafeArea()
+                .ignoresSafeArea()
             
-            VStack(
-                alignment: .leading,
-                spacing: DS.Spacing.m16
-            ) {
-                tabbar()
-                    .padding(.horizontal, DS.Spacing.m8)
-                    .zIndex(100)
-                
-                ScrollView {
-                    VStack(
-                        alignment: .leading,
-                        spacing: DS.Spacing.m16
-                    ) {
-                        content()
-                        
-                        Spacer()
-                    }
-                }.scrollClipDisabled()
+            VStack(spacing: DS.Spacing.m16) {
+                content()
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        }
+        .navigationBarBackButtonHidden(true)
+        .toolbar(.hidden, for: .navigationBar)
+        .navigationBarTitleDisplayMode(.inline)
+    }
+}
+
+struct MainScrollView<Content: View>: View {
+    @Environment(\.theme) var theme
+    
+    var scrollClipDisabled = true
+    
+    @ViewBuilder let content: () -> Content
+    
+    var body: some View {
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: DS.Spacing.m16) {
+                content()
+            }
+            .frame(maxWidth: .infinity)
+            .scrollClipDisabled(scrollClipDisabled)
         }
     }
 }

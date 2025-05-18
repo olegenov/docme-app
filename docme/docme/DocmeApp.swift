@@ -10,19 +10,29 @@ import SwiftData
 
 @main
 struct DocmeApp: App {
-    @StateObject var themeController = DS.shared
-
-    var body: some Scene {
-        WindowGroup {
-            documentList
-                .environment(\.theme, themeController.currentTheme)
+    let modelContainer: ModelContainer
+    
+    @State var documentListNavigationPath = NavigationPath()
+    
+    init() {
+        do {
+            let schema = Schema([Folder.self, Document.self])
+            let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+            modelContainer = try ModelContainer(for: schema, configurations: [modelConfiguration])
+        } catch {
+            fatalError("Could not initialize ModelContainer: \(error)")
         }
     }
     
-    var documentList: some View {
-        let provider: DocumentListProvider = DocumentListProviderImpl()
-        let coordinator = DocumentListCoordinator(provider: provider)
-        
-        return coordinator.start()
+    var body: some Scene {
+        WindowGroup {
+            RoutingView { documentListPath in
+                MainView(
+                    documentListPath: documentListPath,
+                    diContainer: .init(modelContext: modelContainer.mainContext)
+                )
+            }
+        }
+        .modelContainer(modelContainer)
     }
 }

@@ -2,10 +2,9 @@ import Foundation
 import SwiftUI
 
 
-struct DocumentListTabbarView: View {
+struct FolderDetailsTabbarView: View {
     enum TabbarState {
         case defaultState
-        case search
         case filter
     }
     
@@ -13,17 +12,16 @@ struct DocumentListTabbarView: View {
     
     let selectedTags: [DocumentCardUI.Color]
     
-    let onSearchStart: () -> Void
-    let onSearchClear: () -> Void
-    let onSearchClose: () -> Void
-    let onSearchChange: (String) -> Void
+    let onBackTap: () -> Void
     
     let onFilterSelection: (DocumentCardUI.Color) -> Void
     let onCancelFilter: (DocumentCardUI.Color) -> Void
     let onAllFilterSelection: () -> Void
     
+    let isHomeVisible: Bool
+    var onHomeTap: (() -> Void)? = nil
+    
     @State private var searchText: String = ""
-    @State private var isClearingVisible: Bool = false
     
     @State private var searchFieldWidth: CGFloat = 0
     
@@ -31,33 +29,30 @@ struct DocumentListTabbarView: View {
         VStack {
             switch state {
             case .defaultState: defaultState
-            case .search: searchState
             case .filter: filterState
             }
         }
         .animation(.easeInOut, value: state)
-        .animation(.easeInOut, value: isClearingVisible)
-        .onChange(of: searchText) {
-            isClearingVisible = searchText.isNotEmpty
-            
-            if searchText.isEmpty {
-                onSearchClear()
-                return
-            }
-            
-            onSearchChange(searchText)
-        }
     }
     
     private var defaultState: some View {
         HStack {
-            FabView(
-                content: .icon(
-                    .init(name: .searchOutline, size: .md)
+            HStack(spacing: DS.Spacing.m4) {
+                FabView(
+                    content: .icon(
+                        .init(name: .chevronLeftOutline, size: .md)
+                    ),
+                    onTapAction: onBackTap
                 )
-            ) {
-                state = .search
-                onSearchStart()
+                
+                if isHomeVisible {
+                    FabView(
+                        content: .icon(
+                            .init(name: .homeOutline, size: .md)
+                        ),
+                        onTapAction: onHomeTap ?? { }
+                    )
+                }
             }
             
             Spacer()
@@ -70,37 +65,6 @@ struct DocumentListTabbarView: View {
                 )
             ) {
                 state = .filter
-            }
-        }
-    }
-    
-    private var searchState: some View {
-        HStack {
-            FabView(
-                content: .icon(
-                    .init(name: .chevronLeftOutline, size: .md)
-                ),
-                longPaddings: true
-            ) {
-                searchText = ""
-                state = .defaultState
-                onSearchClose()
-            }
-            
-            InputFieldView(
-                placeholder: Captions.searchDocs,
-                text: $searchText
-            )
-            
-            if isClearingVisible {
-                FabView(
-                    content: .icon(
-                        .init(name: .crossOutline, size: .md)
-                    )
-                ) {
-                    searchText = ""
-                    onSearchClear()
-                }
             }
         }
     }

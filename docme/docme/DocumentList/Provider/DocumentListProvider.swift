@@ -2,25 +2,58 @@ import Foundation
 
 
 protocol DocumentListProvider {
-    func fetchFolders() -> [FolderModel]
-    func fetchDocuments() -> [DocumentCardModel]
+    func fetchFolders() async -> [FolderUI]
+    func fetchDocuments() async -> [DocumentCardUI]
 }
 
 class DocumentListProviderImpl: DocumentListProvider {
-    func fetchFolders() -> [FolderModel] {
-        return [
-            .init(id: .init(), name: "folder 1", amount: 3),
-            .init(id: .init(), name: "folder 2", amount: 0)
-        ]
+    private let documentRepository: DocumentRepository
+    private let folderRepository: FolderRepository
+    
+    init(
+        documentRepository: DocumentRepository,
+        folderRepository: FolderRepository
+    ) {
+        self.documentRepository = documentRepository
+        self.folderRepository = folderRepository
     }
     
-    func fetchDocuments() -> [DocumentCardModel] {
-        return [
-            .init(id: .init(), imageUrl: "https://avatars.mds.yandex.net/i?id=3bed2771fae331e26384c18692e9a021_l-3692823-images-thumbs&n=13", title: "123", icon: .government, documentColor: .none, creationDate: .now, isFavorite: true),
+    func fetchFolders() async -> [FolderUI] {
+        Task {
+            try await documentRepository.sync()
+            try await folderRepository.sync()
+        }
+        
+        do {
+            let folders = try await folderRepository.fetchLocal()
             
-            .init(id: .init(), imageUrl: "https://avatars.mds.yandex.net/i?id=3bed2771fae331e26384c18692e9a021_l-3692823-images-thumbs&n=13", title: "1234", icon: .driver, documentColor: .green, creationDate: .now, isFavorite: true),
+            var result = [FolderUI]()
             
-            .init(id: .init(), imageUrl: "https://avatars.mds.yandex.net/i?id=3bed2771fae331e26384c18692e9a021_l-3692823-images-thumbs&n=13", title: "1235", icon: .tag, documentColor: .green, creationDate: .now, isFavorite: false)
-        ]
+            for folder in folders {
+                let folderUI = folder.toUI(
+                    with: try await folderRepository.countDocuments(of: folder)
+                )
+                
+                result.append(folderUI)
+            }
+            
+            return result
+        } catch {
+            AppLogger.shared.error("Failed to fetch folders: \(error)")
+            
+            return []
+        }
+    }
+    
+    func fetchDocuments() async -> [DocumentCardUI] {
+        do {
+            let documents = try await documentRepository.fetchLocal()
+            
+            return documents.map { $0.toCardUI() }
+        } catch {
+            AppLogger.shared.error("Failed to fetch documents: \(error)")
+            
+            return []
+        }
     }
 }

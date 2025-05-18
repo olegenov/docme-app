@@ -1,0 +1,35 @@
+import Foundation
+import SwiftData
+
+@Model
+final class Folder: UUIDModel {
+    var uuid: UUID
+    var name: String
+    var createdAt: Date
+    var updatedAt: Date
+    var isDirty: Bool
+    var lastSyncedAt: Date?
+    var deleted: Bool
+    
+    @Relationship(deleteRule: .nullify) var parentFolder: Folder?
+    
+    init(
+        id: UUID = UUID(),
+        name: String,
+        createdAt: Date = Date(),
+        updatedAt: Date = Date(),
+        parentFolder: Folder? = nil,
+        isDirty: Bool = false,
+        lastSyncedAt: Date? = nil,
+        deleted: Bool = false
+    ) {
+        self.uuid = id
+        self.name = name
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
+        self.parentFolder = parentFolder
+        self.isDirty = isDirty
+        self.lastSyncedAt = lastSyncedAt
+        self.deleted = deleted
+    }
+}

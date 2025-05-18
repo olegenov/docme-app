@@ -11,11 +11,10 @@ struct DocumentListView<ViewModel: DocumentListViewModel>: View {
     @State var isSearching: Bool = false
     
     var body: some View {
-        MainContent(
-            tabbar: {
-                tabbarView
-            },
-            content: {
+        MainContent {
+            tabbarView
+            
+            MainScrollView {
                 if !isSearching {
                     if viewModel.favorites.isNotEmpty {
                         favoriteSectionView
@@ -26,14 +25,16 @@ struct DocumentListView<ViewModel: DocumentListViewModel>: View {
                     }
                     
                     documentCollection
-                        .padding(.horizontal, DS.Spacing.m8)
                 } else {
                     searchResults
                 }
             }
-        )
-        .animation(.easeInOut, value: viewModel.documents)
-        .animation(.easeInOut, value: isSearching)
+        }
+        .animation(.easeInOut(duration: 0.3), value: viewModel.documents)
+        .animation(.easeInOut(duration: 0.3), value: isSearching)
+        .task {
+            await viewModel.loadData()
+        }
     }
     
     private var tabbarView: some View {
@@ -58,10 +59,10 @@ struct DocumentListView<ViewModel: DocumentListViewModel>: View {
             onCancelFilter: { tag in
                 viewModel.deselectTag(tag)
             },
-            onAllFilderSelection: {
+            onAllFilterSelection: {
                 viewModel.selectAllTags()
             }
-        )
+        ).padding(.horizontal, DS.Spacing.m8)
     }
     
     private var favoriteSectionView: some View {
@@ -69,16 +70,17 @@ struct DocumentListView<ViewModel: DocumentListViewModel>: View {
             ScrollView(.horizontal) {
                 HStack(spacing: DS.Spacing.m4) {
                     ForEach(viewModel.favorites) { favorite in
-                        DocumentCardView(
-                            configuration: .sm,
-                            leadingView: documentIcon(favorite),
-                            title: favorite.title,
-                            isFavorite: favorite.isFavorite,
-                            imageManager: imageManager
+                        DocumentCollectionItemView(
+                            displayType: .favorite,
+                            document: favorite,
+                            imageManager: imageManager,
+                            onFavoriteToggle: viewModel.toggleFavorite
                         )
                     }
                 }
-            }.scrollClipDisabled()
+            }
+            .scrollClipDisabled()
+            .scrollIndicators(.hidden)
         }
     }
     
@@ -88,9 +90,10 @@ struct DocumentListView<ViewModel: DocumentListViewModel>: View {
                 ForEach(Array(viewModel.folders.enumerated()), id: \.element.id) { index, folder in
                     ListItemView(
                         title: folder.name,
-                        trailingText: "\(folder.amount)",
+                        trailingText: "\(folder.documentCount)",
                         leadingView: .empty,
-                        trailingView: .chevron
+                        trailingView: .chevron,
+                        onTapAction: { viewModel.selectFolder(folder) }
                     )
                     
                     if index < viewModel.folders.count - 1 {
@@ -102,25 +105,21 @@ struct DocumentListView<ViewModel: DocumentListViewModel>: View {
     }
     
     private var documentCollection: some View {
-        HStack(alignment: .top, spacing: DS.Spacing.m4) {
-            LazyVStack(alignment: .leading, spacing: DS.Spacing.m4) {
-                ForEach(leftColumnItems, id: \.self) { document in
-                    documentCollectionItem(document)
-                }
-            }
-
-            LazyVStack(alignment: .leading, spacing: DS.Spacing.m4) {
-                ForEach(rightColumnItems, id: \.self) { document in
-                    documentCollectionItem(document)
-                }
-            }
-        }
+        DocumentCollectionView(
+            documents: viewModel.documents,
+            imageManager: imageManager,
+            onFavoriteToggle: viewModel.toggleFavorite
+        ).padding(.horizontal, DS.Spacing.m8)
     }
     
     private var documentList: some View {
         LazyVStack(spacing: DS.Spacing.m8) {
             ForEach(viewModel.documents, id: \.self) { document in
-                documentListItem(document)
+                DocumentCollectionItemView(
+                    displayType: .list,
+                    document: document,
+                    imageManager: imageManager
+                )
             }
         }
     }
@@ -130,64 +129,4 @@ struct DocumentListView<ViewModel: DocumentListViewModel>: View {
             documentList
         }
     }
-    
-    private var leftColumnItems: [DocumentCardModel] {
-        viewModel.documents.enumerated().compactMap { index, element in
-            index % 2 == 0 ? element : nil
-        }
-    }
-
-    private var rightColumnItems: [DocumentCardModel] {
-        viewModel.documents.enumerated().compactMap { index, element in
-            index % 2 != 0 ? element : nil
-        }
-    }
-    
-    private func documentIcon(_ document: DocumentCardModel) -> DocumentCardView.LeadingView {
-        guard let iconName = document.icon.toTagIconName() else {
-            return .tag(document.documentColor.toTagColor())
-        }
-        
-        return .icon(
-            iconName,
-            document.documentColor.toIconColor()
-        )
-    }
-    
-    @ViewBuilder
-    private func documentCollectionItem(_ document: DocumentCardModel) -> some View {
-        DocumentCardView(
-            configuration: .md(imageUrl: document.imageUrl),
-            leadingView: documentIcon(document),
-            title: document.title,
-            isFavorite: document.isFavorite,
-            imageManager: imageManager,
-            onFavoriteTap: {
-                withAnimation {
-                    viewModel.toggleFavorite(for: document)
-                }
-            }
-        )
-    }
-    
-    @ViewBuilder
-    private func documentListItem(_ document: DocumentCardModel) -> some View {
-        DocumentCardView(
-            configuration: .lg(imageUrl: document.imageUrl, date: .now),
-            leadingView: documentIcon(document),
-            title: document.title,
-            isFavorite: document.isFavorite,
-            imageManager: imageManager,
-            onFavoriteTap: {
-                withAnimation {
-                    viewModel.toggleFavorite(for: document)
-                }
-            }
-        )
-    }
-}
-
-#Preview {
-    let provider: DocumentListProvider = DocumentListProviderImpl()
-    DocumentListCoordinator(provider: provider).start()
 }

@@ -24,7 +24,7 @@ class DefaultImageManager: ImageManager, ObservableObject {
                 return loadedImage
             }
         } catch {
-            print("Ошибка загрузки изображения: \(error.localizedDescription)")
+            AppLogger.shared.error("Failed to load image", error: error)
         }
         
         return UIImage()
