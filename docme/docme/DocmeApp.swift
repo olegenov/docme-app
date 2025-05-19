@@ -11,9 +11,7 @@ import SwiftData
 @main
 struct DocmeApp: App {
     let modelContainer: ModelContainer
-    
-    @State var documentListNavigationPath = NavigationPath()
-    
+
     init() {
         do {
             let schema = Schema([Folder.self, Document.self])
@@ -26,9 +24,10 @@ struct DocmeApp: App {
     
     var body: some Scene {
         WindowGroup {
-            RoutingView { documentListPath in
+            RoutingView { documentListPath, profilePath in
                 MainView(
                     documentListPath: documentListPath,
+                    profileListPath: profilePath,
                     diContainer: .init(modelContext: modelContainer.mainContext)
                 )
             }

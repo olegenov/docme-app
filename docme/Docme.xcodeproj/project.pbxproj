@@ -70,6 +70,12 @@
 		0DCEF11E2DD007B70073ED13 /* DocumentNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCEF11D2DD007B00073ED13 /* DocumentNetworking.swift */; };
 		0DCEF1212DDBAF060073ED13 /* ImageServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCEF1202DDBAEFF0073ED13 /* ImageServiceImpl.swift */; };
 		0DCEF1232DDBAF1E0073ED13 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCEF1222DDBAF1B0073ED13 /* ImageService.swift */; };
+		0DCEF1272DDBCAD20073ED13 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCEF1262DDBCACE0073ED13 /* ProfileCoordinator.swift */; };
+		0DCEF12A2DDBCAFD0073ED13 /* ProfileProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCEF1292DDBCAF50073ED13 /* ProfileProvider.swift */; };
+		0DCEF12D2DDBCB3D0073ED13 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCEF12C2DDBCB3A0073ED13 /* ProfileViewModel.swift */; };
+		0DCEF1302DDBCBC50073ED13 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCEF12F2DDBCBC30073ED13 /* ProfileView.swift */; };
+		0DCEF1342DDBD47F0073ED13 /* BaseCoordinatorRouting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCEF1332DDBD4700073ED13 /* BaseCoordinatorRouting.swift */; };
+		0DCEF1362DDBD6BD0073ED13 /* AppTabbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCEF1352DDBD6B60073ED13 /* AppTabbarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -137,6 +143,12 @@
 		0DCEF11D2DD007B00073ED13 /* DocumentNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentNetworking.swift; sourceTree = "<group>"; };
 		0DCEF1202DDBAEFF0073ED13 /* ImageServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageServiceImpl.swift; sourceTree = "<group>"; };
 		0DCEF1222DDBAF1B0073ED13 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
+		0DCEF1262DDBCACE0073ED13 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
+		0DCEF1292DDBCAF50073ED13 /* ProfileProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileProvider.swift; sourceTree = "<group>"; };
+		0DCEF12C2DDBCB3A0073ED13 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		0DCEF12F2DDBCBC30073ED13 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		0DCEF1332DDBD4700073ED13 /* BaseCoordinatorRouting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinatorRouting.swift; sourceTree = "<group>"; };
+		0DCEF1352DDBD6B60073ED13 /* AppTabbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabbarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +182,8 @@
 		0D102DD12DC7F5F30017073B /* docme */ = {
 			isa = PBXGroup;
 			children = (
+				0DCEF1332DDBD4700073ED13 /* BaseCoordinatorRouting.swift */,
+				0DCEF1242DDBCABC0073ED13 /* Profile */,
 				0D3EA0B42DCC03CE00D987F0 /* FolderDetails */,
 				0D102E2B2DCA34D10017073B /* DocumentList */,
 				0D102DD82DC7F7920017073B /* Core */,
@@ -238,6 +252,7 @@
 			children = (
 				0D102E172DC93B580017073B /* ItemsList */,
 				0D3EA0C72DCCC9BC00D987F0 /* DocumentCollection */,
+				0DCEF1352DDBD6B60073ED13 /* AppTabbarView.swift */,
 				0D102E4E2DCAAB860017073B /* InputFieldView.swift */,
 				0D102E472DCA63B30017073B /* TitledContent.swift */,
 				0D102E452DCA60800017073B /* MainContent.swift */,
@@ -524,6 +539,49 @@
 			path = ImageService;
 			sourceTree = "<group>";
 		};
+		0DCEF1242DDBCABC0073ED13 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				0DCEF12E2DDBCBBE0073ED13 /* View */,
+				0DCEF12B2DDBCB360073ED13 /* ViewModel */,
+				0DCEF1282DDBCAEF0073ED13 /* Provider */,
+				0DCEF1252DDBCAC10073ED13 /* Coordinator */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		0DCEF1252DDBCAC10073ED13 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				0DCEF1262DDBCACE0073ED13 /* ProfileCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		0DCEF1282DDBCAEF0073ED13 /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+				0DCEF1292DDBCAF50073ED13 /* ProfileProvider.swift */,
+			);
+			path = Provider;
+			sourceTree = "<group>";
+		};
+		0DCEF12B2DDBCB360073ED13 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0DCEF12C2DDBCB3A0073ED13 /* ProfileViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		0DCEF12E2DDBCBBE0073ED13 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0DCEF12F2DDBCBC30073ED13 /* ProfileView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -611,6 +669,7 @@
 				0DCEF1192DCFFD710073ED13 /* UUIDModel.swift in Sources */,
 				0D102E542DCAAE6B0017073B /* Collection+.swift in Sources */,
 				0DC413B62DCE203100CABC15 /* FolderStorageRepository.swift in Sources */,
+				0DCEF12D2DDBCB3D0073ED13 /* ProfileViewModel.swift in Sources */,
 				0D102DF92DC815EA0017073B /* TitleView.swift in Sources */,
 				0DCEF11E2DD007B70073ED13 /* DocumentNetworking.swift in Sources */,
 				0D102E192DC93C460017073B /* ListItemView.swift in Sources */,
@@ -623,6 +682,7 @@
 				0D3EA0BE2DCCBEF600D987F0 /* FolderDetailsViewModel.swift in Sources */,
 				0D3EA0B12DCBF59100D987F0 /* MainView.swift in Sources */,
 				0DCEF0FA2DCE28E30073ED13 /* FolderNetworkingRepository.swift in Sources */,
+				0DCEF1302DDBCBC50073ED13 /* ProfileView.swift in Sources */,
 				0DCEF1102DCFDDA80073ED13 /* DocumentRepository.swift in Sources */,
 				0D102DEB2DC806DF0017073B /* Text+.swift in Sources */,
 				0D102E162DC93B550017073B /* ItemsListView.swift in Sources */,
@@ -637,9 +697,12 @@
 				0D102E1B2DC940BC0017073B /* SeparatorView.swift in Sources */,
 				0DC413B82DCE256300CABC15 /* DefaultNetworkingServce.swift in Sources */,
 				0D102E002DC818AC0017073B /* View+Shadow.swift in Sources */,
+				0DCEF1342DDBD47F0073ED13 /* BaseCoordinatorRouting.swift in Sources */,
+				0DCEF1272DDBCAD20073ED13 /* ProfileCoordinator.swift in Sources */,
 				0DCEF1042DCE38D80073ED13 /* Document.swift in Sources */,
 				0D3EA0C42DCCC8FF00D987F0 /* DocumentCollectionItemView.swift in Sources */,
 				0D3EA0BC2DCCBE9C00D987F0 /* FolderDetailsProvider.swift in Sources */,
+				0DCEF12A2DDBCAFD0073ED13 /* ProfileProvider.swift in Sources */,
 				0D102DF12DC80C890017073B /* ImageIcon.swift in Sources */,
 				0D102E0F2DC8F22C0017073B /* Date+.swift in Sources */,
 				0D102DE82DC806B70017073B /* Font.swift in Sources */,
@@ -650,6 +713,7 @@
 				0DC413B42DCE202500CABC15 /* DocumentStorageRepository.swift in Sources */,
 				0D102DFB2DC817330017073B /* BottomBarView.swift in Sources */,
 				0DC413AF2DCE1C2B00CABC15 /* AppLogger.swift in Sources */,
+				0DCEF1362DDBD6BD0073ED13 /* AppTabbarView.swift in Sources */,
 				0D102DEF2DC80C110017073B /* FabView.swift in Sources */,
 				0D102DD72DC7F6510017073B /* Theme.swift in Sources */,
 				0D102E3C2DCA50030017073B /* DocumentListViewModel.swift in Sources */,

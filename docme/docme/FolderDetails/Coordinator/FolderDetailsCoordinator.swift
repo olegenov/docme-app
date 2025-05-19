@@ -2,7 +2,6 @@ import Foundation
 import SwiftUI
 
 
-@MainActor
 class FolderDetailsCoordinator: ObservableObject {
     private let container: AppDIContainer
     

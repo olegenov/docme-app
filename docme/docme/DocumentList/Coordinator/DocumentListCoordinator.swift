@@ -7,7 +7,6 @@ enum DocumentListRoutes: Route, Hashable {
 }
 
 
-@MainActor
 class DocumentListCoordinator: ObservableObject {
     private let container: AppDIContainer
     
@@ -39,6 +38,19 @@ class DocumentListCoordinator: ObservableObject {
     func addDestinations(to view: some View) -> some View {
         view.navigationDestination(for: DocumentListRoutes.self) { route in
             self.destination(for: route)
+        }
+    }
+}
+
+extension DocumentListCoordinator: BaseCoordinatorRouting {
+    typealias RouteType = DocumentListRoutes
+
+    func destination(for route: DocumentListRoutes) -> AnyView {
+        switch route {
+        case .folderDetails(let folder):
+            return AnyView(
+                FolderDetailsCoordinator(container: container).start(for: folder)
+            )
         }
     }
 }

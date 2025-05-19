@@ -5,6 +5,7 @@ import SwiftUI
 extension Router {
     enum Tab: Hashable, CaseIterable {
         case documents
+        case profile
     }
 }
 
@@ -13,22 +14,25 @@ protocol Route: Hashable { }
 @MainActor
 struct RoutingView<Root: View>: View {
     @State private var documentsPath = NavigationPath()
+    @State private var profilePath = NavigationPath()
     @State private var didSetHandlers = false
     
     let rootView: (
-        _ documentListPath: Binding<NavigationPath>
+        _ documentListPath: Binding<NavigationPath>,
+        _ profilePath: Binding<NavigationPath>
     ) -> Root
     
     init(
         @ViewBuilder rootView: @escaping (
-            _ documentListPath: Binding<NavigationPath>
+            _ documentListPath: Binding<NavigationPath>,
+            _ profilePath: Binding<NavigationPath>
         ) -> Root
     ) {
         self.rootView = rootView
     }
     
     var body: some View {
-        rootView($documentsPath)
+        rootView($documentsPath, $profilePath)
             .onAppear {
                 Router.shared.setHandlers(
                     push: { route, tab, animated in
@@ -128,17 +132,5 @@ extension NavigationPath {
     fileprivate mutating func safeRemoveLast(_ count: Int) {
         let count = max(0, min(count, self.count))
         removeLast(count)
-    }
-}
-
-extension Router {
-    enum Connector {
-        @MainActor
-        static func addDestinations(
-            _ view: some View,
-            coordinator: DocumentListCoordinator
-        ) -> some View {
-            coordinator.addDestinations(to: view)
-        }
     }
 }
