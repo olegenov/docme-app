@@ -4,8 +4,8 @@ import Foundation
 protocol FolderRepository {
     func sync() async throws
     func fetchLocal() async throws -> [Folder]
-    func getLocal(with uuid: UUID?) async throws -> Folder?
     func createLocal(_ folder: Folder) async throws
+    func getLocal(with id: UUID) async throws -> Folder?
     
     func getSubFolders(of folder: Folder) async throws -> [Folder]
     func countDocuments(of folder: Folder) async throws -> Int
@@ -30,30 +30,17 @@ final class FolderRepositoryImpl: FolderRepository {
 
         let dirtyFolders = localFolders.filter { $0.isDirty }
 
-        try await syncDirtyFolders(
-            dirtyFolders,
-            remoteFolders
-         )
-
-        try await updateLocal(
-            localFolders,
-            remoteFolders
-        )
-
-        try await deleteRemoteFolders(
-            localFolders,
-            remoteFolders
-        )
+        try await syncDirtyFolders(dirtyFolders, remoteFolders)
+        try await updateLocalFolders(localFolders, remoteFolders)
+        try await syncLocalDeletions(localFolders, remoteFolders)
     }
 
     func fetchLocal() async throws -> [Folder] {
         try await storage.fetch()
     }
-    
-    func getLocal(with uuid: UUID?) async throws -> Folder? {
-        guard let uuid else { return nil }
-        
-        return try await storage.fetch(by: uuid)
+
+    func getLocal(with id: UUID) async throws -> Folder? {
+        try await storage.fetch(by: id)
     }
 
     func createLocal(_ folder: Folder) async throws {
@@ -75,85 +62,96 @@ private extension FolderRepositoryImpl {
         _ remoteFolders: [FolderNetworking]
     ) async throws {
         let remoteUUIDs = Set(remoteFolders.map { $0.uuid })
-        
+
         for folder in dirtyFolders {
             if folder.deleted {
-                try await api.delete(uuid: folder.uuid)
+                do {
+                    try await api.delete(uuid: folder.uuid)
+                } catch {
+                    print("Failed to delete folder \(folder.uuid) from API: \(error)")
+                    continue
+                }
                 try await storage.delete(folder)
-                
-                return
-            }
-            
-            if remoteUUIDs.contains(folder.uuid) {
-                try await api.update(folder.toNetworkModel())
-                
-                folder.isDirty = false
-                folder.lastSyncedAt = Date()
-                
-                try await storage.insertOrUpdate(folder)
-                
-                return
-            }
-            
-            try await api.create(folder.toNetworkModel())
-            
-            folder.isDirty = false
-            folder.lastSyncedAt = Date()
-            
-            try await storage.insertOrUpdate(folder)
-        }
-    }
-    
-    func updateLocal(
-        _ localFolders: [Folder],
-        _ remoteFolders: [FolderNetworking]
-    ) async throws {
-        let localMap = Dictionary(
-            uniqueKeysWithValues: localFolders.map {
-                ($0.uuid, $0)
-            }
-        )
-        
-        for remote in remoteFolders {
-            guard let local = localMap[remote.uuid] else {
-                let parentFolder = remote.parentFolderId.flatMap { localMap[$0] }
-                let newFolder = Folder(
-                    id: remote.uuid,
-                    name: remote.name,
-                    createdAt: remote.createdAt,
-                    updatedAt: remote.updatedAt,
-                    parentFolder: parentFolder,
-                    isDirty: false,
-                    lastSyncedAt: Date(),
-                    deleted: false
-                )
-                try await storage.insertOrUpdate(newFolder)
-                
                 continue
             }
 
-            if !local.isDirty {
-                local.name = remote.name
-                local.updatedAt = remote.updatedAt
-                local.createdAt = remote.createdAt
-                local.parentFolder = remote.parentFolderId.flatMap { localMap[$0] }
-                local.lastSyncedAt = Date()
-                try await storage.insertOrUpdate(local)
+            if remoteUUIDs.contains(folder.uuid) {
+                try await api.update(folder.toNetworkModel())
+            } else {
+                try await api.create(folder.toNetworkModel())
+            }
+
+            folder.isDirty = false
+            folder.updatedAt = .now
+
+            try await storage.update(folder)
+        }
+    }
+
+    func updateLocalFolders(
+        _ localFolders: [Folder],
+        _ remoteFolders: [FolderNetworking]
+    ) async throws {
+        let localMap = Dictionary(uniqueKeysWithValues: localFolders.map { ($0.uuid, $0) })
+
+        for remote in remoteFolders {
+            guard let local = localMap[remote.uuid] else {
+                try await insertNewFolder(from: remote)
+                continue
+            }
+
+            if remote.updatedAt > local.updatedAt {
+                try await updateLocalFolder(local, with: remote)
             }
         }
     }
-    
-    func deleteRemoteFolders(
+
+    func syncLocalDeletions(
         _ localFolders: [Folder],
         _ remoteFolders: [FolderNetworking]
     ) async throws {
         let remoteUUIDs = Set(remoteFolders.map { $0.uuid })
-        
+
         for local in localFolders {
             if !remoteUUIDs.contains(local.uuid), !local.isDirty {
                 try await storage.delete(local)
             }
         }
+    }
+
+    func insertNewFolder(from remote: FolderNetworking) async throws {
+        let folder = Folder(
+            id: remote.uuid,
+            name: remote.name,
+            createdAt: remote.createdAt,
+            updatedAt: remote.updatedAt,
+            parentFolder: await getParentFolder(of: remote),
+            isDirty: false,
+            deleted: false
+        )
+
+        try await storage.create(folder)
+    }
+
+    func updateLocalFolder(_ local: Folder, with remote: FolderNetworking) async throws {
+        local.name = remote.name
+        local.updatedAt = remote.updatedAt
+        local.parentFolder = await getParentFolder(of: remote)
+        local.isDirty = false
+
+        try await storage.update(local)
+    }
+    
+    func getParentFolder(of remote: FolderNetworking) async -> Folder? {
+        var parent: Folder? = nil
+        
+        if let parentId = remote.parentFolderId {
+            parent = try? await storage.fetch(
+                by: parentId
+            )
+        }
+        
+        return parent
     }
 }
 

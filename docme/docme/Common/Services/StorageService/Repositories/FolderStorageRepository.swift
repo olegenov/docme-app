@@ -5,7 +5,6 @@ import SwiftData
 protocol FolderStorageRepository {
     func fetch() async throws -> [Folder]
     func fetch(by uuid: UUID) async throws -> Folder?
-    func insertOrUpdate(_ folder: Folder) async throws
     func update(_ folder: Folder) async throws
     func delete(_ folder: Folder) async throws
     func create(_ entiry: Folder) async throws
@@ -26,24 +25,6 @@ final class FolderStorageRepositoryImpl: FolderStorageRepository {
     func fetch() async throws -> [Folder] {
         try await service.fetchAll()
     }
-
-    func insertOrUpdate(_ entity: Folder) async throws {
-        if let existing = try await fetch(by: entity.uuid) {
-            if existing.updatedAt < entity.updatedAt {
-                existing.name = entity.name
-                existing.updatedAt = entity.updatedAt
-                existing.createdAt = entity.createdAt
-                existing.parentFolder = entity.parentFolder
-                existing.isDirty = entity.isDirty
-                existing.lastSyncedAt = entity.lastSyncedAt
-                existing.deleted = entity.deleted
-
-                try await update(existing)
-            }
-        } else {
-            try await create(entity)
-        }
-    }
     
     func fetch(by uuid: UUID) async throws -> Folder? {
         try await service.fetch(by: uuid)
@@ -54,6 +35,8 @@ final class FolderStorageRepositoryImpl: FolderStorageRepository {
     }
 
     func update(_ entity: Folder) async throws {
+        entity.updatedAt = Date()
+        
         try await service.update(entity)
     }
     

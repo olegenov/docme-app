@@ -11,7 +11,7 @@ struct DocumentCollectionItemView: View {
     
     let displayType: DisplayType
     let document: DocumentCardUI
-    let imageManager: ImageManager
+    let imageService: ImageService
     
     var onFavoriteToggle: ((DocumentCardUI) -> Void)? = nil
     
@@ -21,7 +21,7 @@ struct DocumentCollectionItemView: View {
             leadingView: documentIcon,
             title: document.title,
             isFavorite: document.isFavorite,
-            imageManager: imageManager,
+            imageService: imageService,
             onFavoriteTap: {
                 withAnimation {
                     onFavoriteToggle?(document)

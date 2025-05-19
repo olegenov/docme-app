@@ -23,7 +23,7 @@ class FolderDetailsCoordinator: ObservableObject {
 
         return FolderDetailsView(
             viewModel: viewModel,
-            imageManager: DefaultImageManager.shared
+            imageService: container.imageService
         )
     }
 }

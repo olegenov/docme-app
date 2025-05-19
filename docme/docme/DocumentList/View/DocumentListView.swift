@@ -6,7 +6,7 @@ struct DocumentListView<ViewModel: DocumentListViewModel>: View {
     @Environment(\.theme) var theme
     @StateObject var viewModel: ViewModel
     
-    let imageManager: ImageManager
+    let imageService: ImageService
     
     @State var isSearching: Bool = false
     
@@ -73,7 +73,7 @@ struct DocumentListView<ViewModel: DocumentListViewModel>: View {
                         DocumentCollectionItemView(
                             displayType: .favorite,
                             document: favorite,
-                            imageManager: imageManager,
+                            imageService: imageService,
                             onFavoriteToggle: viewModel.toggleFavorite
                         )
                     }
@@ -107,7 +107,7 @@ struct DocumentListView<ViewModel: DocumentListViewModel>: View {
     private var documentCollection: some View {
         DocumentCollectionView(
             documents: viewModel.documents,
-            imageManager: imageManager,
+            imageService: imageService,
             onFavoriteToggle: viewModel.toggleFavorite
         ).padding(.horizontal, DS.Spacing.m8)
     }
@@ -118,7 +118,7 @@ struct DocumentListView<ViewModel: DocumentListViewModel>: View {
                 DocumentCollectionItemView(
                     displayType: .list,
                     document: document,
-                    imageManager: imageManager
+                    imageService: imageService
                 )
             }
         }

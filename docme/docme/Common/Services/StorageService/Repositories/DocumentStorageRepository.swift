@@ -4,7 +4,6 @@ import SwiftData
 
 protocol DocumentStorageRepository {
     func fetch() async throws -> [Document]
-    func insertOrUpdate(_ netDoc: Document) async throws
     func update(_ doc: Document) async throws
     func delete(_ doc: Document) async throws
     func create(_ entiry: Document) async throws
@@ -23,39 +22,6 @@ final class DocumentStorageRepositoryImpl: DocumentStorageRepository {
         try await service.fetchAll()
     }
     
-    func insertOrUpdate(_ netDoc: Document) async throws {
-        if let existing = try await fetch(by: netDoc.uuid) {
-            existing.title = netDoc.title
-            existing.icon = netDoc.icon
-            existing.color = netDoc.color
-            existing.documentDescription = netDoc.documentDescription
-            existing.isFavorite = netDoc.isFavorite
-            existing.createdAt = netDoc.createdAt
-            existing.updatedAt = netDoc.updatedAt
-            existing.folder = netDoc.folder
-            existing.isSynced = true
-            existing.deleted = false
-            
-            try await update(existing)
-        } else {
-            let newDoc = Document(
-                id: netDoc.uuid,
-                title: netDoc.title,
-                icon: netDoc.icon,
-                color: netDoc.color,
-                description: netDoc.documentDescription,
-                isFavorite: netDoc.isFavorite,
-                createdAt: netDoc.createdAt,
-                updatedAt: netDoc.updatedAt,
-                isSynced: true,
-                folder: netDoc.folder,
-                deleted: false
-            )
-            
-            try await create(newDoc)
-        }
-    }
-    
     func fetch(by uuid: UUID) async throws -> Document? {
         try await service.fetch(by: uuid)
     }
@@ -65,6 +31,8 @@ final class DocumentStorageRepositoryImpl: DocumentStorageRepository {
     }
 
     func update(_ entity: Document) async throws {
+        entity.updatedAt = Date()
+        
         try await service.update(entity)
     }
     

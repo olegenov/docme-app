@@ -25,7 +25,7 @@ class DocumentListCoordinator: ObservableObject {
 
         return DocumentListView(
             viewModel: viewModel,
-            imageManager: DefaultImageManager.shared
+            imageService: container.imageService
         )
     }
     

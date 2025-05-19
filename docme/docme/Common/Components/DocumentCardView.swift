@@ -20,11 +20,11 @@ struct DocumentCardView: View {
     let leadingView: LeadingView
     let title: String
     let isFavorite: Bool
-    let imageManager: ImageManager
+    let imageService: ImageService
     
     var onFavoriteTap: (() -> Void)? = nil
     
-    @State private var image: UIImage = UIImage()
+    @State private var image: UIImage? = UIImage()
     
     var body: some View {
         VStack {
@@ -88,7 +88,11 @@ struct DocumentCardView: View {
             ZStack {
                 theme.colors.overlay
                 ActivityIndicatorView(size: .md)
-                Image(uiImage: image)
+                Image(
+                    uiImage: imageService.loadImage(
+                        from: imageUrl
+                    ) ?? UIImage()
+                )
                     .resizable()
                     .scaledToFill()
                     .frame(
@@ -100,11 +104,6 @@ struct DocumentCardView: View {
         }
         .aspectRatio(1 / (ratio != 0 ? ratio : 1), contentMode: .fit)
         .cornerRadius(DS.Rounding.m4)
-        .onAppear {
-            Task {
-                image = await imageManager.loadImage(from: imageUrl)
-            }
-        }
     }
     
     private func mediumView(imageUrl: String) -> some View {
@@ -157,7 +156,7 @@ struct DocumentCardView: View {
             leadingView: .icon(.governmentOutline, .red),
             title: "123123",
             isFavorite: true,
-            imageManager: DefaultImageManager.shared
+            imageService: ImageServiceImpl()
         )
         
         DocumentCardView(
@@ -165,7 +164,7 @@ struct DocumentCardView: View {
             leadingView: .icon(.driverOutline, .cyan),
             title: "123123",
             isFavorite: true,
-            imageManager: DefaultImageManager.shared
+            imageService: ImageServiceImpl()
         ).frame(maxWidth: 200)
         
         DocumentCardView(
@@ -173,7 +172,7 @@ struct DocumentCardView: View {
             leadingView: .tag(.red),
             title: "123123",
             isFavorite: true,
-            imageManager: DefaultImageManager.shared
+            imageService: ImageServiceImpl()
         )
     }
 }

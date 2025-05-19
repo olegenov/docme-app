@@ -22,8 +22,6 @@
 		0D102DFB2DC817330017073B /* BottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D102DFA2DC8172F0017073B /* BottomBarView.swift */; };
 		0D102E002DC818AC0017073B /* View+Shadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D102DFF2DC8189D0017073B /* View+Shadow.swift */; };
 		0D102E022DC8D4200017073B /* DocumentCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D102E012DC8D41B0017073B /* DocumentCardView.swift */; };
-		0D102E052DC8D6B90017073B /* DefaultImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D102E042DC8D6B50017073B /* DefaultImageManager.swift */; };
-		0D102E0A2DC8DAC50017073B /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D102E092DC8DAC20017073B /* ImageManager.swift */; };
 		0D102E0C2DC8E3210017073B /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D102E0B2DC8E2F50017073B /* ActivityIndicatorView.swift */; };
 		0D102E0F2DC8F22C0017073B /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D102E0E2DC8F22A0017073B /* Date+.swift */; };
 		0D102E142DC934130017073B /* TagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D102E132DC9340F0017073B /* TagsView.swift */; };
@@ -70,6 +68,8 @@
 		0DCEF1192DCFFD710073ED13 /* UUIDModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCEF1182DCFFD6F0073ED13 /* UUIDModel.swift */; };
 		0DCEF11C2DD007AD0073ED13 /* FolderNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCEF11B2DD007A60073ED13 /* FolderNetworking.swift */; };
 		0DCEF11E2DD007B70073ED13 /* DocumentNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCEF11D2DD007B00073ED13 /* DocumentNetworking.swift */; };
+		0DCEF1212DDBAF060073ED13 /* ImageServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCEF1202DDBAEFF0073ED13 /* ImageServiceImpl.swift */; };
+		0DCEF1232DDBAF1E0073ED13 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCEF1222DDBAF1B0073ED13 /* ImageService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -89,8 +89,6 @@
 		0D102DFA2DC8172F0017073B /* BottomBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBarView.swift; sourceTree = "<group>"; };
 		0D102DFF2DC8189D0017073B /* View+Shadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Shadow.swift"; sourceTree = "<group>"; };
 		0D102E012DC8D41B0017073B /* DocumentCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCardView.swift; sourceTree = "<group>"; };
-		0D102E042DC8D6B50017073B /* DefaultImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultImageManager.swift; sourceTree = "<group>"; };
-		0D102E092DC8DAC20017073B /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		0D102E0B2DC8E2F50017073B /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
 		0D102E0E2DC8F22A0017073B /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
 		0D102E132DC9340F0017073B /* TagsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsView.swift; sourceTree = "<group>"; };
@@ -137,6 +135,8 @@
 		0DCEF1182DCFFD6F0073ED13 /* UUIDModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UUIDModel.swift; sourceTree = "<group>"; };
 		0DCEF11B2DD007A60073ED13 /* FolderNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderNetworking.swift; sourceTree = "<group>"; };
 		0DCEF11D2DD007B00073ED13 /* DocumentNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentNetworking.swift; sourceTree = "<group>"; };
+		0DCEF1202DDBAEFF0073ED13 /* ImageServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageServiceImpl.swift; sourceTree = "<group>"; };
+		0DCEF1222DDBAF1B0073ED13 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -283,18 +283,8 @@
 			isa = PBXGroup;
 			children = (
 				0D3EA0AD2DCBEF2100D987F0 /* Router */,
-				0D102E082DC8DAAA0017073B /* ImageManager */,
 			);
 			path = Managers;
-			sourceTree = "<group>";
-		};
-		0D102E082DC8DAAA0017073B /* ImageManager */ = {
-			isa = PBXGroup;
-			children = (
-				0D102E092DC8DAC20017073B /* ImageManager.swift */,
-				0D102E042DC8D6B50017073B /* DefaultImageManager.swift */,
-			);
-			path = ImageManager;
 			sourceTree = "<group>";
 		};
 		0D102E172DC93B580017073B /* ItemsList */ = {
@@ -509,6 +499,7 @@
 		0DCEF1132DCFDEB10073ED13 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				0DCEF11F2DDBAEF80073ED13 /* ImageService */,
 				0D102E1E2DCA310F0017073B /* NetworkingService */,
 				0DC4139F2DCE194200CABC15 /* StorageService */,
 			);
@@ -522,6 +513,15 @@
 				0DCEF11B2DD007A60073ED13 /* FolderNetworking.swift */,
 			);
 			path = Networking;
+			sourceTree = "<group>";
+		};
+		0DCEF11F2DDBAEF80073ED13 /* ImageService */ = {
+			isa = PBXGroup;
+			children = (
+				0DCEF1222DDBAF1B0073ED13 /* ImageService.swift */,
+				0DCEF1202DDBAEFF0073ED13 /* ImageServiceImpl.swift */,
+			);
+			path = ImageService;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -606,6 +606,7 @@
 				0D102E4F2DCAAB920017073B /* InputFieldView.swift in Sources */,
 				0D3EA0A92DCBEA4400D987F0 /* Router.swift in Sources */,
 				0D102E1D2DC946BD0017073B /* Captions.swift in Sources */,
+				0DCEF1212DDBAF060073ED13 /* ImageServiceImpl.swift in Sources */,
 				0D102DDE2DC7F7B30017073B /* Color+.swift in Sources */,
 				0DCEF1192DCFFD710073ED13 /* UUIDModel.swift in Sources */,
 				0D102E542DCAAE6B0017073B /* Collection+.swift in Sources */,
@@ -616,6 +617,7 @@
 				0D3EA0C02DCCC3AD00D987F0 /* FolderDetailsTabbar.swift in Sources */,
 				0D102E392DCA4FA50017073B /* DocumentListView.swift in Sources */,
 				0D102DF72DC810050017073B /* String+.swift in Sources */,
+				0DCEF1232DDBAF1E0073ED13 /* ImageService.swift in Sources */,
 				0DC413BB2DCE283300CABC15 /* DocumentNetworkingRepository.swift in Sources */,
 				0D3EA0B32DCBFD9400D987F0 /* FolderDetailsView.swift in Sources */,
 				0D3EA0BE2DCCBEF600D987F0 /* FolderDetailsViewModel.swift in Sources */,
@@ -632,7 +634,6 @@
 				0DCEF1172DCFEAC10073ED13 /* AppDIContainer.swift in Sources */,
 				0DC4139E2DCE193E00CABC15 /* StorageService.swift in Sources */,
 				0DCEF11C2DD007AD0073ED13 /* FolderNetworking.swift in Sources */,
-				0D102E052DC8D6B90017073B /* DefaultImageManager.swift in Sources */,
 				0D102E1B2DC940BC0017073B /* SeparatorView.swift in Sources */,
 				0DC413B82DCE256300CABC15 /* DefaultNetworkingServce.swift in Sources */,
 				0D102E002DC818AC0017073B /* View+Shadow.swift in Sources */,
@@ -645,7 +646,6 @@
 				0D102DE62DC7FBDE0017073B /* DS.swift in Sources */,
 				0D102E402DCA508D0017073B /* DocumentListCoordinator.swift in Sources */,
 				0D102E142DC934130017073B /* TagsView.swift in Sources */,
-				0D102E0A2DC8DAC50017073B /* ImageManager.swift in Sources */,
 				0DC413AC2DCE1AFC00CABC15 /* ServerChangesResponse.swift in Sources */,
 				0DC413B42DCE202500CABC15 /* DocumentStorageRepository.swift in Sources */,
 				0D102DFB2DC817330017073B /* BottomBarView.swift in Sources */,

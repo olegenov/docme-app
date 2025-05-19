@@ -6,7 +6,7 @@ struct FolderDetailsView<ViewModel: FolderDetailsViewModel>: View {
     @Environment(\.theme) var theme
     @StateObject var viewModel: ViewModel
     
-    let imageManager: ImageManager
+    let imageService: ImageService
     
     var body: some View {
         MainContent {
@@ -70,7 +70,7 @@ struct FolderDetailsView<ViewModel: FolderDetailsViewModel>: View {
     private var documentCollection: some View {
         DocumentCollectionView(
             documents: viewModel.documents,
-            imageManager: imageManager,
+            imageService: imageService,
             onFavoriteToggle: viewModel.toggleFavorite
         ).padding(.horizontal, DS.Spacing.m8)
     }

@@ -4,7 +4,7 @@ import Foundation
 struct DocumentNetworking {
     let uuid: UUID
     let title: String
-    let imageUrl: String
+    let imageUrl: String?
     let icon: Icon
     let color: Color
     let description: String?
@@ -31,7 +31,7 @@ struct DocumentNetworking {
     init(
         id: UUID = UUID(),
         title: String,
-        imageUrl: String,
+        imageUrl: String?,
         icon: Icon,
         color: Color,
         description: String? = nil,

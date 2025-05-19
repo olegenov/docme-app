@@ -8,7 +8,6 @@ final class Folder: UUIDModel {
     var createdAt: Date
     var updatedAt: Date
     var isDirty: Bool
-    var lastSyncedAt: Date?
     var deleted: Bool
     
     @Relationship(deleteRule: .nullify) var parentFolder: Folder?
@@ -20,7 +19,6 @@ final class Folder: UUIDModel {
         updatedAt: Date = Date(),
         parentFolder: Folder? = nil,
         isDirty: Bool = false,
-        lastSyncedAt: Date? = nil,
         deleted: Bool = false
     ) {
         self.uuid = id
@@ -29,7 +27,6 @@ final class Folder: UUIDModel {
         self.updatedAt = updatedAt
         self.parentFolder = parentFolder
         self.isDirty = isDirty
-        self.lastSyncedAt = lastSyncedAt
         self.deleted = deleted
     }
 }

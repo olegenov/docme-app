@@ -5,12 +5,14 @@ import SwiftData
 final class AppDIContainer {
     let documentRepository: DocumentRepository
     let folderRepository: FolderRepository
+    let imageService: ImageService
     
     init(modelContext: ModelContext) {
         guard let apiURL = URL(string: "http://localhost:8080") else {
             fatalError("Invalid base URL")
         }
         
+        imageService = ImageServiceImpl()
         let networking = DefaultNetworkingService(baseURL: apiURL)
         
         // Folder
@@ -29,7 +31,8 @@ final class AppDIContainer {
         self.documentRepository = DocumentRepositoryImpl(
             storage: documentStorage,
             api: documentNetworking,
-            folderRepository: folderRepository
+            folderRepository: folderRepository,
+            imageService: imageService
         )
     }
 }

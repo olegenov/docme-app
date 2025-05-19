@@ -6,13 +6,15 @@ import SwiftData
 final class Document: UUIDModel {
     var uuid: UUID
     var title: String
+    var imagePath: String?
+    var remoteImageURL: String?
     var icon: Icon
     var color: Color
     var documentDescription: String?
     var isFavorite: Bool
     var createdAt: Date
     var updatedAt: Date
-    var isSynced: Bool
+    var isDirty: Bool
     var deleted: Bool
     
     @Relationship(deleteRule: .nullify) var folder: Folder?
@@ -35,25 +37,29 @@ final class Document: UUIDModel {
     init(
         id: UUID = UUID(),
         title: String,
+        imagePath: String?,
+        remoteImageURL: String?,
         icon: Icon,
         color: Color,
         description: String? = nil,
         isFavorite: Bool = false,
         createdAt: Date = Date(),
         updatedAt: Date = Date(),
-        isSynced: Bool = false,
+        isDirty: Bool = false,
         folder: Folder? = nil,
         deleted: Bool = false
     ) {
         self.uuid = id
         self.title = title
+        self.imagePath = imagePath
+        self.remoteImageURL = remoteImageURL
         self.icon = icon
         self.color = color
         self.documentDescription = description
         self.isFavorite = isFavorite
         self.createdAt = createdAt
         self.updatedAt = updatedAt
-        self.isSynced = isSynced
+        self.isDirty = isDirty
         self.folder = folder
         self.deleted = deleted
     }

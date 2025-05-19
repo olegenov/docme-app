@@ -4,7 +4,7 @@ import SwiftUI
 
 struct DocumentCollectionView: View {
     let documents: [DocumentCardUI]
-    let imageManager: ImageManager
+    let imageService: ImageService
     
     var onFavoriteToggle: ((DocumentCardUI) -> Void)? = nil
     
@@ -15,7 +15,7 @@ struct DocumentCollectionView: View {
                     DocumentCollectionItemView(
                         displayType: .collection,
                         document: document,
-                        imageManager: imageManager,
+                        imageService: imageService,
                         onFavoriteToggle: onFavoriteToggle
                     )
                     .frame(maxWidth: .infinity)
@@ -28,7 +28,7 @@ struct DocumentCollectionView: View {
                     DocumentCollectionItemView(
                         displayType: .collection,
                         document: document,
-                        imageManager: imageManager,
+                        imageService: imageService,
                         onFavoriteToggle: onFavoriteToggle
                     )
                     .frame(maxWidth: .infinity)
