@@ -22,4 +22,7 @@ enum Captions {
     static let themeLight = "Светлая"
     static let themeDark = "Темная"
     static let themeSystem = "Системная"
+    
+    static let createFolder = "Создать папку"
+    static let createDocument = "Создать документ"
 }

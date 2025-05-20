@@ -80,6 +80,7 @@
 		0DCEF13A2DDD14070073ED13 /* TextSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCEF1392DDD13FE0073ED13 /* TextSectionView.swift */; };
 		0DCEF13D2DDD15A50073ED13 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCEF13C2DDD15A30073ED13 /* Profile.swift */; };
 		0DCEF13F2DDD17450073ED13 /* LargeListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCEF13E2DDD173E0073ED13 /* LargeListItemView.swift */; };
+		0DCEF1412DDD25650073ED13 /* CloseControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCEF1402DDD25610073ED13 /* CloseControlView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -157,6 +158,7 @@
 		0DCEF1392DDD13FE0073ED13 /* TextSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextSectionView.swift; sourceTree = "<group>"; };
 		0DCEF13C2DDD15A30073ED13 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		0DCEF13E2DDD173E0073ED13 /* LargeListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeListItemView.swift; sourceTree = "<group>"; };
+		0DCEF1402DDD25610073ED13 /* CloseControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseControlView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -260,6 +262,7 @@
 			children = (
 				0D102E172DC93B580017073B /* ItemsList */,
 				0D3EA0C72DCCC9BC00D987F0 /* DocumentCollection */,
+				0DCEF1402DDD25610073ED13 /* CloseControlView.swift */,
 				0DCEF1352DDBD6B60073ED13 /* AppTabbarView.swift */,
 				0D102E4E2DCAAB860017073B /* InputFieldView.swift */,
 				0D102E472DCA63B30017073B /* TitledContent.swift */,
@@ -679,6 +682,7 @@
 				0D102E212DCA31550017073B /* NetworkingService.swift in Sources */,
 				0D102E4D2DCAA9720017073B /* DocumentListTabbar.swift in Sources */,
 				0D102E252DCA31A60017073B /* Request.swift in Sources */,
+				0DCEF1412DDD25650073ED13 /* CloseControlView.swift in Sources */,
 				0D102E022DC8D4200017073B /* DocumentCardView.swift in Sources */,
 				0DCEF13F2DDD17450073ED13 /* LargeListItemView.swift in Sources */,
 				0D102E272DCA31B60017073B /* Response.swift in Sources */,
