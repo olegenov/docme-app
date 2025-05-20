@@ -9,6 +9,8 @@ struct MainView: View {
     @StateObject private var documentListCoordinator: DocumentListCoordinator
     @StateObject private var profileCoordinator: ProfileCoordinator
     
+    @ObservedObject private var themeController = DS.shared
+    
     @State private var currentTab: Router.Tab = .documents
     
     init(
@@ -29,6 +31,10 @@ struct MainView: View {
     
     var body: some View {
         tabView
+            .environment(
+                \.theme,
+                 themeController.currentTheme
+            )
     }
     
     private var tabView: some View {

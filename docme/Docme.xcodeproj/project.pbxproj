@@ -76,6 +76,10 @@
 		0DCEF1302DDBCBC50073ED13 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCEF12F2DDBCBC30073ED13 /* ProfileView.swift */; };
 		0DCEF1342DDBD47F0073ED13 /* BaseCoordinatorRouting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCEF1332DDBD4700073ED13 /* BaseCoordinatorRouting.swift */; };
 		0DCEF1362DDBD6BD0073ED13 /* AppTabbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCEF1352DDBD6B60073ED13 /* AppTabbarView.swift */; };
+		0DCEF1382DDD12030073ED13 /* ProfileTabbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCEF1372DDD12030073ED13 /* ProfileTabbarView.swift */; };
+		0DCEF13A2DDD14070073ED13 /* TextSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCEF1392DDD13FE0073ED13 /* TextSectionView.swift */; };
+		0DCEF13D2DDD15A50073ED13 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCEF13C2DDD15A30073ED13 /* Profile.swift */; };
+		0DCEF13F2DDD17450073ED13 /* LargeListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DCEF13E2DDD173E0073ED13 /* LargeListItemView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -149,6 +153,10 @@
 		0DCEF12F2DDBCBC30073ED13 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		0DCEF1332DDBD4700073ED13 /* BaseCoordinatorRouting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinatorRouting.swift; sourceTree = "<group>"; };
 		0DCEF1352DDBD6B60073ED13 /* AppTabbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabbarView.swift; sourceTree = "<group>"; };
+		0DCEF1372DDD12030073ED13 /* ProfileTabbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTabbarView.swift; sourceTree = "<group>"; };
+		0DCEF1392DDD13FE0073ED13 /* TextSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextSectionView.swift; sourceTree = "<group>"; };
+		0DCEF13C2DDD15A30073ED13 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		0DCEF13E2DDD173E0073ED13 /* LargeListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeListItemView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -263,6 +271,7 @@
 				0D102DF82DC815E80017073B /* TitleView.swift */,
 				0D102DF02DC80C870017073B /* ImageIcon.swift */,
 				0D102DEE2DC80C0D0017073B /* FabView.swift */,
+				0DCEF1392DDD13FE0073ED13 /* TextSectionView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -305,6 +314,7 @@
 		0D102E172DC93B580017073B /* ItemsList */ = {
 			isa = PBXGroup;
 			children = (
+				0DCEF13E2DDD173E0073ED13 /* LargeListItemView.swift */,
 				0D102E1A2DC940B80017073B /* SeparatorView.swift */,
 				0D102E182DC93C420017073B /* ListItemView.swift */,
 				0D102E152DC93B300017073B /* ItemsListView.swift */,
@@ -542,6 +552,7 @@
 		0DCEF1242DDBCABC0073ED13 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				0DCEF13B2DDD15940073ED13 /* Model */,
 				0DCEF12E2DDBCBBE0073ED13 /* View */,
 				0DCEF12B2DDBCB360073ED13 /* ViewModel */,
 				0DCEF1282DDBCAEF0073ED13 /* Provider */,
@@ -577,9 +588,18 @@
 		0DCEF12E2DDBCBBE0073ED13 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0DCEF1372DDD12030073ED13 /* ProfileTabbarView.swift */,
 				0DCEF12F2DDBCBC30073ED13 /* ProfileView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		0DCEF13B2DDD15940073ED13 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0DCEF13C2DDD15A30073ED13 /* Profile.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -660,6 +680,7 @@
 				0D102E4D2DCAA9720017073B /* DocumentListTabbar.swift in Sources */,
 				0D102E252DCA31A60017073B /* Request.swift in Sources */,
 				0D102E022DC8D4200017073B /* DocumentCardView.swift in Sources */,
+				0DCEF13F2DDD17450073ED13 /* LargeListItemView.swift in Sources */,
 				0D102E272DCA31B60017073B /* Response.swift in Sources */,
 				0D102E4F2DCAAB920017073B /* InputFieldView.swift in Sources */,
 				0D3EA0A92DCBEA4400D987F0 /* Router.swift in Sources */,
@@ -673,6 +694,7 @@
 				0D102DF92DC815EA0017073B /* TitleView.swift in Sources */,
 				0DCEF11E2DD007B70073ED13 /* DocumentNetworking.swift in Sources */,
 				0D102E192DC93C460017073B /* ListItemView.swift in Sources */,
+				0DCEF1382DDD12030073ED13 /* ProfileTabbarView.swift in Sources */,
 				0D3EA0C02DCCC3AD00D987F0 /* FolderDetailsTabbar.swift in Sources */,
 				0D102E392DCA4FA50017073B /* DocumentListView.swift in Sources */,
 				0D102DF72DC810050017073B /* String+.swift in Sources */,
@@ -685,6 +707,7 @@
 				0DCEF1302DDBCBC50073ED13 /* ProfileView.swift in Sources */,
 				0DCEF1102DCFDDA80073ED13 /* DocumentRepository.swift in Sources */,
 				0D102DEB2DC806DF0017073B /* Text+.swift in Sources */,
+				0DCEF13D2DDD15A50073ED13 /* Profile.swift in Sources */,
 				0D102E162DC93B550017073B /* ItemsListView.swift in Sources */,
 				0DCEF1062DCE38F30073ED13 /* Folder.swift in Sources */,
 				0D102E312DCA4E2C0017073B /* DocumentCardUI.swift in Sources */,
@@ -711,6 +734,7 @@
 				0D102E142DC934130017073B /* TagsView.swift in Sources */,
 				0DC413AC2DCE1AFC00CABC15 /* ServerChangesResponse.swift in Sources */,
 				0DC413B42DCE202500CABC15 /* DocumentStorageRepository.swift in Sources */,
+				0DCEF13A2DDD14070073ED13 /* TextSectionView.swift in Sources */,
 				0D102DFB2DC817330017073B /* BottomBarView.swift in Sources */,
 				0DC413AF2DCE1C2B00CABC15 /* AppLogger.swift in Sources */,
 				0DCEF1362DDBD6BD0073ED13 /* AppTabbarView.swift in Sources */,

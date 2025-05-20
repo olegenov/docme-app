@@ -14,4 +14,12 @@ enum Captions {
     static let searchDocs = "Поиск по документам"
     
     static let all = "Все"
+    
+    static let profile = "Профиль"
+    static let offlineMode = "Оффлайн режим"
+    static let theme = "Тема оформления"
+    
+    static let themeLight = "Светлая"
+    static let themeDark = "Темная"
+    static let themeSystem = "Системная"
 }

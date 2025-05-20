@@ -25,6 +25,7 @@ struct ImageIcon: View {
         case governmentOutline
         case internationalOutline
         case chevronLeftOutline
+        case exitOutline
     }
     
     let name: Name

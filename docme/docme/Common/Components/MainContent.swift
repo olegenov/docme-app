@@ -5,6 +5,8 @@ import SwiftUI
 struct MainContent<Content: View>: View {
     @Environment(\.theme) var theme
     
+    var alignment: HorizontalAlignment = .leading
+    
     @ViewBuilder let content: () -> Content
     
     var body: some View {
@@ -12,7 +14,10 @@ struct MainContent<Content: View>: View {
             theme.gradients.background
                 .ignoresSafeArea()
             
-            VStack(spacing: DS.Spacing.m16) {
+            VStack(
+                alignment: alignment,
+                spacing: DS.Spacing.m16
+            ) {
                 content()
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
