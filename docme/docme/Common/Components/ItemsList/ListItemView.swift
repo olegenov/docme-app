@@ -5,6 +5,17 @@ import SwiftUI
 struct ListItemView: View {
     @Environment(\.theme) var theme
     
+    enum Configuration {
+        case defaultStyle(
+            title: String,
+            leadingView: LeadingView
+        )
+        case editing(
+            placeholder: String,
+            title: Binding<String>
+        )
+    }
+    
     enum LeadingView {
         case empty
         case icon(ImageIcon)
@@ -15,37 +26,56 @@ struct ListItemView: View {
         case chevron
         case cross
         case loading
+        case save(action: () -> Void)
+        case delete(action: () -> Void)
     }
     
-    let title: String
+    let configuration: Configuration
     let trailingText: String?
-    let leadingView: LeadingView?
     let trailingView: TrailingView?
     let onTapAction: (() -> Void)?
+    let onDeleteAction: (() -> Void)?
+    
+    @State private var offset: CGFloat = 0
+    @State private var isDeletionVisible: Bool = false
     
     init(
-        title: String,
+        configuration: Configuration,
         trailingText: String? = nil,
-        leadingView: LeadingView? = nil,
         trailingView: TrailingView? = nil,
-        onTapAction: (() -> Void)? = nil
+        onTapAction: (() -> Void)? = nil,
+        onDeleteAction: (() -> Void)? = nil
     ) {
-        self.title = title
+        self.configuration = configuration
         self.trailingText = trailingText
-        self.leadingView = leadingView
         self.trailingView = trailingView
         self.onTapAction = onTapAction
+        self.onDeleteAction = onDeleteAction
     }
     
     var body: some View {
+        ZStack {
+            if onDeleteAction != nil {
+                deleteView
+            }
+            
+            content
+        }
+    }
+    
+    private var content: some View {
         HStack {
-            HStack(spacing: DS.Spacing.m2) {
-                leadingViewContent
-                
-                Text(title)
-                    .applyFont(.body(.sm, .bold))
-                    .foregroundStyle(theme.colors.text)
-                    .lineLimit(1)
+            switch configuration {
+            case .defaultStyle(let title, let leadingView):
+                defaultContent(
+                    title: title,
+                    leadingView: leadingView
+                )
+            case .editing(let placeholder, let title):
+                editingContent(
+                    placeholder: placeholder,
+                    title: title
+                )
             }
             
             Spacer()
@@ -57,13 +87,69 @@ struct ListItemView: View {
             }
         }
         .frame(maxWidth: .infinity)
+        .contentShape(Rectangle())
         .onTapGesture(perform: onTapAction ?? { })
+        .offset(x: offset)
+        .animation(.easeInOut, value: offset)
+        .applyIf(onDeleteAction != nil) { view in
+            view.gesture(deleteGesture)
+        }
+    }
+    
+    private var deleteView: some View {
+        ZStack(alignment: .trailing) {
+            Color.clear
+                .ignoresSafeArea()
+            
+            if isDeletionVisible {
+                ImageIcon(
+                    name: .deleteOutline,
+                    size: .sm,
+                    color: theme.colors.brandMagenta
+                )
+                .onTapGesture {
+                    onDeleteAction?()
+                    offset = 0
+                }
+            }
+        }
+        .onChange(of: offset) {
+            isDeletionVisible = offset < -DS.Spacing.m14
+        }
+        .animation(.easeInOut, value: isDeletionVisible)
+    }
+    
+    private func defaultContent(
+        title: String,
+        leadingView: LeadingView
+    ) -> some View {
+        HStack(spacing: DS.Spacing.m2) {
+            leadingViewContent(leadingView)
+            
+            Text(title)
+                .applyFont(.body(.sm, .bold))
+                .foregroundStyle(theme.colors.text)
+                .lineLimit(1)
+        }
+    }
+    
+    private func editingContent(
+        placeholder: String,
+        title: Binding<String>
+    ) -> some View {
+        TextField(
+            "",
+            text: title,
+            prompt: Text(placeholder)
+                .font(.system(size: DSFontSize.sm.fontSize))
+                .foregroundColor(theme.colors.textSecondary)
+        )
     }
     
     @ViewBuilder
-    private var leadingViewContent: some View {
-        if let leadingView {
-            switch leadingView {
+    private func leadingViewContent(_ leading: LeadingView?) -> some View {
+        if let leading {
+            switch leading {
             case .empty: EmptyView()
             case .icon(let icon): icon
             }
@@ -78,6 +164,12 @@ struct ListItemView: View {
             case .chevron: ImageIcon(name: .chevronRightOutline, size: .sm)
             case .cross: ImageIcon(name: .crossOutline, size: .sm)
             case .loading: ActivityIndicatorView(size: .sm)
+            case .save(let action):
+                ImageIcon(name: .saveOutline, size: .sm)
+                    .onTapGesture(perform: action)
+            case .delete(let action):
+                ImageIcon(name: .crossOutline, size: .sm)
+                    .onTapGesture(perform: action)
             }
         }
     }
@@ -91,15 +183,20 @@ struct ListItemView: View {
                 .lineLimit(1)
         }
     }
-}
-
-#Preview {
-    VStack {
-        ListItemView(title: "123", trailingText: "123", trailingView: .chevron)
-        ListItemView(title: "123", trailingText: "123", trailingView: .empty)
-        ListItemView(title: "123", trailingView: .chevron)
-        ListItemView(title: "123", trailingView: .cross)
-        ListItemView(title: "123", trailingView: .loading)
-        ListItemView(title: "123", leadingView: .icon(.init(name: .starOutline, size: .md)))
+    
+    private var deleteGesture: some Gesture {
+        DragGesture()
+            .onChanged { gesture in
+                if gesture.translation.width < 0 {
+                    offset = gesture.translation.width
+                }
+            }
+            .onEnded { gesture in
+                if gesture.translation.width < DS.Spacing.m16 {
+                    offset = -DS.Spacing.m16
+                } else {
+                    offset = 0
+                }
+            }
     }
 }

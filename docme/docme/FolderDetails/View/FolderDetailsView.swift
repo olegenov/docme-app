@@ -53,9 +53,11 @@ struct FolderDetailsView<ViewModel: FolderDetailsViewModel>: View {
             ItemsListView {
                 ForEach(Array(viewModel.folders.enumerated()), id: \.element.id) { index, folder in
                     ListItemView(
-                        title: folder.name,
+                        configuration: .defaultStyle(
+                            title: folder.name,
+                            leadingView: .empty
+                        ),
                         trailingText: "\(folder.documentCount)",
-                        leadingView: .empty,
                         trailingView: .chevron
                     )
                     

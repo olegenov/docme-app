@@ -8,6 +8,10 @@ protocol DocumentListViewModel: ObservableObject, AnyObject {
     
     var selectedTags: [DocumentCardUI.Color] { get }
     
+    var isFoldersSectionVisible: Bool { get }
+    var newFolderName: String { get set }
+    var creatingNewFolder: Bool { get set }
+    
     func toggleFavorite(for card: DocumentCardUI)
     func searchDocuments(by query: String)
     func cancelSearch()
@@ -18,14 +22,22 @@ protocol DocumentListViewModel: ObservableObject, AnyObject {
     
     func selectFolder(_ folder: FolderUI)
     
+    func cancelCreatingNewFolder()
+    func createNewFolder()
+    func deleteFolder(_ folder: FolderUI)
+    
     func loadData() async
 }
 
+@Observable
 class DocumentListViewModelImpl: DocumentListViewModel {
-    @Published private(set) var favorites = [DocumentCardUI]()
-    @Published private(set) var documents = [DocumentCardUI]()
-    @Published private(set) var folders = [FolderUI]()
-    @Published private(set) var selectedTags = [DocumentCardUI.Color]()
+    private(set) var favorites = [DocumentCardUI]()
+    private(set) var documents = [DocumentCardUI]()
+    private(set) var folders = [FolderUI]()
+    private(set) var selectedTags = [DocumentCardUI.Color]()
+    
+    var newFolderName: String = ""
+    var creatingNewFolder: Bool = false
     
     private var allDocuments: [DocumentCardUI] = []
     
@@ -81,6 +93,62 @@ class DocumentListViewModelImpl: DocumentListViewModel {
         selectedTags.removeAll()
         updateDocumentFiltering()
         updateFavoriteDocuments()
+    }
+    
+    func cancelCreatingNewFolder() {
+        newFolderName = ""
+        creatingNewFolder = false
+    }
+    
+    var isFoldersSectionVisible: Bool {
+        !folders.isEmpty || creatingNewFolder
+    }
+    
+    func createNewFolder() {
+        let uuid: UUID = UUID()
+        let folderName = newFolderName
+        let newFolderUI = FolderUI(
+            id: uuid,
+            name: folderName,
+            documentCount: 0,
+            loading: true
+        )
+        
+        folders.append(newFolderUI)
+        cancelCreatingNewFolder()
+        
+        Task {
+            await provider.createNewFolder(
+                with: uuid,
+                named: folderName,
+                complition: { success in
+                    if !success {
+                        folders.removeAll {
+                            $0.id == uuid
+                        }
+                    } else {
+                        folders.removeAll {
+                            $0.id == uuid
+                        }
+                        folders.append(
+                            .init(
+                                id: uuid,
+                                name: folderName,
+                                documentCount: 0
+                            )
+                        )
+                    }
+                }
+            )
+        }
+    }
+    
+    func deleteFolder(_ folder: FolderUI) {
+        Task {
+            await provider.deleteFolder(with: folder.id)
+        }
+        
+        folders.removeAll { $0.id == folder.id }
     }
     
     func selectFolder(_ folder: FolderUI) {

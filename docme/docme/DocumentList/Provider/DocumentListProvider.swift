@@ -4,6 +4,16 @@ import Foundation
 protocol DocumentListProvider {
     func fetchFolders() async -> [FolderUI]
     func fetchDocuments() async -> [DocumentCardUI]
+    
+    func createNewFolder(
+        with: UUID,
+        named: String,
+        complition: (Bool) -> Void
+    ) async
+    
+    func deleteFolder(
+        with: UUID
+    ) async
 }
 
 class DocumentListProviderImpl: DocumentListProvider {
@@ -19,10 +29,10 @@ class DocumentListProviderImpl: DocumentListProvider {
     }
     
     func fetchFolders() async -> [FolderUI] {
-        Task {
-            try await documentRepository.sync()
-            try await folderRepository.sync()
-        }
+//        Task {
+//            try await documentRepository.sync()
+//            try await folderRepository.sync()
+//        }
         
         do {
             let folders = try await folderRepository.fetchLocal()
@@ -54,6 +64,32 @@ class DocumentListProviderImpl: DocumentListProvider {
             AppLogger.shared.error("Failed to fetch documents: \(error)")
             
             return []
+        }
+    }
+    
+    func createNewFolder(
+        with uuid: UUID,
+        named: String,
+        complition: (Bool) -> Void
+    ) async {
+        do {
+            try await folderRepository.createLocal(
+                .init(id: uuid, name: named)
+            )
+            
+            complition(true)
+        } catch {
+            AppLogger.shared.error("Failed to create folder: \(error)")
+            
+            complition(false)
+        }
+    }
+    
+    func deleteFolder(with uuid: UUID) async {
+        do {
+            try await folderRepository.deleteLocal(with: uuid)
+        } catch {
+            AppLogger.shared.error("Failed to delete folder: \(error)")
         }
     }
 }

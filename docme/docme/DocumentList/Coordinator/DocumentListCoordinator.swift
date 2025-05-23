@@ -10,6 +10,8 @@ enum DocumentListRoutes: Route, Hashable {
 class DocumentListCoordinator: ObservableObject {
     private let container: AppDIContainer
     
+    private(set) var viewModel: (any DocumentListViewModel)? = nil
+    
     init(container: AppDIContainer) {
         self.container = container
     }
@@ -20,10 +22,11 @@ class DocumentListCoordinator: ObservableObject {
             folderRepository: container.folderRepository
         )
 
-        let viewModel = DocumentListViewModelImpl(provider: provider)
-
+        let vm = DocumentListViewModelImpl(provider: provider)
+        self.viewModel = vm
+        
         return DocumentListView(
-            viewModel: viewModel,
+            viewModel: vm,
             imageService: container.imageService
         )
     }
@@ -39,6 +42,10 @@ class DocumentListCoordinator: ObservableObject {
         view.navigationDestination(for: DocumentListRoutes.self) { route in
             self.destination(for: route)
         }
+    }
+    
+    func createNewFolder() {
+        viewModel?.creatingNewFolder = true
     }
 }
 

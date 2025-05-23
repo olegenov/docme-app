@@ -26,6 +26,8 @@ struct ImageIcon: View {
         case internationalOutline
         case chevronLeftOutline
         case exitOutline
+        case saveOutline
+        case deleteOutline
     }
     
     let name: Name
@@ -47,6 +49,7 @@ struct ImageIcon: View {
         Image(assetName)
             .renderingMode(.template)
             .foregroundColor(color)
+            .contentShape(Rectangle())
     }
     
     private var assetName: String {

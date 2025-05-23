@@ -61,7 +61,12 @@ struct MainView: View {
                 Spacer(minLength: 0)
             }
 
-            AppTabbarView(currentTab: $currentTab)
+            AppTabbarView(
+                currentTab: $currentTab,
+                onFolderCreation: {
+                    documentListCoordinator.createNewFolder()
+                }
+            )
                 .padding(.bottom, DS.Spacing.m20)
                 .padding(.horizontal)
         }

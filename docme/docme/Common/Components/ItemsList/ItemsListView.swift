@@ -18,13 +18,3 @@ struct ItemsListView<Content: View>: View {
             .applyShadow(theme.shadows.overlayShadow)
     }
 }
-
-#Preview {
-    ItemsListView {
-        ListItemView(title: "Text")
-        SeparatorView()
-        ListItemView(title: "Text")
-        SeparatorView()
-        ListItemView(title: "Text", trailingView: .loading)
-    }
-}

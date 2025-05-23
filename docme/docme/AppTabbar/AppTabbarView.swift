@@ -7,6 +7,8 @@ struct AppTabbarView: View {
     
     @Binding var currentTab: Router.Tab
     
+    let onFolderCreation: () -> Void
+    
     @State private var isExtended: Bool = false
     @State private var dragOffset: CGFloat = 0
     
@@ -59,26 +61,37 @@ struct AppTabbarView: View {
             
             VStack(spacing: DS.Spacing.m4) {
                 ListItemView(
-                    title: Captions.addFolder,
-                    leadingView: .icon(
-                        .init(name: .folderOutline, size: .md)
+                    configuration: .defaultStyle(
+                        title: Captions.addFolder,
+                        leadingView: .icon(
+                            .init(name: .folderOutline, size: .md)
+                        )
                     ),
-                    trailingView: .chevron
-                ) {
-                    
-                }
+                    trailingView: .chevron,
+                    onTapAction:  {
+                        onFolderCreation()
+                        currentTab = .documents
+                        
+                        withAnimation {
+                            isExtended = false
+                        }
+                    }
+                )
                 
                 SeparatorView()
                 
                 ListItemView(
-                    title: Captions.addDocument,
-                    leadingView: .icon(
-                        .init(name: .documentOutline, size: .md)
+                    configuration: .defaultStyle(
+                        title: Captions.addDocument,
+                        leadingView: .icon(
+                            .init(name: .documentOutline, size: .md)
+                        )
                     ),
-                    trailingView: .chevron
-                ) {
-                    
-                }
+                    trailingView: .chevron,
+                    onTapAction:  {
+                        
+                    }
+                )
             }
         }
         .frame(maxWidth: 270)
@@ -118,8 +131,4 @@ struct AppTabbarView: View {
                     }
             )
     }
-}
-
-#Preview {
-    AppTabbarView(currentTab: .constant(.documents))
 }

@@ -25,4 +25,12 @@ enum Captions {
     
     static let createFolder = "Создать папку"
     static let createDocument = "Создать документ"
+    
+    static let newFolder = "Новая папка"
+    
+    static let deleteFolderAlertTitle = "Вы уверены, что хотите удалить папку?"
+    static let deleteFolderAlertDescription = "Удалятся все документы и папки, содержащиеся в ней"
+    
+    static let yes = "Да"
+    static let no = "Нет"
 }

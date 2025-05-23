@@ -9,6 +9,8 @@ struct DocumentListView<ViewModel: DocumentListViewModel>: View {
     let imageService: ImageService
     
     @State var isSearching: Bool = false
+    @State private var isDeletingFolderAlertPresented: Bool = false
+    @State private var folderToDelete: FolderUI? = nil
     
     var body: some View {
         MainContent {
@@ -20,7 +22,7 @@ struct DocumentListView<ViewModel: DocumentListViewModel>: View {
                         favoriteSectionView
                     }
                     
-                    if viewModel.folders.isNotEmpty {
+                    if viewModel.isFoldersSectionVisible {
                         foldersView
                     }
                     
@@ -30,10 +32,34 @@ struct DocumentListView<ViewModel: DocumentListViewModel>: View {
                 }
             }
         }
-        .animation(.easeInOut(duration: 0.3), value: viewModel.documents)
-        .animation(.easeInOut(duration: 0.3), value: isSearching)
+        .animation(.easeInOut, value: viewModel.documents)
+        .animation(.easeInOut, value: isSearching)
+        .animation(.easeInOut, value: viewModel.folders)
+        .animation(.easeInOut, value: viewModel.creatingNewFolder)
         .task {
             await viewModel.loadData()
+        }
+        .alert(
+            Captions.deleteFolderAlertTitle,
+            isPresented: $isDeletingFolderAlertPresented
+        ) {
+            Button(Captions.yes, role: .destructive) {
+                guard let folder = folderToDelete else {
+                    return
+                }
+                viewModel.deleteFolder(folder)
+                folderToDelete = nil
+                isDeletingFolderAlertPresented = false
+            }
+            Button(Captions.no, role: .cancel) {
+                folderToDelete = nil
+                isDeletingFolderAlertPresented = false
+            }
+        } message: {
+            Text(Captions.deleteFolderAlertDescription)
+        }
+        .onChange(of: folderToDelete) {
+            isDeletingFolderAlertPresented = folderToDelete != nil
         }
     }
     
@@ -89,16 +115,38 @@ struct DocumentListView<ViewModel: DocumentListViewModel>: View {
             ItemsListView {
                 ForEach(Array(viewModel.folders.enumerated()), id: \.element.id) { index, folder in
                     ListItemView(
-                        title: folder.name,
+                        configuration: .defaultStyle(
+                            title: folder.name,
+                            leadingView: .empty
+                        ),
                         trailingText: "\(folder.documentCount)",
-                        leadingView: .empty,
-                        trailingView: .chevron,
-                        onTapAction: { viewModel.selectFolder(folder) }
+                        trailingView: folder.loading ? .loading : .chevron,
+                        onTapAction: {
+                            guard !folder.loading else { return }
+                            viewModel.selectFolder(folder)
+                        },
+                        onDeleteAction: {
+                            folderToDelete = folder
+                        }
                     )
                     
-                    if index < viewModel.folders.count - 1 {
+                    if index < viewModel.folders.count - 1 || viewModel.creatingNewFolder {
                         SeparatorView()
                     }
+                }
+                
+                if viewModel.creatingNewFolder {
+                    ListItemView(
+                        configuration: .editing(
+                            placeholder: Captions.newFolder,
+                            title: $viewModel.newFolderName
+                        ),
+                        trailingView: viewModel.newFolderName.isEmpty ?
+                            .delete(action: viewModel.cancelCreatingNewFolder) :
+                            .save(
+                                action: viewModel.createNewFolder
+                            )
+                    )
                 }
             }
         }
