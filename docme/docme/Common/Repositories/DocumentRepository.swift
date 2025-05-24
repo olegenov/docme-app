@@ -5,7 +5,7 @@ protocol DocumentRepository {
     func sync() async throws
     func fetchLocal() async throws -> [Document]
     func createLocal(_ document: Document) async throws
-    func getDocuments(of folder: Folder) async throws -> [Document]
+    func getDocuments(of folder: Folder?) async throws -> [Document]
 }
 
 final class DocumentRepositoryImpl: DocumentRepository {
@@ -58,7 +58,7 @@ final class DocumentRepositoryImpl: DocumentRepository {
         try await storage.create(document)
     }
     
-    func getDocuments(of folder: Folder) async throws -> [Document] {
+    func getDocuments(of folder: Folder?) async throws -> [Document] {
         try await storage.getDocuments(of: folder)
     }
 }

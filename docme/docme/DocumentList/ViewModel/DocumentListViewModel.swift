@@ -6,7 +6,7 @@ protocol DocumentListViewModel: ObservableObject, AnyObject {
     var folders: [FolderUI] { get }
     var documents: [DocumentCardUI] { get }
     
-    var selectedTags: [DocumentCardUI.Color] { get }
+    var selectedFolder: FolderUI? { get }
     
     var isFoldersSectionVisible: Bool { get }
     var newFolderName: String { get set }
@@ -16,11 +16,15 @@ protocol DocumentListViewModel: ObservableObject, AnyObject {
     func searchDocuments(by query: String)
     func cancelSearch()
     
+    var selectedTags: [DocumentCardUI.Color] { get set }
+    func updateSelectedTags()
     func selectTag(_ tag: DocumentCardUI.Color)
     func deselectTag(_ tag: DocumentCardUI.Color)
     func selectAllTags()
     
     func selectFolder(_ folder: FolderUI)
+    func goToParentFolder()
+    func goToHomeFolder()
     
     func cancelCreatingNewFolder()
     func createNewFolder()
@@ -34,24 +38,33 @@ class DocumentListViewModelImpl: DocumentListViewModel {
     private(set) var favorites = [DocumentCardUI]()
     private(set) var documents = [DocumentCardUI]()
     private(set) var folders = [FolderUI]()
-    private(set) var selectedTags = [DocumentCardUI.Color]()
     
+    var selectedTags = [DocumentCardUI.Color]() {
+        didSet { provider.setSelectedTags(selectedTags) }
+    }
+
     var newFolderName: String = ""
     var creatingNewFolder: Bool = false
+    
+    let selectedFolder: FolderUI?
     
     private var allDocuments: [DocumentCardUI] = []
     
     private let provider: DocumentListProvider
     private let router = Router.shared
 
-    init(provider: DocumentListProvider) {
+    init(
+        provider: DocumentListProvider,
+        for folder: FolderUI? = nil
+    ) {
         self.provider = provider
+        self.selectedFolder = folder
     }
     
     @MainActor
     func loadData() async {
-        folders = await provider.fetchFolders()
-        allDocuments = await provider.fetchDocuments()
+        folders = await provider.fetchFolders(for: selectedFolder)
+        allDocuments = await provider.fetchDocuments(for: selectedFolder)
         
         updateDocumentFiltering()
         updateFavoriteDocuments()
@@ -75,6 +88,12 @@ class DocumentListViewModelImpl: DocumentListViewModel {
     
     func cancelSearch() {
         documents = allDocuments
+    }
+    
+    func updateSelectedTags() {
+        selectedTags = provider.getSelectedTags()
+        updateDocumentFiltering()
+        updateFavoriteDocuments()
     }
     
     func selectTag(_ tag: DocumentCardUI.Color) {
@@ -156,6 +175,14 @@ class DocumentListViewModelImpl: DocumentListViewModel {
             DocumentListRoutes.folderDetails(folder: folder),
             for: .documents
         )
+    }
+    
+    func goToParentFolder() {
+        Router.shared.popScreen(for: .documents)
+    }
+    
+    func goToHomeFolder() {
+        Router.shared.resetToRoot(for: .documents)
     }
 }
 

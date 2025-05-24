@@ -7,7 +7,7 @@ protocol DocumentStorageRepository {
     func update(_ doc: Document) async throws
     func delete(_ doc: Document) async throws
     func create(_ entiry: Document) async throws
-    func getDocuments(of folder: Folder) async throws -> [Document]
+    func getDocuments(of folder: Folder?) async throws -> [Document]
 }
 
 
@@ -40,8 +40,8 @@ final class DocumentStorageRepositoryImpl: DocumentStorageRepository {
         try await service.insert(entiry)
     }
     
-    func getDocuments(of folder: Folder) async throws -> [Document] {
-        let folderUUID: UUID? = folder.uuid
+    func getDocuments(of folder: Folder?) async throws -> [Document] {
+        let folderUUID: UUID? = folder?.uuid
         
         let descriptor = FetchDescriptor<Document>(
             predicate: #Predicate {

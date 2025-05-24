@@ -8,7 +8,7 @@ protocol FolderStorageRepository {
     func update(_ folder: Folder) async throws
     func delete(_ folder: Folder) async throws
     func create(_ entiry: Folder) async throws
-    func getSubfolders(of folder: Folder) async throws -> [Folder]
+    func getSubfolders(of folder: Folder?) async throws -> [Folder]
     func countDocuments(in folder: Folder) async throws -> Int
 }
 
@@ -44,8 +44,8 @@ final class FolderStorageRepositoryImpl: FolderStorageRepository {
         try await service.insert(entiry)
     }
     
-    func getSubfolders(of folder: Folder) async throws -> [Folder] {
-        let folderUUID: UUID? = folder.uuid
+    func getSubfolders(of folder: Folder?) async throws -> [Folder] {
+        let folderUUID: UUID? = folder?.uuid
         
         let descriptor = FetchDescriptor<Folder>(
             predicate: #Predicate { folder in

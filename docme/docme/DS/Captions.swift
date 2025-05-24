@@ -33,4 +33,6 @@ enum Captions {
     
     static let yes = "Да"
     static let no = "Нет"
+    
+    static let mainPage = "Главная"
 }

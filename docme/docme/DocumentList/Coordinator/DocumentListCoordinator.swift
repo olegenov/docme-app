@@ -16,26 +16,23 @@ class DocumentListCoordinator: ObservableObject {
         self.container = container
     }
 
-    func start() -> some View {
+    func start(for folder: FolderUI? = nil) -> some View {
         let provider = DocumentListProviderImpl(
             documentRepository: container.documentRepository,
             folderRepository: container.folderRepository
         )
 
-        let vm = DocumentListViewModelImpl(provider: provider)
+        let vm = DocumentListViewModelImpl(
+            provider: provider,
+            for: folder
+        )
+        
         self.viewModel = vm
         
         return DocumentListView(
             viewModel: vm,
             imageService: container.imageService
         )
-    }
-    
-    func destination(for route: DocumentListRoutes) -> some View {
-        switch route {
-        case .folderDetails(let folder):
-            FolderDetailsCoordinator(container: container).start(for: folder)
-        }
     }
 
     func addDestinations(to view: some View) -> some View {
@@ -56,7 +53,7 @@ extension DocumentListCoordinator: BaseCoordinatorRouting {
         switch route {
         case .folderDetails(let folder):
             return AnyView(
-                FolderDetailsCoordinator(container: container).start(for: folder)
+                DocumentListCoordinator(container: container).start(for: folder)
             )
         }
     }

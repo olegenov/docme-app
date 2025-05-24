@@ -8,7 +8,7 @@ protocol FolderRepository {
     func getLocal(with id: UUID) async throws -> Folder?
     func deleteLocal(with id: UUID) async throws
     
-    func getSubFolders(of folder: Folder) async throws -> [Folder]
+    func getSubFolders(of folder: Folder?) async throws -> [Folder]
     func countDocuments(of folder: Folder) async throws -> Int
 }
 
@@ -56,7 +56,7 @@ final class FolderRepositoryImpl: FolderRepository {
         }
     }
     
-    func getSubFolders(of folder: Folder) async throws -> [Folder] {
+    func getSubFolders(of folder: Folder?) async throws -> [Folder] {
         try await storage.getSubfolders(of: folder)
     }
     

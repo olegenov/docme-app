@@ -13,7 +13,8 @@ struct TitledContent<Content: View>: View {
             TitleView(text: title)
             
             content()
-        }.padding(.horizontal, DS.Spacing.m8)
+        }
+        .padding(.horizontal, DS.Spacing.m8)
     }
 }
 

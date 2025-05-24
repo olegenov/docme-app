@@ -8,36 +8,35 @@ struct DocumentListView<ViewModel: DocumentListViewModel>: View {
     
     let imageService: ImageService
     
-    @State var isSearching: Bool = false
     @State private var isDeletingFolderAlertPresented: Bool = false
     @State private var folderToDelete: FolderUI? = nil
+    
+    @State private var isSearching: Bool = false
+    @State private var tabbarState: DocumentListTabbarView.TabbarState = .none
+    
+    @FocusState private var newFolderFocused: Bool
     
     var body: some View {
         MainContent {
             tabbarView
             
             MainScrollView {
-                if !isSearching {
-                    if viewModel.favorites.isNotEmpty {
-                        favoriteSectionView
-                    }
-                    
-                    if viewModel.isFoldersSectionVisible {
-                        foldersView
-                    }
-                    
-                    documentCollection
+                if viewModel.selectedFolder != nil {
+                    folderDetailsView
                 } else {
-                    searchResults
+                    documentsListView
                 }
             }
         }
         .animation(.easeInOut, value: viewModel.documents)
-        .animation(.easeInOut, value: isSearching)
         .animation(.easeInOut, value: viewModel.folders)
         .animation(.easeInOut, value: viewModel.creatingNewFolder)
         .task {
             await viewModel.loadData()
+        }
+        .onAppear() {
+            tabbarState = defaultTabbarState
+            viewModel.updateSelectedTags()
         }
         .alert(
             Captions.deleteFolderAlertTitle,
@@ -61,33 +60,41 @@ struct DocumentListView<ViewModel: DocumentListViewModel>: View {
         .onChange(of: folderToDelete) {
             isDeletingFolderAlertPresented = folderToDelete != nil
         }
+        .hideKeyboardOnDrag()
+    }
+    
+    @ViewBuilder
+    private var documentsListView: some View {
+        if !isSearching {
+            if viewModel.favorites.isNotEmpty {
+                favoriteSectionView
+            }
+            
+            TitledContent(title: Captions.myDocs) {
+                if viewModel.folders.isNotEmpty {
+                    foldersView
+                }
+                
+                documentCollection
+            }
+        } else {
+            searchResults
+        }
+    }
+    
+    private var folderDetailsView: some View {
+        TitledContent(title: viewModel.selectedFolder?.name ?? "") {
+            if viewModel.folders.isNotEmpty {
+                foldersView
+            }
+            
+            documentCollection
+        }
     }
     
     private var tabbarView: some View {
         DocumentListTabbarView(
-            selectedTags: viewModel.selectedTags,
-            onSearchStart: {
-                isSearching = true
-            },
-            onSearchClear: {
-                viewModel.cancelSearch()
-            },
-            onSearchClose: {
-                viewModel.cancelSearch()
-                isSearching = false
-            },
-            onSearchChange: { searchText in
-                viewModel.searchDocuments(by: searchText)
-            },
-            onFilterSelection: { tag in
-                viewModel.selectTag(tag)
-            },
-            onCancelFilter: { tag in
-                viewModel.deselectTag(tag)
-            },
-            onAllFilterSelection: {
-                viewModel.selectAllTags()
-            }
+            state: $tabbarState
         ).padding(.horizontal, DS.Spacing.m8)
     }
     
@@ -111,42 +118,44 @@ struct DocumentListView<ViewModel: DocumentListViewModel>: View {
     }
     
     private var foldersView: some View {
-        TitledContent(title: Captions.myDocs) {
-            ItemsListView {
-                ForEach(Array(viewModel.folders.enumerated()), id: \.element.id) { index, folder in
-                    ListItemView(
-                        configuration: .defaultStyle(
-                            title: folder.name,
-                            leadingView: .empty
-                        ),
-                        trailingText: "\(folder.documentCount)",
-                        trailingView: folder.loading ? .loading : .chevron,
-                        onTapAction: {
-                            guard !folder.loading else { return }
-                            viewModel.selectFolder(folder)
-                        },
-                        onDeleteAction: {
-                            folderToDelete = folder
-                        }
-                    )
-                    
-                    if index < viewModel.folders.count - 1 || viewModel.creatingNewFolder {
-                        SeparatorView()
+        ItemsListView {
+            ForEach(Array(viewModel.folders.enumerated()), id: \.element.id) { index, folder in
+                ListItemView(
+                    configuration: .defaultStyle(
+                        title: folder.name,
+                        leadingView: .empty
+                    ),
+                    trailingText: "\(folder.documentCount)",
+                    trailingView: folder.loading ? .loading : .chevron,
+                    onTapAction: {
+                        guard !folder.loading else { return }
+                        viewModel.selectFolder(folder)
+                    },
+                    onDeleteAction: {
+                        folderToDelete = folder
                     }
-                }
+                )
                 
-                if viewModel.creatingNewFolder {
-                    ListItemView(
-                        configuration: .editing(
-                            placeholder: Captions.newFolder,
-                            title: $viewModel.newFolderName
-                        ),
-                        trailingView: viewModel.newFolderName.isEmpty ?
-                            .delete(action: viewModel.cancelCreatingNewFolder) :
+                if index < viewModel.folders.count - 1 || viewModel.creatingNewFolder {
+                    SeparatorView()
+                }
+            }
+            
+            if viewModel.creatingNewFolder {
+                ListItemView(
+                    configuration: .editing(
+                        placeholder: Captions.newFolder,
+                        title: $viewModel.newFolderName
+                    ),
+                    trailingView: viewModel.newFolderName.isEmpty ?
+                        .delete(action: viewModel.cancelCreatingNewFolder) :
                             .save(
                                 action: viewModel.createNewFolder
                             )
-                    )
+                )
+                .focused($newFolderFocused)
+                .onAppear() {
+                    newFolderFocused = true
                 }
             }
         }
@@ -176,5 +185,60 @@ struct DocumentListView<ViewModel: DocumentListViewModel>: View {
         TitledContent(title: Captions.search) {
             documentList
         }
+    }
+    
+    var defaultTabbarState: DocumentListTabbarView.TabbarState {
+        if let folder = viewModel.selectedFolder {
+            .folderDetails(
+                folder: folder,
+                selectedTags: $viewModel.selectedTags,
+                onParentFolderTap: viewModel.goToParentFolder,
+                onHomeTap: viewModel.goToHomeFolder,
+                onFilterTap: {
+                    tabbarState = filterTabbarState
+                }
+            )
+        } else {
+            .defaultView(
+                onSearchTap: {
+                    isSearching = true
+                    tabbarState = searchTabbartState
+                },
+                onFilterTap: {
+                    tabbarState = filterTabbarState
+                },
+                selectedTags: $viewModel.selectedTags
+            )
+        }
+    }
+    
+    var filterTabbarState: DocumentListTabbarView.TabbarState {
+        .filter(
+            selectedTags: $viewModel.selectedTags,
+            onFilterSelection: { filter in
+                viewModel.selectTag(filter)
+            },
+            onCancelFilter: { filter in
+                viewModel.deselectTag(filter)
+            },
+            onAllFilterSelection: viewModel.selectAllTags,
+            onClose: {
+                tabbarState = defaultTabbarState
+            }
+        )
+    }
+    
+    var searchTabbartState: DocumentListTabbarView.TabbarState {
+        .search(
+            onSearchClear: viewModel.cancelSearch,
+            onSearchClose: {
+                viewModel.cancelSearch()
+                isSearching = false
+                tabbarState = defaultTabbarState
+            },
+            onSearchChange: { searchText in
+                viewModel.searchDocuments(by: searchText)
+            }
+        )
     }
 }

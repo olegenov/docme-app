@@ -1,9 +1,10 @@
 import Foundation
+import SwiftUI
 
 
 protocol DocumentListProvider {
-    func fetchFolders() async -> [FolderUI]
-    func fetchDocuments() async -> [DocumentCardUI]
+    func fetchFolders(for parentFolder: FolderUI?) async -> [FolderUI]
+    func fetchDocuments(for parentFolder: FolderUI?) async -> [DocumentCardUI]
     
     func createNewFolder(
         with: UUID,
@@ -14,11 +15,16 @@ protocol DocumentListProvider {
     func deleteFolder(
         with: UUID
     ) async
+    
+    func getSelectedTags() -> [DocumentCardUI.Color]
+    func setSelectedTags(_ tags: [DocumentCardUI.Color])
 }
 
 class DocumentListProviderImpl: DocumentListProvider {
     private let documentRepository: DocumentRepository
     private let folderRepository: FolderRepository
+    
+    @AppStorage("selectedTagsData") private var selectedTagsData: Data = Data()
     
     init(
         documentRepository: DocumentRepository,
@@ -28,20 +34,24 @@ class DocumentListProviderImpl: DocumentListProvider {
         self.folderRepository = folderRepository
     }
     
-    func fetchFolders() async -> [FolderUI] {
+    func fetchFolders(for parentFolder: FolderUI?) async -> [FolderUI] {
 //        Task {
 //            try await documentRepository.sync()
 //            try await folderRepository.sync()
 //        }
         
         do {
-            let folders = try await folderRepository.fetchLocal()
+            let baseFolder = await getBaseFolder(folder: parentFolder)
+            let folders = try await folderRepository.getSubFolders(
+                of: baseFolder
+            )
             
             var result = [FolderUI]()
             
             for folder in folders {
                 let folderUI = folder.toUI(
-                    with: try await folderRepository.countDocuments(of: folder)
+                    with: try await folderRepository
+                        .countDocuments(of: folder)
                 )
                 
                 result.append(folderUI)
@@ -55,9 +65,12 @@ class DocumentListProviderImpl: DocumentListProvider {
         }
     }
     
-    func fetchDocuments() async -> [DocumentCardUI] {
+    func fetchDocuments(for parentFolder: FolderUI?) async -> [DocumentCardUI] {
         do {
-            let documents = try await documentRepository.fetchLocal()
+            let baseFolder = await getBaseFolder(folder: parentFolder)
+            let documents = try await documentRepository.getDocuments(
+                of: baseFolder
+            )
             
             return documents.map { $0.toCardUI() }
         } catch {
@@ -91,5 +104,37 @@ class DocumentListProviderImpl: DocumentListProvider {
         } catch {
             AppLogger.shared.error("Failed to delete folder: \(error)")
         }
+    }
+    
+    func getSelectedTags() -> [DocumentCardUI.Color] {
+        guard let decoded = try? JSONDecoder().decode(
+            [DocumentCardUI.Color].self,
+            from: selectedTagsData
+        ) else {
+            return []
+        }
+        return decoded
+    }
+    
+    func setSelectedTags(_ tags: [DocumentCardUI.Color]) {
+        if let encoded = try? JSONEncoder().encode(tags) {
+            selectedTagsData = encoded
+        }
+    }
+    
+    private func getBaseFolder(folder: FolderUI?) async -> Folder? {
+        var baseFolder: Folder? = nil
+        
+        do {
+            if let folderId = folder?.id {
+                baseFolder = try await folderRepository.getLocal(
+                    with: folderId
+                )
+            }
+        } catch {
+            AppLogger.shared.error("Failed to get base folder: \(error)")
+        }
+        
+        return baseFolder
     }
 }

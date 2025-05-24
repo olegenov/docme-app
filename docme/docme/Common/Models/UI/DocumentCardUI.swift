@@ -19,7 +19,7 @@ struct DocumentCardUI: Identifiable, Hashable {
         case tag
     }
     
-    enum Color: String, Hashable {
+    enum Color: String, Hashable, Codable {
         case none
         case red
         case green
