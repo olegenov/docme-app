@@ -9,6 +9,7 @@ protocol DocumentListProvider {
     func createNewFolder(
         with: UUID,
         named: String,
+        in: FolderUI?,
         complition: (Bool) -> Void
     ) async
     
@@ -20,7 +21,7 @@ protocol DocumentListProvider {
     func setSelectedTags(_ tags: [DocumentCardUI.Color])
 }
 
-class DocumentListProviderImpl: DocumentListProvider {
+final class DocumentListProviderImpl: DocumentListProvider {
     private let documentRepository: DocumentRepository
     private let folderRepository: FolderRepository
     
@@ -42,9 +43,12 @@ class DocumentListProviderImpl: DocumentListProvider {
         
         do {
             let baseFolder = await getBaseFolder(folder: parentFolder)
-            let folders = try await folderRepository.getSubFolders(
-                of: baseFolder
-            )
+            let folders: [Folder]
+            if let baseFolder = baseFolder {
+                folders = baseFolder.subfolders
+            } else {
+                folders = try await folderRepository.getSubFolders(of: nil)
+            }
             
             var result = [FolderUI]()
             
@@ -83,11 +87,14 @@ class DocumentListProviderImpl: DocumentListProvider {
     func createNewFolder(
         with uuid: UUID,
         named: String,
+        in parentFolder: FolderUI?,
         complition: (Bool) -> Void
     ) async {
         do {
+            let baseFolder = await getBaseFolder(folder: parentFolder)
+            
             try await folderRepository.createLocal(
-                .init(id: uuid, name: named)
+                .init(id: uuid, name: named, parentFolder: baseFolder)
             )
             
             complition(true)

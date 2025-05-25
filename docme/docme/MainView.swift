@@ -64,7 +64,7 @@ struct MainView: View {
             AppTabbarView(
                 currentTab: $currentTab,
                 onFolderCreation: {
-                    documentListCoordinator.createNewFolder()
+                    DocumentListEventBus.shared.send(.createFolder)
                 }
             )
                 .padding(.bottom, DS.Spacing.m20)

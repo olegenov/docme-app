@@ -13,7 +13,7 @@ protocol FolderRepository {
 }
 
 
-final class FolderRepositoryImpl: FolderRepository {
+actor FolderRepositoryImpl: FolderRepository {
     private let storage: FolderStorageRepository
     private let api: FolderNetworkingRepository
 

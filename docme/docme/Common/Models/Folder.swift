@@ -10,7 +10,11 @@ final class Folder: UUIDModel {
     var isDirty: Bool
     var deleted: Bool
     
-    @Relationship(deleteRule: .nullify) var parentFolder: Folder?
+    @Relationship(inverse: \Folder.parentFolder)
+    var subfolders: [Folder] = []
+
+    @Relationship(deleteRule: .cascade)
+    var parentFolder: Folder?
     
     init(
         id: UUID = UUID(),

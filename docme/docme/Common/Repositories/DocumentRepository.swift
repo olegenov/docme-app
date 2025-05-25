@@ -8,7 +8,7 @@ protocol DocumentRepository {
     func getDocuments(of folder: Folder?) async throws -> [Document]
 }
 
-final class DocumentRepositoryImpl: DocumentRepository {
+actor DocumentRepositoryImpl: DocumentRepository {
     private let storage: DocumentStorageRepository
     private let api: DocumentNetworkingRepository
     private let folderRepository: FolderRepository

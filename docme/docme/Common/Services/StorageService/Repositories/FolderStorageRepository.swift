@@ -45,13 +45,21 @@ final class FolderStorageRepositoryImpl: FolderStorageRepository {
     }
     
     func getSubfolders(of folder: Folder?) async throws -> [Folder] {
-        let folderUUID: UUID? = folder?.uuid
+        let descriptor: FetchDescriptor<Folder>
         
-        let descriptor = FetchDescriptor<Folder>(
-            predicate: #Predicate { folder in
-                folder.parentFolder?.uuid == folderUUID
-            }
-        )
+        if let folderUUID = folder?.uuid {
+            descriptor = FetchDescriptor<Folder>(
+                predicate: #Predicate { folder in
+                    folder.parentFolder?.uuid == folderUUID
+                }
+            )
+        } else {
+            descriptor = FetchDescriptor<Folder>(
+                predicate: #Predicate { folder in
+                    folder.parentFolder == nil
+                }
+            )
+        }
         
         return try await service.fetch(descriptor: descriptor)
     }

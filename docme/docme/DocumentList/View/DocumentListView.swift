@@ -71,7 +71,8 @@ struct DocumentListView<ViewModel: DocumentListViewModel>: View {
             }
             
             TitledContent(title: Captions.myDocs) {
-                if viewModel.folders.isNotEmpty {
+                if viewModel.folders.isNotEmpty ||
+                    viewModel.creatingNewFolder {
                     foldersView
                 }
                 
@@ -84,7 +85,8 @@ struct DocumentListView<ViewModel: DocumentListViewModel>: View {
     
     private var folderDetailsView: some View {
         TitledContent(title: viewModel.selectedFolder?.name ?? "") {
-            if viewModel.folders.isNotEmpty {
+            if viewModel.folders.isNotEmpty ||
+                viewModel.creatingNewFolder {
                 foldersView
             }
             

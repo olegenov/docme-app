@@ -33,6 +33,7 @@ protocol DocumentListViewModel: ObservableObject, AnyObject {
     func loadData() async
 }
 
+
 @Observable
 class DocumentListViewModelImpl: DocumentListViewModel {
     private(set) var favorites = [DocumentCardUI]()
@@ -140,6 +141,7 @@ class DocumentListViewModelImpl: DocumentListViewModel {
             await provider.createNewFolder(
                 with: uuid,
                 named: folderName,
+                in: selectedFolder,
                 complition: { success in
                     if !success {
                         folders.removeAll {
