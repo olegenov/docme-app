@@ -69,6 +69,7 @@ final class DocumentListProviderImpl: DocumentListProvider {
         }
     }
     
+    @MainActor
     func fetchDocuments(for parentFolder: FolderUI?) async -> [DocumentCardUI] {
         do {
             let baseFolder = await getBaseFolder(folder: parentFolder)

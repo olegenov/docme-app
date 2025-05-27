@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 
-struct TitleView: View {
+struct DescriptionView: View {
     @Environment(\.theme) var theme
     
     enum Configuration {
@@ -35,7 +35,7 @@ struct TitleView: View {
     
     private func defaultView(text: String) -> some View {
         Text(text)
-            .applyFont(.body(.lg, .bold))
+            .applyFont(.body(.md, .regular))
     }
     
     private func editingView(text: Binding<String>, placeholder: String) -> some View {
@@ -43,15 +43,9 @@ struct TitleView: View {
             "",
             text: text,
             prompt: Text(placeholder)
-                .font(.system(size: DSFontSize.lg.fontSize))
-                .fontWeight(.bold)
+                .font(.system(size: DSFontSize.md.fontSize))
                 .foregroundColor(theme.colors.textSecondary)
         )
-        .font(.system(size: DSFontSize.lg.fontSize))
-        .fontWeight(.bold)
+        .font(.system(size: DSFontSize.md.fontSize))
     }
-}
-
-#Preview {
-    TitleView(text: "Hello World")
 }

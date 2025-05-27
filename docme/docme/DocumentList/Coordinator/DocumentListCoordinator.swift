@@ -5,6 +5,7 @@ import Combine
 
 enum DocumentListRoutes: Route, Hashable {
     case folderDetails(folder: FolderUI)
+    case documentCreation
 }
 
 
@@ -43,7 +44,8 @@ class DocumentListCoordinator: ObservableObject {
                 case .createFolder:
                     viewModel?.creatingNewFolder = true
                 case .createDocument:
-                    break
+                    viewModel?.createNewDocument()
+                default: break
                 }
             }
             .store(in: &cancellables)
@@ -79,6 +81,10 @@ extension DocumentListCoordinator: BaseCoordinatorRouting {
         case .folderDetails(let folder):
             return AnyView(
                 DocumentListCoordinator(container: container).start(for: folder)
+            )
+        case .documentCreation:
+            return AnyView(
+                DocumentCreationCoordinator(container: container).start()
             )
         }
     }

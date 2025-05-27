@@ -37,7 +37,7 @@ struct MainScrollView<Content: View>: View {
     
     var body: some View {
         ScrollView(showsIndicators: false) {
-            VStack(spacing: DS.Spacing.m16) {
+            VStack(alignment: .leading, spacing: DS.Spacing.m16) {
                 content()
             }
             .frame(maxWidth: .infinity)

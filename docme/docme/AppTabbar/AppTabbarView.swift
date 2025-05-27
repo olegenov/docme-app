@@ -8,6 +8,9 @@ struct AppTabbarView: View {
     @Binding var currentTab: Router.Tab
     
     let onFolderCreation: () -> Void
+    let onDocumentCreation: () -> Void
+    
+    @Binding var isTabbarVisible: Bool
     
     @State private var isExtended: Bool = false
     @State private var dragOffset: CGFloat = 0
@@ -16,6 +19,9 @@ struct AppTabbarView: View {
         Group {
             if isExtended {
                 isExtendedView
+                    .onAppear {
+                        currentTab = .documents
+                    }
             } else {
                 defaultView
             }
@@ -70,7 +76,6 @@ struct AppTabbarView: View {
                     trailingView: .chevron,
                     onTapAction:  {
                         onFolderCreation()
-                        currentTab = .documents
                         
                         withAnimation {
                             isExtended = false
@@ -88,8 +93,12 @@ struct AppTabbarView: View {
                         )
                     ),
                     trailingView: .chevron,
-                    onTapAction:  {
+                    onTapAction: {
+                        onDocumentCreation()
                         
+                        withAnimation {
+                            isExtended = false
+                        }
                     }
                 )
             }

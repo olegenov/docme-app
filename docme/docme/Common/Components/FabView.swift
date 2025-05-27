@@ -13,6 +13,7 @@ struct FabView: View {
     }
     
     let content: Content
+    var background: Color? = nil
     var isSelected: Bool = false
     var longPaddings: Bool = false
     var onTapAction: (() -> Void)? = nil
@@ -36,7 +37,7 @@ struct FabView: View {
         .padding(.horizontal, longPaddings ? DS.Spacing.m2 : 0)
         .padding(.leading, DS.Spacing.m4)
         .padding(.trailing, trailingPadding)
-        .background(isSelected ? theme.colors.overlaySelection : theme.colors.overlay)
+        .background(backgroundColor)
         .cornerRadius(DS.Rounding.m8)
         .applyShadow(theme.shadows.overlayShadow)
         .onTapGesture(perform: onTapAction ?? {})
@@ -55,6 +56,14 @@ struct FabView: View {
             return DS.Spacing.m4
         case .iconText:
             return DS.Spacing.m6
+        }
+    }
+    
+    private var backgroundColor: Color {
+        if let background {
+            background
+        } else {
+            isSelected ? theme.colors.overlaySelection : theme.colors.overlay
         }
     }
     

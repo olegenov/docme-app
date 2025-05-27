@@ -3,7 +3,7 @@ import Foundation
 struct DocumentCardUI: Identifiable, Hashable {
     let id: UUID
     let title: String
-    let imageUrl: String
+    let imageUrl: String?
     let icon: Icon
     let color: Color
     let description: String?
@@ -33,7 +33,7 @@ struct DocumentCardUI: Identifiable, Hashable {
     init(
         id: UUID,
         title: String,
-        imageUrl: String,
+        imageUrl: String?,
         icon: Icon,
         color: Color,
         description: String?,
@@ -88,13 +88,13 @@ extension DocumentCardUI.Color {
 }
 
 extension DocumentCardUI.Icon {
-    func toTagIconName() -> ImageIcon.Name? {
+    func toTagIconName() -> ImageIcon.Name {
         switch self {
         case .driver: .driverOutline
         case .government: .governmentOutline
         case .passport: .passportOutline
         case .international: .internationalOutline
-        case .tag: nil
+        case .tag: .tagOutline
         }
     }
 }
@@ -104,7 +104,7 @@ extension Document {
         .init(
             id: uuid,
             title: title,
-            imageUrl: "", // TODO: Implement images
+            imageUrl: imagePath,
             icon: icon.toModelIcon(),
             color: color.toModelColor(),
             description: documentDescription,

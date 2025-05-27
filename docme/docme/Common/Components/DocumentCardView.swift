@@ -7,8 +7,8 @@ struct DocumentCardView: View {
     
     enum DisplayMode {
         case sm
-        case md(imageUrl: String)
-        case lg(imageUrl: String, date: Date)
+        case md(imageUrl: String?)
+        case lg(imageUrl: String?, date: Date)
     }
     
     enum LeadingView {
@@ -24,7 +24,7 @@ struct DocumentCardView: View {
     
     var onFavoriteTap: (() -> Void)? = nil
     
-    @State private var image: UIImage? = UIImage()
+    @State private var image: UIImage? = nil
     
     var body: some View {
         VStack {
@@ -83,30 +83,41 @@ struct DocumentCardView: View {
             .padding(.horizontal, DS.Spacing.m8)
     }
     
-    private func imageView(imageUrl: String, ratio: CGFloat) -> some View {
+    private func imageView(imageUrl: String?, ratio: CGFloat) -> some View {
         GeometryReader { geometry in
             ZStack {
                 theme.colors.overlay
-                ActivityIndicatorView(size: .md)
-                Image(
-                    uiImage: imageService.loadImage(
-                        from: imageUrl
-                    ) ?? UIImage()
-                )
-                    .resizable()
-                    .scaledToFill()
-                    .frame(
-                        width: geometry.size.width,
-                        height: geometry.size.width * ratio
-                    )
-                    .clipped()
+                
+                if let image {
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(
+                            width: geometry.size.width,
+                            height: geometry.size.width * ratio
+                        )
+                        .clipped()
+                } else {
+                    ActivityIndicatorView(size: .md)
+                        .onAppear {
+                            guard let imageUrl, image == nil else { return }
+
+                            DispatchQueue.global(qos: .userInitiated).async {
+                                let image = imageService.loadImage(from: imageUrl)
+
+                                DispatchQueue.main.async {
+                                    self.image = image
+                                }
+                            }
+                        }
+                }
             }
         }
         .aspectRatio(1 / (ratio != 0 ? ratio : 1), contentMode: .fit)
         .cornerRadius(DS.Rounding.m4)
     }
     
-    private func mediumView(imageUrl: String) -> some View {
+    private func mediumView(imageUrl: String?) -> some View {
         VStack(spacing: 0) {
             imageView(imageUrl: imageUrl, ratio: 2/3)
                 .padding(.horizontal, DS.Spacing.m4)
@@ -125,7 +136,7 @@ struct DocumentCardView: View {
     }
     
     private func largeView(
-        imageUrl: String,
+        imageUrl: String?,
         date: Date
     ) -> some View {
         HStack(alignment: .top, spacing: DS.Spacing.m8) {

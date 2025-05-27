@@ -39,12 +39,12 @@ struct DocumentCollectionItemView: View {
     }
     
     private var documentIcon: DocumentCardView.LeadingView {
-        guard let iconName = document.icon.toTagIconName() else {
+        guard document.icon != .tag else {
             return .tag(document.color.toTagColor())
         }
         
         return .icon(
-            iconName,
+            document.icon.toTagIconName(),
             document.color.toIconColor()
         )
     }

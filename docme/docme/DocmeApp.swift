@@ -27,7 +27,7 @@ struct DocmeApp: App {
             RoutingView { documentListPath, profilePath in
                 MainView(
                     documentListPath: documentListPath,
-                    profileListPath: profilePath,
+                    profilePath: profilePath,
                     diContainer: .init(modelContext: modelContainer.mainContext)
                 )
             }

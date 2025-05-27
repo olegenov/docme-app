@@ -35,4 +35,24 @@ enum Captions {
     static let no = "Нет"
     
     static let mainPage = "Главная"
+    
+    static let selectImage = "Выбрать изображение документа"
+    
+    static let newDocument = "Новый документ"
+    static let description = "Описание"
+    static let documentType = "Тип документа"
+    static let documentColor = "Цвет документа"
+    
+    static let cancelDocumentAlertTitle = "Прекратить создание?"
+    static let cancelDocumentAlertDescription = "Заполненные будут потеряны"
+    
+    static let passport = "Паспорт"
+    static let snils = "СНИЛС"
+    static let another = "Другое"
+    static let internationalPassport = "Загранпаспорт"
+    static let driverLicense = "Водительское"
+    
+    static let addImageFirst = "Сначала добавьте изображение"
+    static let successfullyCreatedDocument = "Документ успешно создан"
+    static let documentCreationError = "Ошибка при создании документа"
 }

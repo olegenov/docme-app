@@ -88,7 +88,9 @@ struct ListItemView: View {
         }
         .frame(maxWidth: .infinity)
         .contentShape(Rectangle())
-        .onTapGesture(perform: onTapAction ?? { })
+        .applyIf(onTapAction != nil) { view in
+            view.onTapGesture(perform: onTapAction ?? { })
+        }
         .offset(x: offset)
         .animation(.easeInOut, value: offset)
         .applyIf(onDeleteAction != nil) { view in

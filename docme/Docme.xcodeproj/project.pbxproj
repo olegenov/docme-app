@@ -49,6 +49,18 @@
 		0D362F302DE1F9A6003E9262 /* DocumentListTabbar+SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D362F2F2DE1F9A2003E9262 /* DocumentListTabbar+SearchView.swift */; };
 		0D362F322DE1F9B3003E9262 /* DocumentListTabbar+FolderDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D362F312DE1F9A9003E9262 /* DocumentListTabbar+FolderDetailsView.swift */; };
 		0D362F352DE3CAC9003E9262 /* DocumentListEventBus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D362F342DE3CAC5003E9262 /* DocumentListEventBus.swift */; };
+		0D362F372DE62441003E9262 /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D362F362DE62438003E9262 /* PhotoPicker.swift */; };
+		0D362F3D2DE625B8003E9262 /* DocumentCreationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D362F3C2DE625B8003E9262 /* DocumentCreationCoordinator.swift */; };
+		0D362F3F2DE62BF8003E9262 /* DocumentCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D362F3E2DE62BEC003E9262 /* DocumentCreationView.swift */; };
+		0D362F422DE62D10003E9262 /* DocumentImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D362F412DE62D0A003E9262 /* DocumentImageView.swift */; };
+		0D362F442DE62F6A003E9262 /* DescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D362F432DE62F6A003E9262 /* DescriptionView.swift */; };
+		0D362F462DE63002003E9262 /* TitleSecondaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D362F452DE63002003E9262 /* TitleSecondaryView.swift */; };
+		0D362F482DE63057003E9262 /* DocumentCreationTabbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D362F472DE6304F003E9262 /* DocumentCreationTabbarView.swift */; };
+		0D362F4A2DE631F5003E9262 /* DocumentCreationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D362F492DE631F5003E9262 /* DocumentCreationViewModel.swift */; };
+		0D362F4F2DE638C8003E9262 /* DocumentCreationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D362F4E2DE638C3003E9262 /* DocumentCreationProvider.swift */; };
+		0D362F522DE64DE5003E9262 /* DocumentCreationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D362F512DE64DDD003E9262 /* DocumentCreationModel.swift */; };
+		0D362F552DE652CB003E9262 /* ToastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D362F542DE652C8003E9262 /* ToastManager.swift */; };
+		0D362F572DE6534D003E9262 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D362F562DE6534A003E9262 /* ToastView.swift */; };
 		0D3EA0A92DCBEA4400D987F0 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3EA0A82DCBEA4200D987F0 /* Router.swift */; };
 		0D3EA0B12DCBF59100D987F0 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3EA0B02DCBF58C00D987F0 /* MainView.swift */; };
 		0D3EA0C22DCCC85B00D987F0 /* DocumentCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3EA0C12DCCC85200D987F0 /* DocumentCollectionView.swift */; };
@@ -128,6 +140,18 @@
 		0D362F2F2DE1F9A2003E9262 /* DocumentListTabbar+SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentListTabbar+SearchView.swift"; sourceTree = "<group>"; };
 		0D362F312DE1F9A9003E9262 /* DocumentListTabbar+FolderDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DocumentListTabbar+FolderDetailsView.swift"; sourceTree = "<group>"; };
 		0D362F342DE3CAC5003E9262 /* DocumentListEventBus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentListEventBus.swift; sourceTree = "<group>"; };
+		0D362F362DE62438003E9262 /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
+		0D362F3C2DE625B8003E9262 /* DocumentCreationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCreationCoordinator.swift; sourceTree = "<group>"; };
+		0D362F3E2DE62BEC003E9262 /* DocumentCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCreationView.swift; sourceTree = "<group>"; };
+		0D362F412DE62D0A003E9262 /* DocumentImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentImageView.swift; sourceTree = "<group>"; };
+		0D362F432DE62F6A003E9262 /* DescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionView.swift; sourceTree = "<group>"; };
+		0D362F452DE63002003E9262 /* TitleSecondaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleSecondaryView.swift; sourceTree = "<group>"; };
+		0D362F472DE6304F003E9262 /* DocumentCreationTabbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCreationTabbarView.swift; sourceTree = "<group>"; };
+		0D362F492DE631F5003E9262 /* DocumentCreationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCreationViewModel.swift; sourceTree = "<group>"; };
+		0D362F4E2DE638C3003E9262 /* DocumentCreationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCreationProvider.swift; sourceTree = "<group>"; };
+		0D362F512DE64DDD003E9262 /* DocumentCreationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCreationModel.swift; sourceTree = "<group>"; };
+		0D362F542DE652C8003E9262 /* ToastManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastManager.swift; sourceTree = "<group>"; };
+		0D362F562DE6534A003E9262 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		0D3EA0A82DCBEA4200D987F0 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		0D3EA0B02DCBF58C00D987F0 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		0D3EA0C12DCCC85200D987F0 /* DocumentCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCollectionView.swift; sourceTree = "<group>"; };
@@ -263,6 +287,8 @@
 		0D102DED2DC80BFD0017073B /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				0D362F562DE6534A003E9262 /* ToastView.swift */,
+				0D362F412DE62D0A003E9262 /* DocumentImageView.swift */,
 				0D102E172DC93B580017073B /* ItemsList */,
 				0D3EA0C72DCCC9BC00D987F0 /* DocumentCollection */,
 				0DCEF1402DDD25610073ED13 /* CloseControlView.swift */,
@@ -273,6 +299,8 @@
 				0D102E0B2DC8E2F50017073B /* ActivityIndicatorView.swift */,
 				0D102E012DC8D41B0017073B /* DocumentCardView.swift */,
 				0D102DF82DC815E80017073B /* TitleView.swift */,
+				0D362F452DE63002003E9262 /* TitleSecondaryView.swift */,
+				0D362F432DE62F6A003E9262 /* DescriptionView.swift */,
 				0D102DF02DC80C870017073B /* ImageIcon.swift */,
 				0D102DEE2DC80C0D0017073B /* FabView.swift */,
 				0DCEF1392DDD13FE0073ED13 /* TextSectionView.swift */,
@@ -312,6 +340,7 @@
 		0D102E032DC8D69C0017073B /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				0D362F532DE652C0003E9262 /* Toast */,
 				0D3EA0AD2DCBEF2100D987F0 /* Router */,
 			);
 			path = Managers;
@@ -417,6 +446,11 @@
 		0D362F212DE0FBCB003E9262 /* DocumentCreation */ = {
 			isa = PBXGroup;
 			children = (
+				0D362F502DE64DD8003E9262 /* Model */,
+				0D362F4D2DE638BC003E9262 /* Provider */,
+				0D362F402DE62CE8003E9262 /* ViewModel */,
+				0D362F3B2DE625AE003E9262 /* Coordinator */,
+				0D362F3A2DE62581003E9262 /* View */,
 			);
 			path = DocumentCreation;
 			sourceTree = "<group>";
@@ -447,6 +481,56 @@
 				0D362F342DE3CAC5003E9262 /* DocumentListEventBus.swift */,
 			);
 			path = Events;
+			sourceTree = "<group>";
+		};
+		0D362F3A2DE62581003E9262 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0D362F472DE6304F003E9262 /* DocumentCreationTabbarView.swift */,
+				0D362F3E2DE62BEC003E9262 /* DocumentCreationView.swift */,
+				0D362F362DE62438003E9262 /* PhotoPicker.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0D362F3B2DE625AE003E9262 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				0D362F3C2DE625B8003E9262 /* DocumentCreationCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		0D362F402DE62CE8003E9262 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0D362F492DE631F5003E9262 /* DocumentCreationViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		0D362F4D2DE638BC003E9262 /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+				0D362F4E2DE638C3003E9262 /* DocumentCreationProvider.swift */,
+			);
+			path = Provider;
+			sourceTree = "<group>";
+		};
+		0D362F502DE64DD8003E9262 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0D362F512DE64DDD003E9262 /* DocumentCreationModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		0D362F532DE652C0003E9262 /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				0D362F542DE652C8003E9262 /* ToastManager.swift */,
+			);
+			path = Toast;
 			sourceTree = "<group>";
 		};
 		0D3EA0AD2DCBEF2100D987F0 /* Router */ = {
@@ -684,28 +768,36 @@
 				0D102E4F2DCAAB920017073B /* InputFieldView.swift in Sources */,
 				0D3EA0A92DCBEA4400D987F0 /* Router.swift in Sources */,
 				0D102E1D2DC946BD0017073B /* Captions.swift in Sources */,
+				0D362F3D2DE625B8003E9262 /* DocumentCreationCoordinator.swift in Sources */,
 				0DCEF1212DDBAF060073ED13 /* ImageServiceImpl.swift in Sources */,
 				0D102DDE2DC7F7B30017073B /* Color+.swift in Sources */,
 				0DCEF1192DCFFD710073ED13 /* UUIDModel.swift in Sources */,
 				0D102E542DCAAE6B0017073B /* Collection+.swift in Sources */,
 				0D362F292DE1EA9E003E9262 /* View+HideKeybpard.swift in Sources */,
 				0DC413B62DCE203100CABC15 /* FolderStorageRepository.swift in Sources */,
+				0D362F522DE64DE5003E9262 /* DocumentCreationModel.swift in Sources */,
+				0D362F4A2DE631F5003E9262 /* DocumentCreationViewModel.swift in Sources */,
 				0DCEF12D2DDBCB3D0073ED13 /* ProfileViewModel.swift in Sources */,
 				0D102DF92DC815EA0017073B /* TitleView.swift in Sources */,
 				0DCEF11E2DD007B70073ED13 /* DocumentNetworking.swift in Sources */,
 				0D102E192DC93C460017073B /* ListItemView.swift in Sources */,
 				0DCEF1382DDD12030073ED13 /* ProfileTabbarView.swift in Sources */,
 				0D102E392DCA4FA50017073B /* DocumentListView.swift in Sources */,
+				0D362F3F2DE62BF8003E9262 /* DocumentCreationView.swift in Sources */,
 				0D102DF72DC810050017073B /* String+.swift in Sources */,
+				0D362F462DE63002003E9262 /* TitleSecondaryView.swift in Sources */,
+				0D362F422DE62D10003E9262 /* DocumentImageView.swift in Sources */,
 				0DCEF1232DDBAF1E0073ED13 /* ImageService.swift in Sources */,
 				0DC413BB2DCE283300CABC15 /* DocumentNetworkingRepository.swift in Sources */,
 				0D3EA0B12DCBF59100D987F0 /* MainView.swift in Sources */,
 				0DCEF0FA2DCE28E30073ED13 /* FolderNetworkingRepository.swift in Sources */,
+				0D362F572DE6534D003E9262 /* ToastView.swift in Sources */,
 				0DCEF1302DDBCBC50073ED13 /* ProfileView.swift in Sources */,
 				0DCEF1102DCFDDA80073ED13 /* DocumentRepository.swift in Sources */,
 				0D102DEB2DC806DF0017073B /* Text+.swift in Sources */,
 				0DCEF13D2DDD15A50073ED13 /* Profile.swift in Sources */,
 				0D102E162DC93B550017073B /* ItemsListView.swift in Sources */,
+				0D362F552DE652CB003E9262 /* ToastManager.swift in Sources */,
 				0DCEF1062DCE38F30073ED13 /* Folder.swift in Sources */,
 				0D102E312DCA4E2C0017073B /* DocumentCardUI.swift in Sources */,
 				0D362F352DE3CAC9003E9262 /* DocumentListEventBus.swift in Sources */,
@@ -713,11 +805,13 @@
 				0D362F322DE1F9B3003E9262 /* DocumentListTabbar+FolderDetailsView.swift in Sources */,
 				0D102E362DCA4F2C0017073B /* FolderUI.swift in Sources */,
 				0D102E482DCA63B70017073B /* TitledContent.swift in Sources */,
+				0D362F482DE63057003E9262 /* DocumentCreationTabbarView.swift in Sources */,
 				0DCEF1172DCFEAC10073ED13 /* AppDIContainer.swift in Sources */,
 				0DC4139E2DCE193E00CABC15 /* StorageService.swift in Sources */,
 				0DCEF11C2DD007AD0073ED13 /* FolderNetworking.swift in Sources */,
 				0D102E1B2DC940BC0017073B /* SeparatorView.swift in Sources */,
 				0DC413B82DCE256300CABC15 /* DefaultNetworkingServce.swift in Sources */,
+				0D362F4F2DE638C8003E9262 /* DocumentCreationProvider.swift in Sources */,
 				0D102E002DC818AC0017073B /* View+Shadow.swift in Sources */,
 				0DCEF1342DDBD47F0073ED13 /* BaseCoordinatorRouting.swift in Sources */,
 				0DCEF1272DDBCAD20073ED13 /* ProfileCoordinator.swift in Sources */,
@@ -729,11 +823,13 @@
 				0D362F302DE1F9A6003E9262 /* DocumentListTabbar+SearchView.swift in Sources */,
 				0D362F2C2DE1F97C003E9262 /* DocumentListTabbar+DefaultView.swift in Sources */,
 				0D102DE82DC806B70017073B /* Font.swift in Sources */,
+				0D362F372DE62441003E9262 /* PhotoPicker.swift in Sources */,
 				0D102DE62DC7FBDE0017073B /* DS.swift in Sources */,
 				0D102E402DCA508D0017073B /* DocumentListCoordinator.swift in Sources */,
 				0D102E142DC934130017073B /* TagsView.swift in Sources */,
 				0DC413AC2DCE1AFC00CABC15 /* ServerChangesResponse.swift in Sources */,
 				0DC413B42DCE202500CABC15 /* DocumentStorageRepository.swift in Sources */,
+				0D362F442DE62F6A003E9262 /* DescriptionView.swift in Sources */,
 				0DCEF13A2DDD14070073ED13 /* TextSectionView.swift in Sources */,
 				0DC413AF2DCE1C2B00CABC15 /* AppLogger.swift in Sources */,
 				0DCEF1362DDBD6BD0073ED13 /* AppTabbarView.swift in Sources */,

@@ -38,25 +38,21 @@ struct DocumentListView<ViewModel: DocumentListViewModel>: View {
             tabbarState = defaultTabbarState
             viewModel.updateSelectedTags()
         }
-        .alert(
-            Captions.deleteFolderAlertTitle,
-            isPresented: $isDeletingFolderAlertPresented
-        ) {
-            Button(Captions.yes, role: .destructive) {
+        .deleteFolderAlert(
+            isPresented: $isDeletingFolderAlertPresented,
+            onDeleteFolder: {
                 guard let folder = folderToDelete else {
                     return
                 }
                 viewModel.deleteFolder(folder)
                 folderToDelete = nil
                 isDeletingFolderAlertPresented = false
-            }
-            Button(Captions.no, role: .cancel) {
+            },
+            onCancel: {
                 folderToDelete = nil
                 isDeletingFolderAlertPresented = false
             }
-        } message: {
-            Text(Captions.deleteFolderAlertDescription)
-        }
+        )
         .onChange(of: folderToDelete) {
             isDeletingFolderAlertPresented = folderToDelete != nil
         }
@@ -168,7 +164,7 @@ struct DocumentListView<ViewModel: DocumentListViewModel>: View {
             documents: viewModel.documents,
             imageService: imageService,
             onFavoriteToggle: viewModel.toggleFavorite
-        ).padding(.horizontal, DS.Spacing.m8)
+        )
     }
     
     private var documentList: some View {
@@ -242,5 +238,45 @@ struct DocumentListView<ViewModel: DocumentListViewModel>: View {
                 viewModel.searchDocuments(by: searchText)
             }
         )
+    }
+}
+
+
+private struct DeleteFolderAlertModifier: ViewModifier {
+    @Binding var isPresented: Bool
+    
+    let ononDeleteFolder: () -> Void
+    let onCancel: () -> Void
+
+    func body(content: Content) -> some View {
+        content
+            .alert(
+                Captions.deleteFolderAlertTitle,
+                isPresented: $isPresented
+            ) {
+                Button(Captions.yes, role: .destructive) {
+                    ononDeleteFolder()
+                }
+                Button(Captions.no, role: .cancel) {
+                    onCancel()
+                }
+            } message: {
+                Text(Captions.deleteFolderAlertDescription)
+            }
+    }
+}
+
+
+private extension View {
+    func deleteFolderAlert(
+        isPresented: Binding<Bool>,
+        onDeleteFolder: @escaping () -> Void,
+        onCancel: @escaping () -> Void
+    ) -> some View {
+        self.modifier(DeleteFolderAlertModifier(
+            isPresented: isPresented,
+            ononDeleteFolder: onDeleteFolder,
+            onCancel: onCancel
+        ))
     }
 }

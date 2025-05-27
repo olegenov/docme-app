@@ -16,4 +16,5 @@ final class DocumentListEventBus: ObservableObject {
 enum DocumentListEvent {
     case createFolder
     case createDocument
+    case documentCreationClosed
 }

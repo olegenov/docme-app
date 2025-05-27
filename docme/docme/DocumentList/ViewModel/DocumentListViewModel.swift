@@ -30,6 +30,8 @@ protocol DocumentListViewModel: ObservableObject, AnyObject {
     func createNewFolder()
     func deleteFolder(_ folder: FolderUI)
     
+    func createNewDocument()
+    
     func loadData() async
 }
 
@@ -185,6 +187,13 @@ class DocumentListViewModelImpl: DocumentListViewModel {
     
     func goToHomeFolder() {
         Router.shared.resetToRoot(for: .documents)
+    }
+    
+    func createNewDocument() {
+        Router.shared.pushScreen(
+            DocumentListRoutes.documentCreation,
+            for: .documents
+        )
     }
 }
 

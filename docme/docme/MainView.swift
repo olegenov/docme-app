@@ -3,23 +3,27 @@ import SwiftUI
 
 
 struct MainView: View {
+    @Environment(\.theme) var theme
+    
     @Binding var documentListPath: NavigationPath
-    @Binding var profileListPath: NavigationPath
+    @Binding var profilePath: NavigationPath
     
     @StateObject private var documentListCoordinator: DocumentListCoordinator
     @StateObject private var profileCoordinator: ProfileCoordinator
+    @StateObject private var toastManager = ToastManager.shared
     
     @ObservedObject private var themeController = DS.shared
     
     @State private var currentTab: Router.Tab = .documents
+    @State private var isTabbarVisible: Bool = true
     
     init(
         documentListPath: Binding<NavigationPath>,
-        profileListPath: Binding<NavigationPath>,
+        profilePath: Binding<NavigationPath>,
         diContainer: AppDIContainer
     ) {
         self._documentListPath = documentListPath
-        self._profileListPath = profileListPath
+        self._profilePath = profilePath
         
         self._documentListCoordinator = StateObject(
             wrappedValue: DocumentListCoordinator(container: diContainer)
@@ -35,6 +39,27 @@ struct MainView: View {
                 \.theme,
                  themeController.currentTheme
             )
+            .animation(.easeInOut, value: isTabbarVisible)
+            .background(theme.gradients.background)
+            .onReceive(DocumentListEventBus.shared.$event.compactMap { $0 }) { event in
+                switch event {
+                case .documentCreationClosed:
+                    isTabbarVisible = true
+                default:
+                    break
+                }
+            }
+            .overlay(alignment: .top) {
+                toastView
+            }
+    }
+    
+    private var toastView: some View {
+        Group {
+            if let toast = toastManager.toast {
+                ToastView(toast: toast)
+            }
+        }
     }
     
     private var tabView: some View {
@@ -52,7 +77,7 @@ struct MainView: View {
                     case .profile:
                         profileCoordinator.start()
                             .addNavigationStackContainer(
-                                path: $profileListPath,
+                                path: $profilePath,
                                 coordinator: profileCoordinator,
                                 for: .profile
                             )
@@ -65,10 +90,18 @@ struct MainView: View {
                 currentTab: $currentTab,
                 onFolderCreation: {
                     DocumentListEventBus.shared.send(.createFolder)
-                }
+                },
+                onDocumentCreation: {
+                    isTabbarVisible = false
+                    
+                    DocumentListEventBus.shared.send(.createDocument)
+                },
+                isTabbarVisible: $isTabbarVisible
             )
                 .padding(.bottom, DS.Spacing.m20)
                 .padding(.horizontal)
+                .opacity(isTabbarVisible ? 1 : 0)
+                .offset(y: isTabbarVisible ? 0 : 20)
         }
         .ignoresSafeArea(edges: .bottom)
     }
