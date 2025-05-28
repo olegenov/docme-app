@@ -163,7 +163,8 @@ struct DocumentListView<ViewModel: DocumentListViewModel>: View {
         DocumentCollectionView(
             documents: viewModel.documents,
             imageService: imageService,
-            onFavoriteToggle: viewModel.toggleFavorite
+            onFavoriteToggle: viewModel.toggleFavorite,
+            onDocumentTap: viewModel.openDocument
         )
     }
     
@@ -173,7 +174,8 @@ struct DocumentListView<ViewModel: DocumentListViewModel>: View {
                 DocumentCollectionItemView(
                     displayType: .list,
                     document: document,
-                    imageService: imageService
+                    imageService: imageService,
+                    onDocumentTap: viewModel.openDocument
                 )
             }
         }

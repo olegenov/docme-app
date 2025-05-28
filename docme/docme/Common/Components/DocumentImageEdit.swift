@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 
-struct DocumentImageView: View {
+struct DocumentImageEdit: View {
     @Environment(\.theme) var theme
     
     @Binding var image: UIImage?
@@ -30,6 +30,31 @@ struct DocumentImageView: View {
                 )
             }
         }
+        .padding(DS.Spacing.m4)
+        .background(theme.colors.overlay)
+        .cornerRadius(DS.Rounding.m8)
+        .applyShadow(theme.shadows.overlayShadow)
+    }
+}
+
+struct DocumentImageView: View {
+    @Environment(\.theme) var theme
+    
+    let image: UIImage?
+    
+    var body: some View {
+        VStack {
+            if let image {
+                Image(uiImage: image)
+                    .resizable()
+                    .scaledToFit()
+                    .cornerRadius(DS.Rounding.m4)
+            } else {
+                ActivityIndicatorView(size: .md)
+            }
+        }
+        .frame(maxWidth: .infinity)
+        .frame(minHeight: 150)
         .padding(DS.Spacing.m4)
         .background(theme.colors.overlay)
         .cornerRadius(DS.Rounding.m8)

@@ -3,7 +3,7 @@ import SwiftUI
 
 
 protocol DocumentCreationProvider {
-    func saveDocument(_ document: DocumentCreationModel) async -> Bool
+    func saveDocument(_ document: DocumentCreationModel) async -> UUID?
 }
 
 final class DocumentCreationProviderImpl: DocumentCreationProvider {
@@ -18,7 +18,7 @@ final class DocumentCreationProviderImpl: DocumentCreationProvider {
         self.imageService = imageService
     }
     
-    func saveDocument(_ document: DocumentCreationModel) async -> Bool {
+    func saveDocument(_ document: DocumentCreationModel) async -> UUID? {
         do {
             let id = UUID()
             
@@ -34,13 +34,14 @@ final class DocumentCreationProviderImpl: DocumentCreationProvider {
                     imagePath: imageUrl,
                     remoteImageURL: nil,
                     icon: document.type,
-                    color: document.color
+                    color: document.color,
+                    description: document.description
                 )
             )
             
-            return true
+            return id
         } catch {
-            return false
+            return nil
         }
     }
 }

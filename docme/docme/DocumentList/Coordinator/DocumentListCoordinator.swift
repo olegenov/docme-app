@@ -6,6 +6,7 @@ import Combine
 enum DocumentListRoutes: Route, Hashable {
     case folderDetails(folder: FolderUI)
     case documentCreation
+    case documentView(id: UUID)
 }
 
 
@@ -85,6 +86,10 @@ extension DocumentListCoordinator: BaseCoordinatorRouting {
         case .documentCreation:
             return AnyView(
                 DocumentCreationCoordinator(container: container).start()
+            )
+        case .documentView(let documentID):
+            return AnyView(
+                DocumentViewCoordinator(container: container).start(for: documentID)
             )
         }
     }

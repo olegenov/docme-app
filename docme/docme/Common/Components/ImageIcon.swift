@@ -30,6 +30,8 @@ struct ImageIcon: View {
         case deleteOutline
         case tagOutline
         case editOutline
+        case shareOutline
+        case copyOutline
     }
     
     let name: Name

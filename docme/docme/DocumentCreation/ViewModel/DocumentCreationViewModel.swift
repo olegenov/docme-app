@@ -51,7 +51,7 @@ class DocumentCreationViewModelImpl: DocumentCreationViewModel {
         Task { [weak self] in
             guard let self else { return }
 
-            let success = await provider.saveDocument(
+            let documentID = await provider.saveDocument(
                 .init(
                     title: documentTitle,
                     description: documentDescription,
@@ -64,12 +64,19 @@ class DocumentCreationViewModelImpl: DocumentCreationViewModel {
             DispatchQueue.main.async {
                 self.showLoading = false
 
-                if success {
+                if let documentID {
+                    Router.shared.popScreen(
+                        for: .documents,
+                        withAnimation: false
+                    )
+                    Router.shared.pushScreen(
+                        DocumentListRoutes.documentView(id: documentID),
+                        for: .documents
+                    )
                     ToastManager.shared.show(
                         message: Captions.successfullyCreatedDocument,
                         type: .success
                     )
-                    Router.shared.popScreen(for: .documents)
                 } else {
                     ToastManager.shared.show(
                         message: Captions.documentCreationError,

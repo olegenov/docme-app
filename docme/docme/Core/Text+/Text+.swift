@@ -5,13 +5,20 @@ extension Text {
     func applyFont(_ style: DSTextStyle) -> some View {
         self
             .modifier(DSFontModifier(style: style))
-            .lineSpacing(getLineHeight(style))
+            .lineSpacing(getLineHeight(style) - getFontHeight(style))
     }
     
     func getLineHeight(_ style: DSTextStyle) -> CGFloat {
         switch style {
         case .body(let size, _):
             return size.lineHeight
+        }
+    }
+    
+    func getFontHeight(_ style: DSTextStyle) -> CGFloat {
+        switch style {
+        case .body(let size, _):
+            return size.fontSize
         }
     }
 }

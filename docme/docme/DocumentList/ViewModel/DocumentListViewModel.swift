@@ -32,6 +32,8 @@ protocol DocumentListViewModel: ObservableObject, AnyObject {
     
     func createNewDocument()
     
+    func openDocument(_ document: DocumentCardUI)
+    
     func loadData() async
 }
 
@@ -192,6 +194,13 @@ class DocumentListViewModelImpl: DocumentListViewModel {
     func createNewDocument() {
         Router.shared.pushScreen(
             DocumentListRoutes.documentCreation,
+            for: .documents
+        )
+    }
+    
+    func openDocument(_ document: DocumentCardUI) {
+        Router.shared.pushScreen(
+            DocumentListRoutes.documentView(id: document.id),
             for: .documents
         )
     }

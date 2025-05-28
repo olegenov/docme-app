@@ -3,27 +3,28 @@ import SwiftUI
 import Combine
 
 
-enum DocumentCreationRoutes: Route, Hashable {
+enum DocumentViewRoutes: Route, Hashable {
 }
 
 
-class DocumentCreationCoordinator: ObservableObject {
+class DocumentViewCoordinator: ObservableObject {
     private let container: AppDIContainer
     
     init(container: AppDIContainer) {
         self.container = container
     }
     
-    func start() -> some View {
-        let provider = DocumentCreationProviderImpl(
+    func start(for id: UUID) -> some View {
+        let provider = DocumentViewProviderImpl(
             documentRepository: container.documentRepository,
             imageService: container.imageService
         )
         
-        let viewModel = DocumentCreationViewModelImpl(
-            provider: provider
+        let viewModel = DocumentViewViewModelImpl(
+            provider: provider,
+            id: id
         )
         
-        return DocumentCreationView(viewModel: viewModel)
+        return DocumentViewView(viewModel: viewModel)
     }
 }

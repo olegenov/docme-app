@@ -6,6 +6,7 @@ protocol DocumentRepository {
     func fetchLocal() async throws -> [Document]
     func createLocal(_ document: Document) async throws
     func getDocuments(of folder: Folder?) async throws -> [Document]
+    func getDocument(with id: UUID) async throws -> Document?
 }
 
 actor DocumentRepositoryImpl: DocumentRepository {
@@ -60,6 +61,10 @@ actor DocumentRepositoryImpl: DocumentRepository {
     
     func getDocuments(of folder: Folder?) async throws -> [Document] {
         try await storage.getDocuments(of: folder)
+    }
+    
+    func getDocument(with id: UUID) async throws -> Document? {
+        try await storage.getDocument(with: id)
     }
 }
 

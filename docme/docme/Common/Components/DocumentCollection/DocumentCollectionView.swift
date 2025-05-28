@@ -7,6 +7,7 @@ struct DocumentCollectionView: View {
     let imageService: ImageService
     
     var onFavoriteToggle: ((DocumentCardUI) -> Void)? = nil
+    var onDocumentTap: ((DocumentCardUI) -> Void)? = nil
     
     var body: some View {
         HStack(alignment: .top, spacing: DS.Spacing.m4) {
@@ -16,7 +17,8 @@ struct DocumentCollectionView: View {
                         displayType: .collection,
                         document: document,
                         imageService: imageService,
-                        onFavoriteToggle: onFavoriteToggle
+                        onFavoriteToggle: onFavoriteToggle,
+                        onDocumentTap: onDocumentTap
                     )
                     .frame(maxWidth: .infinity)
                 }
@@ -29,7 +31,8 @@ struct DocumentCollectionView: View {
                         displayType: .collection,
                         document: document,
                         imageService: imageService,
-                        onFavoriteToggle: onFavoriteToggle
+                        onFavoriteToggle: onFavoriteToggle,
+                        onDocumentTap: onDocumentTap
                     )
                     .frame(maxWidth: .infinity)
                 }

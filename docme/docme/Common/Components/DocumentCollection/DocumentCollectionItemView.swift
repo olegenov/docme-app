@@ -14,6 +14,7 @@ struct DocumentCollectionItemView: View {
     let imageService: ImageService
     
     var onFavoriteToggle: ((DocumentCardUI) -> Void)? = nil
+    var onDocumentTap: ((DocumentCardUI) -> Void)? = nil
     
     var body: some View {
         DocumentCardView(
@@ -27,7 +28,9 @@ struct DocumentCollectionItemView: View {
                     onFavoriteToggle?(document)
                 }
             }
-        )
+        ).onTapGesture {
+            onDocumentTap?(document)
+        }
     }
     
     private var configuration: DocumentCardView.DisplayMode {

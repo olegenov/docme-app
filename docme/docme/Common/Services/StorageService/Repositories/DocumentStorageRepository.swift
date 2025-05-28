@@ -8,6 +8,7 @@ protocol DocumentStorageRepository {
     func delete(_ doc: Document) async throws
     func create(_ entiry: Document) async throws
     func getDocuments(of folder: Folder?) async throws -> [Document]
+    func getDocument(with id: UUID) async throws -> Document?
 }
 
 
@@ -50,5 +51,9 @@ final class DocumentStorageRepositoryImpl: DocumentStorageRepository {
         )
         
         return try await service.fetch(descriptor: descriptor)
+    }
+    
+    func getDocument(with id: UUID) async throws -> Document? {
+        try await service.fetch(by: id)
     }
 }

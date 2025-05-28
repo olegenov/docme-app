@@ -55,4 +55,12 @@ enum Captions {
     static let addImageFirst = "Сначала добавьте изображение"
     static let successfullyCreatedDocument = "Документ успешно создан"
     static let documentCreationError = "Ошибка при создании документа"
+    
+    static let errorLoadingDocument = "Ошибка загрузки документа"
+    
+    static let loadingDocument = "Загрузка документа..."
+    
+    static func fieldCopied(name: String) -> String {
+        "Поле \(name) скопировано"
+    }
 }

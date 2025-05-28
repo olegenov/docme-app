@@ -28,6 +28,7 @@ struct ListItemView: View {
         case loading
         case save(action: () -> Void)
         case delete(action: () -> Void)
+        case copy(action: () -> Void)
     }
     
     let configuration: Configuration
@@ -171,6 +172,9 @@ struct ListItemView: View {
                     .onTapGesture(perform: action)
             case .delete(let action):
                 ImageIcon(name: .crossOutline, size: .sm)
+                    .onTapGesture(perform: action)
+            case .copy(let action):
+                ImageIcon(name: .copyOutline, size: .sm)
                     .onTapGesture(perform: action)
             }
         }

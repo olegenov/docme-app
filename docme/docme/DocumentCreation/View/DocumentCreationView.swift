@@ -65,7 +65,7 @@ struct DocumentCreationView<ViewModel: DocumentCreationViewModel>: View {
     }
     
     private var imageView: some View {
-        DocumentImageView(
+        DocumentImageEdit(
             image: $viewModel.documentImage,
             onAddImageTap: {
                 showImagePicker = true
