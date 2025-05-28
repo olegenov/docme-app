@@ -43,8 +43,14 @@ enum Captions {
     static let documentType = "Тип документа"
     static let documentColor = "Цвет документа"
     
-    static let cancelDocumentAlertTitle = "Прекратить создание?"
-    static let cancelDocumentAlertDescription = "Заполненные будут потеряны"
+    static let cancelDocumentCreationAlertTitle = "Прекратить создание?"
+    static let cancelDocumentCreationAlertDescription = "Заполненные данные будут потеряны"
+    
+    static let cancelDocumentEditAlertTitle = "Прекратить редактирование?"
+    static let cancelDocumentEditAlertDescription = "Новые данные будут потеряны"
+    
+    static let documentDeleteAlertTitle = "Удалить документ?"
+    static let documentDeleteAlertDescription = "Данные будут потеряны"
     
     static let passport = "Паспорт"
     static let snils = "СНИЛС"
@@ -55,6 +61,10 @@ enum Captions {
     static let addImageFirst = "Сначала добавьте изображение"
     static let successfullyCreatedDocument = "Документ успешно создан"
     static let documentCreationError = "Ошибка при создании документа"
+    static let documentGetError = "Документ не найден"
+    static let documentEditError = "Ошибка при сохранении документа"
+    static let documentDeletionError = "Ошибка при удалении документа"
+    static let successfullyDeletedDocument = "Документ удален"
     
     static let errorLoadingDocument = "Ошибка загрузки документа"
     

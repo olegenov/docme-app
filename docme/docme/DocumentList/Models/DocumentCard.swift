@@ -7,7 +7,7 @@ struct DocumentCard: Identifiable, Hashable {
     let icon: Icon
     let color: Color
     let description: String?
-    let isFavorite: Bool
+    var isFavorite: Bool
     let createdAt: Date
     let folderId: UUID?
     

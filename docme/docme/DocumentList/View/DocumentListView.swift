@@ -9,7 +9,7 @@ struct DocumentListView<ViewModel: DocumentListViewModel>: View {
     let imageService: ImageService
     
     @State private var isDeletingFolderAlertPresented: Bool = false
-    @State private var folderToDelete: FolderUI? = nil
+    @State private var folderToDelete: FolderCard? = nil
     
     @State private var isSearching: Bool = false
     @State private var tabbarState: DocumentListTabbarView.TabbarState = .none
@@ -105,7 +105,8 @@ struct DocumentListView<ViewModel: DocumentListViewModel>: View {
                             displayType: .favorite,
                             document: favorite,
                             imageService: imageService,
-                            onFavoriteToggle: viewModel.toggleFavorite
+                            onFavoriteToggle: viewModel.toggleFavorite,
+                            onDocumentTap: viewModel.openDocument
                         )
                     }
                 }

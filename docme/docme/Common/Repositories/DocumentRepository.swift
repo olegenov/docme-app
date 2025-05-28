@@ -7,6 +7,8 @@ protocol DocumentRepository {
     func createLocal(_ document: Document) async throws
     func getDocuments(of folder: Folder?) async throws -> [Document]
     func getDocument(with id: UUID) async throws -> Document?
+    func deleteDocument(_ document: Document) async throws
+    func saveLocal(_ document: Document) async throws
 }
 
 actor DocumentRepositoryImpl: DocumentRepository {
@@ -59,12 +61,20 @@ actor DocumentRepositoryImpl: DocumentRepository {
         try await storage.create(document)
     }
     
+    func saveLocal(_ document: Document) async throws {
+        try await storage.update(document)
+    }
+    
     func getDocuments(of folder: Folder?) async throws -> [Document] {
         try await storage.getDocuments(of: folder)
     }
     
     func getDocument(with id: UUID) async throws -> Document? {
         try await storage.getDocument(with: id)
+    }
+    
+    func deleteDocument(_ document: Document) async throws {
+        try await storage.delete(document)
     }
 }
 

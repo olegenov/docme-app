@@ -19,9 +19,14 @@ protocol DocumentListProvider {
     
     func getSelectedTags() -> [DocumentCard.Color]
     func setSelectedTags(_ tags: [DocumentCard.Color])
+    func toggleFavortite(for document: DocumentCard) async
 }
 
 final class DocumentListProviderImpl: DocumentListProvider {
+    enum Errors: Error {
+        case documentNotFound
+    }
+    
     private let documentRepository: DocumentRepository
     private let folderRepository: FolderRepository
     
@@ -127,6 +132,24 @@ final class DocumentListProviderImpl: DocumentListProvider {
     func setSelectedTags(_ tags: [DocumentCard.Color]) {
         if let encoded = try? JSONEncoder().encode(tags) {
             selectedTagsData = encoded
+        }
+    }
+    
+    func toggleFavortite(for document: DocumentCard) async {
+        do {
+            var documentStorage = try await documentRepository.getDocument(
+                with: document.id
+            )
+            
+            guard let documentStorage else {
+                throw Errors.documentNotFound
+            }
+            
+            documentStorage.isFavorite = document.isFavorite
+            
+            try await documentRepository.saveLocal(documentStorage)
+        } catch {
+            AppLogger.shared.error("Failed to toggle favorite: \(error)")
         }
     }
     

@@ -43,8 +43,10 @@ struct MainView: View {
             .background(theme.gradients.background)
             .onReceive(DocumentListEventBus.shared.$event.compactMap { $0 }) { event in
                 switch event {
-                case .documentCreationClosed:
+                case .documentClosed:
                     isTabbarVisible = true
+                case .documentOpened:
+                    isTabbarVisible = false
                 default:
                     break
                 }
@@ -92,8 +94,6 @@ struct MainView: View {
                     DocumentListEventBus.shared.send(.createFolder)
                 },
                 onDocumentCreation: {
-                    isTabbarVisible = false
-                    
                     DocumentListEventBus.shared.send(.createDocument)
                 },
                 isTabbarVisible: $isTabbarVisible

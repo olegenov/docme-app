@@ -85,11 +85,15 @@ extension DocumentListCoordinator: BaseCoordinatorRouting {
             )
         case .documentCreation:
             return AnyView(
-                DocumentCreationCoordinator(container: container).start()
+                DocumentScreenCoordinator(container: container).start(
+                    mode: .create
+                )
             )
         case .documentView(let documentID):
             return AnyView(
-                DocumentViewCoordinator(container: container).start(for: documentID)
+                DocumentScreenCoordinator(container: container).start(
+                    mode: .view(id: documentID)
+                )
             )
         }
     }

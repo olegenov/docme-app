@@ -80,8 +80,12 @@ class DocumentListViewModelImpl: DocumentListViewModel {
             where: { $0.id == card.id }
         ) else { return }
         
-        //documents[index].isFavorite.toggle()
+        documents[index].isFavorite.toggle()
         
+        Task {
+            await provider.toggleFavortite(for: card)
+        }
+
         updateFavoriteDocuments()
     }
     
