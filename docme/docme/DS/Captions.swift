@@ -78,4 +78,7 @@ enum Captions {
     static let field = "Поле"
     static let newField = "Новое поле"
     static let newFieldValue = "Значение"
+    
+    static let nothingHere = "Здесь пока ничего нет"
+    static let addNewDocument = "Добавить документ"
 }

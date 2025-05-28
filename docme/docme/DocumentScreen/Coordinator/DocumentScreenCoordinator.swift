@@ -15,9 +15,10 @@ class DocumentScreenCoordinator: ObservableObject {
         self.container = container
     }
     
-    func start(mode: Mode) -> some View {
+    func start(mode: Mode, from Folderid: UUID?) -> some View {
         let provider = DocumentScreenProviderImpl(
             documentRepository: container.documentRepository,
+            folderRepository: container.folderRepository,
             fieldRepository: container.fieldRepository,
             imageService: container.imageService
         )
@@ -26,6 +27,7 @@ class DocumentScreenCoordinator: ObservableObject {
         case .create:
             DocumentScreenViewModelImpl(
                 provider: provider,
+                folderId: Folderid,
                 mode: .creation
             )
         case .view(let id):

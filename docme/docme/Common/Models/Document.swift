@@ -17,7 +17,7 @@ final class Document: UUIDModel {
     var isDirty: Bool
     var deleted: Bool
     
-    @Relationship(deleteRule: .nullify) var folder: Folder?
+    @Relationship(deleteRule: .cascade) var folder: Folder?
     
     @Relationship(inverse: \DocumentField.document)
     var fields: [DocumentField] = []

@@ -20,7 +20,6 @@ struct DocumentCollectionView: View {
                         onFavoriteToggle: onFavoriteToggle,
                         onDocumentTap: onDocumentTap
                     )
-                    .frame(maxWidth: .infinity)
                 }
             }
             .frame(maxWidth: .infinity)
@@ -34,7 +33,6 @@ struct DocumentCollectionView: View {
                         onFavoriteToggle: onFavoriteToggle,
                         onDocumentTap: onDocumentTap
                     )
-                    .frame(maxWidth: .infinity)
                 }
             }
             .frame(maxWidth: .infinity)

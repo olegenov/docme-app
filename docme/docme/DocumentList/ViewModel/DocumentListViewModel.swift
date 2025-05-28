@@ -197,7 +197,7 @@ class DocumentListViewModelImpl: DocumentListViewModel {
     
     func createNewDocument() {
         Router.shared.pushScreen(
-            DocumentListRoutes.documentCreation,
+            DocumentListRoutes.documentCreation(folder: selectedFolder),
             for: .documents
         )
     }

@@ -40,6 +40,7 @@ class DocumentScreenViewModelImpl: DocumentScreenViewModel {
     private let provider: DocumentScreenProvider
     private let router = Router.shared
     private let documentId: UUID
+    private let folderId: UUID?
     
     var editMode: DocumentEditMode = .viewing
     var document: DocumentScreen
@@ -55,6 +56,7 @@ class DocumentScreenViewModelImpl: DocumentScreenViewModel {
     init(
         provider: DocumentScreenProvider,
         id: UUID = .init(),
+        folderId: UUID? = nil,
         mode: DocumentEditMode = .viewing
     ) {
         self.provider = provider
@@ -66,6 +68,7 @@ class DocumentScreenViewModelImpl: DocumentScreenViewModel {
             color: .none
         )
         self.documentId = id
+        self.folderId = folderId
         self.editMode = mode
     }
     
@@ -84,7 +87,7 @@ class DocumentScreenViewModelImpl: DocumentScreenViewModel {
             guard let self else { return }
 
             let success = await provider.createDocument(
-                documentId, document
+                documentId, document, in: folderId
             )
 
             DispatchQueue.main.async { [weak self] in
@@ -97,6 +100,10 @@ class DocumentScreenViewModelImpl: DocumentScreenViewModel {
                         message: Captions.successfullyCreatedDocument,
                         type: .success
                     )
+                    
+                    if document.title.isEmpty {
+                        document.title = Captions.newDocument
+                    }
                     
                     editMode = .viewing
                 } else {
@@ -204,6 +211,9 @@ class DocumentScreenViewModelImpl: DocumentScreenViewModel {
                 showLoading = false
                 
                 if success {
+                    if document.title.isEmpty {
+                        document.title = Captions.newDocument
+                    }
                     cancelDocumentEdit()
                 } else {
                     ToastManager.shared.show(

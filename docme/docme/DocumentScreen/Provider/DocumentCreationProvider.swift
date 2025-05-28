@@ -3,7 +3,7 @@ import SwiftUI
 
 
 protocol DocumentScreenProvider {
-    func createDocument(_ id: UUID, _ document: DocumentScreen) async -> Bool
+    func createDocument(_ id: UUID, _ document: DocumentScreen, in folderID: UUID?) async -> Bool
     func saveDocument(with id: UUID, fields: [DocumentScreenField]) async -> Bool
     func fetchDocument(with id: UUID) async throws -> DocumentScreen
     func fetchFields(with id: UUID) async throws -> [DocumentScreenField]
@@ -16,22 +16,26 @@ final class DocumentScreenProviderImpl: DocumentScreenProvider {
     }
     
     private let documentRepository: DocumentRepository
+    private let folderRepository: FolderRepository
     private let fieldRepository: FieldRepository
     private let imageService: ImageService
     
     init(
         documentRepository: DocumentRepository,
+        folderRepository: FolderRepository,
         fieldRepository: FieldRepository,
         imageService: ImageService
     ) {
         self.documentRepository = documentRepository
+        self.folderRepository = folderRepository
         self.fieldRepository = fieldRepository
         self.imageService = imageService
     }
     
     func createDocument(
         _ id: UUID,
-        _ document: DocumentScreen
+        _ document: DocumentScreen,
+        in folderID: UUID?
     ) async -> Bool {
         do {
             guard let image = document.image else {
@@ -43,6 +47,13 @@ final class DocumentScreenProviderImpl: DocumentScreenProvider {
                 id: id
             )
             
+            var folder: Folder? = nil
+            
+            if let parentFolderID = folderID,
+               let foundFolder = try? await folderRepository.getLocal(with: parentFolderID) {
+                folder = foundFolder
+            }
+            
             try await documentRepository.createLocal(
                 .init(
                     id: id,
@@ -51,7 +62,8 @@ final class DocumentScreenProviderImpl: DocumentScreenProvider {
                     remoteImageURL: nil,
                     icon: document.icon.toDomain(),
                     color: document.color.toDomain(),
-                    description: document.description
+                    description: document.description,
+                    folder: folder
                 )
             )
             

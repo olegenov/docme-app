@@ -117,7 +117,9 @@ struct DocumentScreenView<ViewModel: DocumentScreenViewModel>: View {
                     onCloseTap: {
                         showCancelEditAlert = true
                     },
-                    onDeleteTap: viewModel.deleteDocument,
+                    onDeleteTap: {
+                        showDeleteAlert = true
+                    },
                     onSaveTap: viewModel.saveDocument
                 )
             case .viewing:
@@ -448,7 +450,7 @@ private extension View {
         onContinue: @escaping () -> Void,
         onCancel: @escaping () -> Void
     ) -> some View {
-        self.modifier(CancelEditAlertModifier(
+        self.modifier(DeleteAlertModifier(
             isPresented: isPresented,
             onContinue: onContinue,
             onCancel: onCancel

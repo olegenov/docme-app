@@ -4,6 +4,7 @@ import SwiftUI
 
 protocol DocumentListProvider {
     func fetchFolders(for parentFolder: FolderCard?) async -> [FolderCard]
+    func fetchDocuments() async -> [DocumentCard]
     func fetchDocuments(for parentFolder: FolderCard?) async -> [DocumentCard]
     
     func createNewFolder(
@@ -75,6 +76,19 @@ final class DocumentListProviderImpl: DocumentListProvider {
     }
     
     @MainActor
+    func fetchDocuments() async -> [DocumentCard] {
+        do {
+            let documents = try await documentRepository.fetchLocal()
+            
+            return documents.map { $0.toCardUI() }
+        } catch {
+            AppLogger.shared.error("Failed to fetch documents: \(error)")
+            
+            return []
+        }
+    }
+    
+    @MainActor
     func fetchDocuments(for parentFolder: FolderCard?) async -> [DocumentCard] {
         do {
             let baseFolder = await getBaseFolder(folder: parentFolder)
@@ -137,7 +151,7 @@ final class DocumentListProviderImpl: DocumentListProvider {
     
     func toggleFavortite(for document: DocumentCard) async {
         do {
-            var documentStorage = try await documentRepository.getDocument(
+            let documentStorage = try await documentRepository.getDocument(
                 with: document.id
             )
             

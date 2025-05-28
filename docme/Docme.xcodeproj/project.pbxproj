@@ -67,6 +67,7 @@
 		0D362F882DE79C80003E9262 /* DocumentField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D362F872DE79C79003E9262 /* DocumentField.swift */; };
 		0D362F8A2DE7B0BE003E9262 /* FieldRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D362F892DE7B0BE003E9262 /* FieldRepository.swift */; };
 		0D362F8C2DE7B24F003E9262 /* FieldStorageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D362F8B2DE7B24F003E9262 /* FieldStorageRepository.swift */; };
+		0D362F8E2DE7C58D003E9262 /* DSButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D362F8D2DE7C586003E9262 /* DSButton.swift */; };
 		0D3EA0A92DCBEA4400D987F0 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3EA0A82DCBEA4200D987F0 /* Router.swift */; };
 		0D3EA0B12DCBF59100D987F0 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3EA0B02DCBF58C00D987F0 /* MainView.swift */; };
 		0D3EA0C22DCCC85B00D987F0 /* DocumentCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3EA0C12DCCC85200D987F0 /* DocumentCollectionView.swift */; };
@@ -164,6 +165,7 @@
 		0D362F872DE79C79003E9262 /* DocumentField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentField.swift; sourceTree = "<group>"; };
 		0D362F892DE7B0BE003E9262 /* FieldRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldRepository.swift; sourceTree = "<group>"; };
 		0D362F8B2DE7B24F003E9262 /* FieldStorageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldStorageRepository.swift; sourceTree = "<group>"; };
+		0D362F8D2DE7C586003E9262 /* DSButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSButton.swift; sourceTree = "<group>"; };
 		0D3EA0A82DCBEA4200D987F0 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		0D3EA0B02DCBF58C00D987F0 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		0D3EA0C12DCCC85200D987F0 /* DocumentCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCollectionView.swift; sourceTree = "<group>"; };
@@ -300,6 +302,7 @@
 			isa = PBXGroup;
 			children = (
 				0D102E172DC93B580017073B /* ItemsList */,
+				0D362F8D2DE7C586003E9262 /* DSButton.swift */,
 				0D362F562DE6534A003E9262 /* ToastView.swift */,
 				0D362F412DE62D0A003E9262 /* DocumentImageEdit.swift */,
 				0DCEF1402DDD25610073ED13 /* CloseControlView.swift */,
@@ -867,6 +870,7 @@
 				0D102E142DC934130017073B /* TagsView.swift in Sources */,
 				0DC413AC2DCE1AFC00CABC15 /* ServerChangesResponse.swift in Sources */,
 				0DC413B42DCE202500CABC15 /* DocumentStorageRepository.swift in Sources */,
+				0D362F8E2DE7C58D003E9262 /* DSButton.swift in Sources */,
 				0D362F862DE78AD9003E9262 /* DocumentEditTabbarView.swift in Sources */,
 				0D362F442DE62F6A003E9262 /* DescriptionView.swift in Sources */,
 				0DCEF13A2DDD14070073ED13 /* TextSectionView.swift in Sources */,

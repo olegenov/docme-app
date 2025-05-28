@@ -5,7 +5,7 @@ import Combine
 
 enum DocumentListRoutes: Route, Hashable {
     case folderDetails(folder: FolderCard)
-    case documentCreation
+    case documentCreation(folder: FolderCard?)
     case documentView(id: UUID)
 }
 
@@ -40,6 +40,8 @@ class DocumentListCoordinator: ObservableObject {
                       self.isActive,
                       let event
                 else { return }
+                
+                DocumentListEventBus.shared.event = nil
                 
                 switch event {
                 case .createFolder:
@@ -79,16 +81,18 @@ extension DocumentListCoordinator: BaseCoordinatorRouting {
             return AnyView(
                 DocumentListCoordinator(container: container).start(for: folder)
             )
-        case .documentCreation:
+        case .documentCreation(let folder):
             return AnyView(
                 DocumentScreenCoordinator(container: container).start(
-                    mode: .create
+                    mode: .create,
+                    from: folder?.id
                 )
             )
         case .documentView(let documentID):
             return AnyView(
                 DocumentScreenCoordinator(container: container).start(
-                    mode: .view(id: documentID)
+                    mode: .view(id: documentID),
+                    from: nil
                 )
             )
         }

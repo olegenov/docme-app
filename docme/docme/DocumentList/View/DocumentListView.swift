@@ -56,7 +56,22 @@ struct DocumentListView<ViewModel: DocumentListViewModel>: View {
         .onChange(of: folderToDelete) {
             isDeletingFolderAlertPresented = folderToDelete != nil
         }
+        .overlay {
+            if viewModel.documents.isEmpty {
+                emptyView
+            }
+        }
         .hideKeyboardOnDrag()
+    }
+    
+    private var emptyView: some View {
+        VStack(spacing: DS.Spacing.m8) {
+            TitleSecondaryView(text: Captions.nothingHere)
+            
+            DSButton(text: Captions.addNewDocument) {
+                viewModel.createNewDocument()
+            }
+        }
     }
     
     @ViewBuilder
