@@ -14,6 +14,12 @@ struct ListItemView: View {
             placeholder: String,
             title: Binding<String>
         )
+        case fullEditing(
+            placeholder: String,
+            title: Binding<String>,
+            placeholderSecondary: String,
+            secondary: Binding<String>
+        )
     }
     
     enum LeadingView {
@@ -24,7 +30,7 @@ struct ListItemView: View {
     enum TrailingView {
         case empty
         case chevron
-        case cross
+        case cross(action: () -> Void)
         case loading
         case save(action: () -> Void)
         case delete(action: () -> Void)
@@ -72,19 +78,36 @@ struct ListItemView: View {
                     title: title,
                     leadingView: leadingView
                 )
+                
+                Spacer()
+                
+                readonlyTrailing
             case .editing(let placeholder, let title):
                 editingContent(
                     placeholder: placeholder,
                     title: title
                 )
-            }
-            
-            Spacer()
-            
-            HStack(spacing: DS.Spacing.m6) {
-                trailingTextContent
                 
-                trailingViewContent
+                Spacer()
+                
+                readonlyTrailing
+            case .fullEditing(
+                let placeholder,
+                let title,
+                let placeholderSecondary,
+                let secondary
+            ):
+                editingContent(
+                    placeholder: placeholder,
+                    title: title
+                )
+                
+                Spacer()
+                
+                editingTrailing(
+                    placeholder: placeholderSecondary,
+                    value: secondary
+                )
             }
         }
         .frame(maxWidth: .infinity)
@@ -96,6 +119,14 @@ struct ListItemView: View {
         .animation(.easeInOut, value: offset)
         .applyIf(onDeleteAction != nil) { view in
             view.gesture(deleteGesture)
+        }
+    }
+    
+    private var readonlyTrailing: some View {
+        HStack(spacing: DS.Spacing.m6) {
+            trailingTextContent
+            
+            trailingViewContent
         }
     }
     
@@ -146,7 +177,27 @@ struct ListItemView: View {
             prompt: Text(placeholder)
                 .font(.system(size: DSFontSize.sm.fontSize))
                 .foregroundColor(theme.colors.textSecondary)
-        )
+        ).foregroundStyle(theme.colors.text)
+        .fontWeight(.bold)
+    }
+    
+    private func editingTrailing(
+        placeholder: String,
+        value: Binding<String>
+    ) -> some View {
+        HStack(spacing: DS.Spacing.m6) {
+            TextField(
+                "",
+                text: value,
+                prompt: Text(placeholder)
+                    .font(.system(size: DSFontSize.sm.fontSize))
+                    .foregroundColor(theme.colors.textSecondary)
+            )
+            .foregroundStyle(theme.colors.text)
+            .multilineTextAlignment(.trailing)
+            
+            trailingViewContent
+        }
     }
     
     @ViewBuilder
@@ -165,7 +216,9 @@ struct ListItemView: View {
             switch trailingView {
             case .empty: EmptyView()
             case .chevron: ImageIcon(name: .chevronRightOutline, size: .sm)
-            case .cross: ImageIcon(name: .crossOutline, size: .sm)
+            case .cross(let action):
+                ImageIcon(name: .crossOutline, size: .sm)
+                    .onTapGesture(perform: action)
             case .loading: ActivityIndicatorView(size: .sm)
             case .save(let action):
                 ImageIcon(name: .saveOutline, size: .sm)
@@ -187,6 +240,7 @@ struct ListItemView: View {
                 .applyFont(.body(.sm, .regular))
                 .foregroundStyle(theme.colors.textSecondary)
                 .lineLimit(1)
+                .multilineTextAlignment(.trailing)
         }
     }
     

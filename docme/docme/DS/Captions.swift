@@ -62,6 +62,7 @@ enum Captions {
     static let successfullyCreatedDocument = "Документ успешно создан"
     static let documentCreationError = "Ошибка при создании документа"
     static let documentGetError = "Документ не найден"
+    static let fieldsGetError = "Ошибка загрузки полей"
     static let documentEditError = "Ошибка при сохранении документа"
     static let documentDeletionError = "Ошибка при удалении документа"
     static let successfullyDeletedDocument = "Документ удален"
@@ -73,4 +74,8 @@ enum Captions {
     static func fieldCopied(name: String) -> String {
         "Поле \(name) скопировано"
     }
+    
+    static let field = "Поле"
+    static let newField = "Новое поле"
+    static let newFieldValue = "Значение"
 }

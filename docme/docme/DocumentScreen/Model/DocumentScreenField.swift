@@ -3,6 +3,10 @@ import Foundation
 
 struct DocumentScreenField: Identifiable, Hashable {
     let id: UUID
-    let name: String
-    let value: String
+    var name: String
+    var value: String
+    
+    var isEmpty: Bool {
+        name.isEmpty || value.isEmpty
+    }
 }

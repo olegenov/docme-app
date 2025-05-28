@@ -10,6 +10,10 @@ final class DocumentListEventBus: ObservableObject {
     
     func send(_ event: DocumentListEvent) {
         self.event = event
+        
+        DispatchQueue.main.async {
+            self.event = nil
+        }
     }
 }
 

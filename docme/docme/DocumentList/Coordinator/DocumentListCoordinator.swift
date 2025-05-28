@@ -68,10 +68,6 @@ class DocumentListCoordinator: ObservableObject {
             self.destination(for: route)
         }
     }
-    
-    func createNewFolder() {
-        viewModel?.creatingNewFolder = true
-    }
 }
 
 extension DocumentListCoordinator: BaseCoordinatorRouting {

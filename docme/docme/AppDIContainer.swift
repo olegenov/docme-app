@@ -5,6 +5,7 @@ import SwiftData
 final class AppDIContainer {
     let documentRepository: DocumentRepository
     let folderRepository: FolderRepository
+    let fieldRepository: FieldRepository
     let imageService: ImageService
     
     init(modelContext: ModelContext) {
@@ -34,5 +35,10 @@ final class AppDIContainer {
             folderRepository: folderRepository,
             imageService: imageService
         )
+        
+        // Field
+        let fieldStorage = FieldStorageRepositoryImpl(context: modelContext)
+        
+        self.fieldRepository = FieldRepositoryImpl(storage: fieldStorage)
     }
 }

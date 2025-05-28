@@ -4,9 +4,9 @@ import SwiftUI
 
 protocol DocumentScreenProvider {
     func createDocument(_ id: UUID, _ document: DocumentScreen) async -> Bool
-    func saveDocument(with id: UUID) async -> Bool
+    func saveDocument(with id: UUID, fields: [DocumentScreenField]) async -> Bool
     func fetchDocument(with id: UUID) async throws -> DocumentScreen
-    func fetchFields(with id: UUID) async -> [DocumentScreenField]
+    func fetchFields(with id: UUID) async throws -> [DocumentScreenField]
     func deleteDocument(with id: UUID) async -> Bool
 }
 
@@ -16,13 +16,16 @@ final class DocumentScreenProviderImpl: DocumentScreenProvider {
     }
     
     private let documentRepository: DocumentRepository
+    private let fieldRepository: FieldRepository
     private let imageService: ImageService
     
     init(
         documentRepository: DocumentRepository,
+        fieldRepository: FieldRepository,
         imageService: ImageService
     ) {
         self.documentRepository = documentRepository
+        self.fieldRepository = fieldRepository
         self.imageService = imageService
     }
     
@@ -58,14 +61,26 @@ final class DocumentScreenProviderImpl: DocumentScreenProvider {
         }
     }
     
-    func saveDocument(with id: UUID) async -> Bool {
+    func saveDocument(with id: UUID, fields: [DocumentScreenField]) async -> Bool {
         do {
             let document = try await documentRepository.getDocument(with: id)
             
             guard let document else { throw Errors.documentNotFound }
             
             try await documentRepository.saveLocal(document)
-            
+            try await fieldRepository.replaceFields(
+                for: document,
+                with: fields.filter {
+                    !$0.isEmpty
+                }.map {
+                    .init(
+                        id: $0.id,
+                        name: $0.name,
+                        value: $0.value,
+                        document: document
+                    )
+                }
+            )
             return true
         } catch {
             AppLogger.shared.error("Error saving document: \(error)")
@@ -92,11 +107,18 @@ final class DocumentScreenProviderImpl: DocumentScreenProvider {
         )
     }
     
-    func fetchFields(with id: UUID) async -> [DocumentScreenField] {
-        return [
-            .init(id: .init(), name: "123", value: "1234"),
-            .init(id: .init(), name: "1235", value: "1235")
-        ]
+    func fetchFields(with id: UUID) async throws -> [DocumentScreenField] {
+        let document = try await documentRepository.getDocument(with: id)
+        
+        guard let document else { throw Errors.documentNotFound }
+        
+        return document.fields.map { field in
+            .init(
+                id: field.uuid,
+                name: field.name,
+                value: field.value
+            )
+        }
     }
     
     func deleteDocument(with id: UUID) async -> Bool {

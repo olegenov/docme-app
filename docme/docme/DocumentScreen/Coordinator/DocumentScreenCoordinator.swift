@@ -18,6 +18,7 @@ class DocumentScreenCoordinator: ObservableObject {
     func start(mode: Mode) -> some View {
         let provider = DocumentScreenProviderImpl(
             documentRepository: container.documentRepository,
+            fieldRepository: container.fieldRepository,
             imageService: container.imageService
         )
         

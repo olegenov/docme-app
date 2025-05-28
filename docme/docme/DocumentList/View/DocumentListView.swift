@@ -176,6 +176,7 @@ struct DocumentListView<ViewModel: DocumentListViewModel>: View {
                     displayType: .list,
                     document: document,
                     imageService: imageService,
+                    onFavoriteToggle: viewModel.toggleFavorite,
                     onDocumentTap: viewModel.openDocument
                 )
             }

@@ -19,6 +19,9 @@ final class Document: UUIDModel {
     
     @Relationship(deleteRule: .nullify) var folder: Folder?
     
+    @Relationship(inverse: \DocumentField.document)
+    var fields: [DocumentField] = []
+    
     enum Icon: String, Codable {
         case passport
         case driver

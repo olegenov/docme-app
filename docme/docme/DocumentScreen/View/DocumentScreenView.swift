@@ -22,14 +22,24 @@ struct DocumentScreenView<ViewModel: DocumentScreenViewModel>: View {
                 
                 mainInfoView
                 
-                if viewModel.editMode != .viewing {
+                if viewModel.editMode == .viewing {
+                    if viewModel.fields.filter({ !$0.isEmpty }).isNotEmpty {
+                        fieldsView
+                    }
+                } else if viewModel.editMode == .editing {
                     documentTypeList
                     
                     documentColorList
+                    
+                    fieldsEditView
+                        .padding(.bottom, 300)
                 } else {
-                    fieldsView
+                    documentTypeList
+                    
+                    documentColorList
                 }
-            }.padding(.horizontal, DS.Spacing.m8)
+            }
+            .padding(.horizontal, DS.Spacing.m8)
         }
         .hideKeyboardOnDrag()
         .task {
@@ -52,6 +62,7 @@ struct DocumentScreenView<ViewModel: DocumentScreenViewModel>: View {
         )
         .animation(.easeInOut, value: viewModel.document.icon)
         .animation(.easeInOut, value: viewModel.document.color)
+        .animation(.easeInOut, value: viewModel.fields)
         .animation(.easeInOut, value: viewModel.editMode)
         .animation(.easeInOut, value: viewModel.showLoading)
         .overlay {
@@ -227,10 +238,13 @@ struct DocumentScreenView<ViewModel: DocumentScreenViewModel>: View {
         )
     }
     
+    @ViewBuilder
     private var fieldsView: some View {
+        let fields = viewModel.fields.filter { !$0.isEmpty }
+        
         ItemsListView {
             ForEach(
-                Array(viewModel.fields.enumerated()),
+                Array(fields.enumerated()),
                 id: \.element.id
             ) { index, field in
                 ListItemView(
@@ -242,6 +256,36 @@ struct DocumentScreenView<ViewModel: DocumentScreenViewModel>: View {
                     trailingView: .copy(
                         action: { viewModel.copyField(field) }
                     )
+                )
+                
+                if index < fields.count - 1 {
+                    SeparatorView()
+                }
+            }
+        }
+    }
+    
+    private var fieldsEditView: some View {
+        ItemsListView {
+            ForEach(Array(viewModel.fields.enumerated()), id: \.element.id) { index, field in
+                let binding = Binding<DocumentScreenField>(
+                    get: { viewModel.fields[index] },
+                    set: { viewModel.fields[index] = $0 }
+                )
+                    
+                ListItemView(
+                    configuration: .fullEditing(
+                        placeholder: Captions.field,
+                        title: binding.name,
+                        placeholderSecondary: Captions.newFieldValue,
+                        secondary: binding.value
+                    ),
+                    trailingView: field.name.isEmpty && field.value.isEmpty ? .empty :
+                            .cross(
+                                action: {
+                                    viewModel.deleteField(field)
+                                }
+                            )
                 )
                 
                 if index < viewModel.fields.count - 1 {

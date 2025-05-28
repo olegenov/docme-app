@@ -64,6 +64,9 @@
 		0D362F7D2DE6681D003E9262 /* DocumentViewTabbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D362F742DE6681D003E9262 /* DocumentViewTabbarView.swift */; };
 		0D362F812DE677A3003E9262 /* DocumentScreenField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D362F802DE67796003E9262 /* DocumentScreenField.swift */; };
 		0D362F862DE78AD9003E9262 /* DocumentEditTabbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D362F852DE78AD9003E9262 /* DocumentEditTabbarView.swift */; };
+		0D362F882DE79C80003E9262 /* DocumentField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D362F872DE79C79003E9262 /* DocumentField.swift */; };
+		0D362F8A2DE7B0BE003E9262 /* FieldRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D362F892DE7B0BE003E9262 /* FieldRepository.swift */; };
+		0D362F8C2DE7B24F003E9262 /* FieldStorageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D362F8B2DE7B24F003E9262 /* FieldStorageRepository.swift */; };
 		0D3EA0A92DCBEA4400D987F0 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3EA0A82DCBEA4200D987F0 /* Router.swift */; };
 		0D3EA0B12DCBF59100D987F0 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3EA0B02DCBF58C00D987F0 /* MainView.swift */; };
 		0D3EA0C22DCCC85B00D987F0 /* DocumentCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3EA0C12DCCC85200D987F0 /* DocumentCollectionView.swift */; };
@@ -158,6 +161,9 @@
 		0D362F742DE6681D003E9262 /* DocumentViewTabbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewTabbarView.swift; sourceTree = "<group>"; };
 		0D362F802DE67796003E9262 /* DocumentScreenField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentScreenField.swift; sourceTree = "<group>"; };
 		0D362F852DE78AD9003E9262 /* DocumentEditTabbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentEditTabbarView.swift; sourceTree = "<group>"; };
+		0D362F872DE79C79003E9262 /* DocumentField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentField.swift; sourceTree = "<group>"; };
+		0D362F892DE7B0BE003E9262 /* FieldRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldRepository.swift; sourceTree = "<group>"; };
+		0D362F8B2DE7B24F003E9262 /* FieldStorageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldStorageRepository.swift; sourceTree = "<group>"; };
 		0D3EA0A82DCBEA4200D987F0 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		0D3EA0B02DCBF58C00D987F0 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		0D3EA0C12DCCC85200D987F0 /* DocumentCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCollectionView.swift; sourceTree = "<group>"; };
@@ -410,6 +416,7 @@
 				0DCEF1182DCFFD6F0073ED13 /* UUIDModel.swift */,
 				0DCEF11A2DD007910073ED13 /* Networking */,
 				0DCEF1052DCE38F10073ED13 /* Folder.swift */,
+				0D362F872DE79C79003E9262 /* DocumentField.swift */,
 				0DCEF1032DCE38D60073ED13 /* Document.swift */,
 			);
 			path = Models;
@@ -606,6 +613,7 @@
 			children = (
 				0DC413B52DCE202900CABC15 /* FolderStorageRepository.swift */,
 				0DC413B32DCE201E00CABC15 /* DocumentStorageRepository.swift */,
+				0D362F8B2DE7B24F003E9262 /* FieldStorageRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -624,6 +632,7 @@
 			children = (
 				0DCEF1142DCFDFDD0073ED13 /* FolderRepository.swift */,
 				0DCEF10F2DCFDDA10073ED13 /* DocumentRepository.swift */,
+				0D362F892DE7B0BE003E9262 /* FieldRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -782,6 +791,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D362F8A2DE7B0BE003E9262 /* FieldRepository.swift in Sources */,
 				0D102E462DCA60830017073B /* MainContent.swift in Sources */,
 				0D102E212DCA31550017073B /* NetworkingService.swift in Sources */,
 				0D102E4D2DCAA9720017073B /* DocumentListTabbar.swift in Sources */,
@@ -825,6 +835,7 @@
 				0DCEF13D2DDD15A50073ED13 /* Profile.swift in Sources */,
 				0D102E162DC93B550017073B /* ItemsListView.swift in Sources */,
 				0D362F552DE652CB003E9262 /* ToastManager.swift in Sources */,
+				0D362F882DE79C80003E9262 /* DocumentField.swift in Sources */,
 				0DCEF1062DCE38F30073ED13 /* Folder.swift in Sources */,
 				0D102E312DCA4E2C0017073B /* DocumentCard.swift in Sources */,
 				0D362F352DE3CAC9003E9262 /* DocumentListEventBus.swift in Sources */,
@@ -860,6 +871,7 @@
 				0D362F442DE62F6A003E9262 /* DescriptionView.swift in Sources */,
 				0DCEF13A2DDD14070073ED13 /* TextSectionView.swift in Sources */,
 				0DC413AF2DCE1C2B00CABC15 /* AppLogger.swift in Sources */,
+				0D362F8C2DE7B24F003E9262 /* FieldStorageRepository.swift in Sources */,
 				0DCEF1362DDBD6BD0073ED13 /* AppTabbarView.swift in Sources */,
 				0D102DEF2DC80C110017073B /* FabView.swift in Sources */,
 				0D362F272DE11510003E9262 /* View+ApplyIf.swift in Sources */,

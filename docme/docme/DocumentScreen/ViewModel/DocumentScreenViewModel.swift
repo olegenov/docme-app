@@ -29,6 +29,7 @@ protocol DocumentScreenViewModel: ObservableObject, AnyObject {
     func shareDocument()
     
     func copyField(_ field: DocumentScreenField)
+    func deleteField(_ field: DocumentScreenField)
     
     func loadData() async
 }
@@ -42,7 +43,12 @@ class DocumentScreenViewModelImpl: DocumentScreenViewModel {
     
     var editMode: DocumentEditMode = .viewing
     var document: DocumentScreen
-    var fields: [DocumentScreenField] = []
+    var fields: [DocumentScreenField] = [] {
+        didSet {
+            if editMode != .editing { return }
+            ensureEmptyFieldExists()
+        }
+    }
     
     private(set) var showLoading = false
     
@@ -122,9 +128,18 @@ class DocumentScreenViewModelImpl: DocumentScreenViewModel {
         
         document = loadedDocument
         
-        fields = await provider.fetchFields(
+        let loadedFields = try? await provider.fetchFields(
             with: documentId
         )
+        
+        if loadedFields == nil {
+            ToastManager.shared.show(
+                message: Captions.fieldsGetError,
+                type: .error
+            )
+        }
+        
+        fields = loadedFields ?? []
         
         showLoading = false
     }
@@ -139,6 +154,7 @@ class DocumentScreenViewModelImpl: DocumentScreenViewModel {
     
     func editDocument() {
         editMode = .editing
+        ensureEmptyFieldExists()
     }
 
     func deleteDocument() {
@@ -177,7 +193,10 @@ class DocumentScreenViewModelImpl: DocumentScreenViewModel {
         Task { [weak self] in
             guard let self else { return }
 
-            let success = await provider.saveDocument(with: documentId)
+            let success = await provider.saveDocument(
+                with: documentId,
+                fields: fields
+            )
 
             DispatchQueue.main.async { [weak self] in
                 guard let self else { return }
@@ -185,7 +204,7 @@ class DocumentScreenViewModelImpl: DocumentScreenViewModel {
                 showLoading = false
                 
                 if success {
-                    editMode = .viewing
+                    cancelDocumentEdit()
                 } else {
                     ToastManager.shared.show(
                         message: Captions.documentEditError,
@@ -200,11 +219,28 @@ class DocumentScreenViewModelImpl: DocumentScreenViewModel {
         
     }
     
+    func deleteField(_ field: DocumentScreenField) {
+        fields.removeAll { $0.id == field.id }
+    }
+    
     func copyField(_ field: DocumentScreenField) {
         UIPasteboard.general.string = field.value
         
         ToastManager.shared.show(
             message: Captions.fieldCopied(name: field.name)
         )
+    }
+}
+
+private extension DocumentScreenViewModel {
+    func ensureEmptyFieldExists() {
+        guard let last = fields.last else {
+            fields.append(DocumentScreenField(id: .init(), name: "", value: ""))
+            return
+        }
+
+        if !last.name.isEmpty || !last.value.isEmpty {
+            fields.append(DocumentScreenField(id: .init(), name: "", value: ""))
+        }
     }
 }
