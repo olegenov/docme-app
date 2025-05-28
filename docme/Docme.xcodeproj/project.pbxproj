@@ -31,8 +31,8 @@
 		0D102E212DCA31550017073B /* NetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D102E202DCA31550017073B /* NetworkingService.swift */; };
 		0D102E252DCA31A60017073B /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D102E242DCA31A40017073B /* Request.swift */; };
 		0D102E272DCA31B60017073B /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D102E262DCA31B40017073B /* Response.swift */; };
-		0D102E312DCA4E2C0017073B /* DocumentCardUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D102E302DCA4E1F0017073B /* DocumentCardUI.swift */; };
-		0D102E362DCA4F2C0017073B /* FolderUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D102E352DCA4F280017073B /* FolderUI.swift */; };
+		0D102E312DCA4E2C0017073B /* DocumentCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D102E302DCA4E1F0017073B /* DocumentCard.swift */; };
+		0D102E362DCA4F2C0017073B /* FolderCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D102E352DCA4F280017073B /* FolderCard.swift */; };
 		0D102E392DCA4FA50017073B /* DocumentListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D102E382DCA4F9E0017073B /* DocumentListView.swift */; };
 		0D102E3C2DCA50030017073B /* DocumentListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D102E3B2DCA4FFA0017073B /* DocumentListViewModel.swift */; };
 		0D102E402DCA508D0017073B /* DocumentListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D102E3F2DCA50810017073B /* DocumentListCoordinator.swift */; };
@@ -129,8 +129,8 @@
 		0D102E202DCA31550017073B /* NetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingService.swift; sourceTree = "<group>"; };
 		0D102E242DCA31A40017073B /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		0D102E262DCA31B40017073B /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
-		0D102E302DCA4E1F0017073B /* DocumentCardUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCardUI.swift; sourceTree = "<group>"; };
-		0D102E352DCA4F280017073B /* FolderUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderUI.swift; sourceTree = "<group>"; };
+		0D102E302DCA4E1F0017073B /* DocumentCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCard.swift; sourceTree = "<group>"; };
+		0D102E352DCA4F280017073B /* FolderCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderCard.swift; sourceTree = "<group>"; };
 		0D102E382DCA4F9E0017073B /* DocumentListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentListView.swift; sourceTree = "<group>"; };
 		0D102E3B2DCA4FFA0017073B /* DocumentListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentListViewModel.swift; sourceTree = "<group>"; };
 		0D102E3F2DCA50810017073B /* DocumentListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentListCoordinator.swift; sourceTree = "<group>"; };
@@ -234,7 +234,7 @@
 			children = (
 				0D362F252DE0FDE4003E9262 /* AppTabbar */,
 				0DCEF1242DDBCABC0073ED13 /* Profile */,
-				0D362F212DE0FBCB003E9262 /* DocumentCreation */,
+				0D362F212DE0FBCB003E9262 /* Document */,
 				0D362F782DE6681D003E9262 /* DocumentView */,
 				0D102E2B2DCA34D10017073B /* DocumentList */,
 				0D102DD82DC7F7920017073B /* Core */,
@@ -302,10 +302,9 @@
 		0D102DED2DC80BFD0017073B /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				0D102E172DC93B580017073B /* ItemsList */,
 				0D362F562DE6534A003E9262 /* ToastView.swift */,
 				0D362F412DE62D0A003E9262 /* DocumentImageEdit.swift */,
-				0D102E172DC93B580017073B /* ItemsList */,
-				0D3EA0C72DCCC9BC00D987F0 /* DocumentCollection */,
 				0DCEF1402DDD25610073ED13 /* CloseControlView.swift */,
 				0D102E4E2DCAAB860017073B /* InputFieldView.swift */,
 				0D102E472DCA63B30017073B /* TitledContent.swift */,
@@ -404,6 +403,7 @@
 		0D102E2B2DCA34D10017073B /* DocumentList */ = {
 			isa = PBXGroup;
 			children = (
+				0D362F822DE7776F003E9262 /* Models */,
 				0D362F332DE3CAB8003E9262 /* Events */,
 				0D102E3E2DCA50780017073B /* Provider */,
 				0D102E3D2DCA50720017073B /* Coordinator */,
@@ -418,7 +418,6 @@
 			children = (
 				0DCEF1182DCFFD6F0073ED13 /* UUIDModel.swift */,
 				0DCEF11A2DD007910073ED13 /* Networking */,
-				0DCEF1072DCE395C0073ED13 /* UI */,
 				0DCEF1052DCE38F10073ED13 /* Folder.swift */,
 				0DCEF1032DCE38D60073ED13 /* Document.swift */,
 			);
@@ -428,6 +427,7 @@
 		0D102E372DCA4F970017073B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0D3EA0C72DCCC9BC00D987F0 /* DocumentCollection */,
 				0D362F2A2DE1F964003E9262 /* DocumentListTabbar */,
 				0D102E382DCA4F9E0017073B /* DocumentListView.swift */,
 			);
@@ -458,7 +458,7 @@
 			path = Provider;
 			sourceTree = "<group>";
 		};
-		0D362F212DE0FBCB003E9262 /* DocumentCreation */ = {
+		0D362F212DE0FBCB003E9262 /* Document */ = {
 			isa = PBXGroup;
 			children = (
 				0D362F502DE64DD8003E9262 /* Model */,
@@ -467,7 +467,7 @@
 				0D362F3B2DE625AE003E9262 /* Coordinator */,
 				0D362F3A2DE62581003E9262 /* View */,
 			);
-			path = DocumentCreation;
+			path = Document;
 			sourceTree = "<group>";
 		};
 		0D362F252DE0FDE4003E9262 /* AppTabbar */ = {
@@ -602,6 +602,15 @@
 			path = DocumentView;
 			sourceTree = "<group>";
 		};
+		0D362F822DE7776F003E9262 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0D102E302DCA4E1F0017073B /* DocumentCard.swift */,
+				0D102E352DCA4F280017073B /* FolderCard.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		0D3EA0AD2DCBEF2100D987F0 /* Router */ = {
 			isa = PBXGroup;
 			children = (
@@ -652,15 +661,6 @@
 				0DC413BA2DCE282D00CABC15 /* DocumentNetworkingRepository.swift */,
 			);
 			path = Repositories;
-			sourceTree = "<group>";
-		};
-		0DCEF1072DCE395C0073ED13 /* UI */ = {
-			isa = PBXGroup;
-			children = (
-				0D102E302DCA4E1F0017073B /* DocumentCardUI.swift */,
-				0D102E352DCA4F280017073B /* FolderUI.swift */,
-			);
-			path = UI;
 			sourceTree = "<group>";
 		};
 		0DCEF10C2DCFDD8F0073ED13 /* Repositories */ = {
@@ -872,11 +872,11 @@
 				0D102E162DC93B550017073B /* ItemsListView.swift in Sources */,
 				0D362F552DE652CB003E9262 /* ToastManager.swift in Sources */,
 				0DCEF1062DCE38F30073ED13 /* Folder.swift in Sources */,
-				0D102E312DCA4E2C0017073B /* DocumentCardUI.swift in Sources */,
+				0D102E312DCA4E2C0017073B /* DocumentCard.swift in Sources */,
 				0D362F352DE3CAC9003E9262 /* DocumentListEventBus.swift in Sources */,
 				0D362F2E2DE1F99F003E9262 /* DocumentListTabbar+FilterView.swift in Sources */,
 				0D362F322DE1F9B3003E9262 /* DocumentListTabbar+FolderDetailsView.swift in Sources */,
-				0D102E362DCA4F2C0017073B /* FolderUI.swift in Sources */,
+				0D102E362DCA4F2C0017073B /* FolderCard.swift in Sources */,
 				0D102E482DCA63B70017073B /* TitledContent.swift in Sources */,
 				0D362F482DE63057003E9262 /* DocumentCreationTabbarView.swift in Sources */,
 				0DCEF1172DCFEAC10073ED13 /* AppDIContainer.swift in Sources */,

@@ -3,13 +3,13 @@ import SwiftUI
 
 
 protocol DocumentListProvider {
-    func fetchFolders(for parentFolder: FolderUI?) async -> [FolderUI]
-    func fetchDocuments(for parentFolder: FolderUI?) async -> [DocumentCardUI]
+    func fetchFolders(for parentFolder: FolderCard?) async -> [FolderCard]
+    func fetchDocuments(for parentFolder: FolderCard?) async -> [DocumentCard]
     
     func createNewFolder(
         with: UUID,
         named: String,
-        in: FolderUI?,
+        in: FolderCard?,
         complition: (Bool) -> Void
     ) async
     
@@ -17,8 +17,8 @@ protocol DocumentListProvider {
         with: UUID
     ) async
     
-    func getSelectedTags() -> [DocumentCardUI.Color]
-    func setSelectedTags(_ tags: [DocumentCardUI.Color])
+    func getSelectedTags() -> [DocumentCard.Color]
+    func setSelectedTags(_ tags: [DocumentCard.Color])
 }
 
 final class DocumentListProviderImpl: DocumentListProvider {
@@ -35,7 +35,7 @@ final class DocumentListProviderImpl: DocumentListProvider {
         self.folderRepository = folderRepository
     }
     
-    func fetchFolders(for parentFolder: FolderUI?) async -> [FolderUI] {
+    func fetchFolders(for parentFolder: FolderCard?) async -> [FolderCard] {
 //        Task {
 //            try await documentRepository.sync()
 //            try await folderRepository.sync()
@@ -50,7 +50,7 @@ final class DocumentListProviderImpl: DocumentListProvider {
                 folders = try await folderRepository.getSubFolders(of: nil)
             }
             
-            var result = [FolderUI]()
+            var result = [FolderCard]()
             
             for folder in folders {
                 let folderUI = folder.toUI(
@@ -70,7 +70,7 @@ final class DocumentListProviderImpl: DocumentListProvider {
     }
     
     @MainActor
-    func fetchDocuments(for parentFolder: FolderUI?) async -> [DocumentCardUI] {
+    func fetchDocuments(for parentFolder: FolderCard?) async -> [DocumentCard] {
         do {
             let baseFolder = await getBaseFolder(folder: parentFolder)
             let documents = try await documentRepository.getDocuments(
@@ -88,7 +88,7 @@ final class DocumentListProviderImpl: DocumentListProvider {
     func createNewFolder(
         with uuid: UUID,
         named: String,
-        in parentFolder: FolderUI?,
+        in parentFolder: FolderCard?,
         complition: (Bool) -> Void
     ) async {
         do {
@@ -114,9 +114,9 @@ final class DocumentListProviderImpl: DocumentListProvider {
         }
     }
     
-    func getSelectedTags() -> [DocumentCardUI.Color] {
+    func getSelectedTags() -> [DocumentCard.Color] {
         guard let decoded = try? JSONDecoder().decode(
-            [DocumentCardUI.Color].self,
+            [DocumentCard.Color].self,
             from: selectedTagsData
         ) else {
             return []
@@ -124,13 +124,13 @@ final class DocumentListProviderImpl: DocumentListProvider {
         return decoded
     }
     
-    func setSelectedTags(_ tags: [DocumentCardUI.Color]) {
+    func setSelectedTags(_ tags: [DocumentCard.Color]) {
         if let encoded = try? JSONEncoder().encode(tags) {
             selectedTagsData = encoded
         }
     }
     
-    private func getBaseFolder(folder: FolderUI?) async -> Folder? {
+    private func getBaseFolder(folder: FolderCard?) async -> Folder? {
         var baseFolder: Folder? = nil
         
         do {

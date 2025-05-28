@@ -4,9 +4,9 @@ import SwiftUI
 
 extension DocumentListTabbarView {
     struct FolderDetailsView: View {
-        let folder: FolderUI?
+        let folder: FolderCard?
         
-        @Binding var selectedTags: [DocumentCardUI.Color]
+        @Binding var selectedTags: [DocumentCard.Color]
         
         let onParentFolderTap: () -> Void
         let onHomeTap: () -> Void

@@ -7,7 +7,7 @@ extension DocumentListTabbarView {
         let onSearchTap: () -> Void
         let onFilterTap: () -> Void
         
-        @Binding var selectedTags: [DocumentCardUI.Color]
+        @Binding var selectedTags: [DocumentCard.Color]
         
         var body: some View {
             HStack {

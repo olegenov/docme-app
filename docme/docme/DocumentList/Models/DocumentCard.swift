@@ -1,6 +1,6 @@
 import Foundation
 
-struct DocumentCardUI: Identifiable, Hashable {
+struct DocumentCard: Identifiable, Hashable {
     let id: UUID
     let title: String
     let imageUrl: String?
@@ -54,7 +54,7 @@ struct DocumentCardUI: Identifiable, Hashable {
 }
 
 extension Document.Icon {
-    func toModelIcon() -> DocumentCardUI.Icon {
+    func toModelIcon() -> DocumentCard.Icon {
         switch self {
         case .driver: .driver
         case .government: .government
@@ -66,7 +66,7 @@ extension Document.Icon {
 }
 
 extension Document.Color {
-    func toModelColor() -> DocumentCardUI.Color {
+    func toModelColor() -> DocumentCard.Color {
         switch self {
         case .none: .none
         case .green: .green
@@ -76,7 +76,7 @@ extension Document.Color {
     }
 }
 
-extension DocumentCardUI.Color {
+extension DocumentCard.Color {
     func toTagColor() -> TagsView.TagColor {
         switch self {
         case .none: .empty
@@ -87,7 +87,7 @@ extension DocumentCardUI.Color {
     }
 }
 
-extension DocumentCardUI.Icon {
+extension DocumentCard.Icon {
     func toTagIconName() -> ImageIcon.Name {
         switch self {
         case .driver: .driverOutline
@@ -100,7 +100,7 @@ extension DocumentCardUI.Icon {
 }
 
 extension Document {
-    func toCardUI() -> DocumentCardUI {
+    func toCardUI() -> DocumentCard {
         .init(
             id: uuid,
             title: title,

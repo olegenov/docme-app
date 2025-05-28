@@ -5,8 +5,8 @@ import UIKit
 protocol DocumentCreationViewModel: ObservableObject, AnyObject {
     var documentTitle: String { get set }
     var documentDescription: String { get set }
-    var documentIcon: DocumentCardUI.Icon { get set }
-    var documentColor: DocumentCardUI.Color { get set }
+    var documentIcon: DocumentCard.Icon { get set }
+    var documentColor: DocumentCard.Color { get set }
     var documentImage: UIImage? { get set }
     
     var showLoading: Bool { get }
@@ -23,8 +23,8 @@ class DocumentCreationViewModelImpl: DocumentCreationViewModel {
     
     var documentTitle: String = ""
     var documentDescription: String = ""
-    var documentIcon: DocumentCardUI.Icon = .tag
-    var documentColor: DocumentCardUI.Color = .none
+    var documentIcon: DocumentCard.Icon = .tag
+    var documentColor: DocumentCard.Color = .none
     var documentImage: UIImage? = nil
     
     private(set) var showLoading = false
@@ -88,7 +88,7 @@ class DocumentCreationViewModelImpl: DocumentCreationViewModel {
     }
 }
 
-private extension DocumentCardUI.Color {
+private extension DocumentCard.Color {
     func toDomain() -> Document.Color {
         switch self {
         case .green: .green
@@ -99,7 +99,7 @@ private extension DocumentCardUI.Color {
     }
 }
 
-private extension DocumentCardUI.Icon {
+private extension DocumentCard.Icon {
     func toDomain() -> Document.Icon {
         switch self {
         case .driver: .driver

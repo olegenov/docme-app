@@ -119,7 +119,7 @@ struct DocumentViewView<ViewModel: DocumentViewViewModel>: View {
     }
 }
 
-private extension DocumentCardUI.Color {
+private extension DocumentCard.Color {
     func toIconColor() -> Color {
         switch self {
         case .none: DS.theme.colors.outline

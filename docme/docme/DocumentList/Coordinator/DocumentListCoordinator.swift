@@ -4,7 +4,7 @@ import Combine
 
 
 enum DocumentListRoutes: Route, Hashable {
-    case folderDetails(folder: FolderUI)
+    case folderDetails(folder: FolderCard)
     case documentCreation
     case documentView(id: UUID)
 }
@@ -21,7 +21,7 @@ class DocumentListCoordinator: ObservableObject {
         self.container = container
     }
 
-    func start(for folder: FolderUI? = nil) -> some View {
+    func start(for folder: FolderCard? = nil) -> some View {
         let provider = DocumentListProviderImpl(
             documentRepository: container.documentRepository,
             folderRepository: container.folderRepository

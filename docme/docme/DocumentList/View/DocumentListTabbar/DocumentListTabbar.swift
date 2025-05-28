@@ -9,7 +9,7 @@ struct DocumentListTabbarView: View {
         case defaultView(
             onSearchTap: () -> Void,
             onFilterTap: () -> Void,
-            selectedTags: Binding<[DocumentCardUI.Color]>
+            selectedTags: Binding<[DocumentCard.Color]>
         )
         
         case search(
@@ -19,16 +19,16 @@ struct DocumentListTabbarView: View {
         )
         
         case filter(
-            selectedTags: Binding<[DocumentCardUI.Color]>,
-            onFilterSelection: (DocumentCardUI.Color) -> Void,
-            onCancelFilter: (DocumentCardUI.Color) -> Void,
+            selectedTags: Binding<[DocumentCard.Color]>,
+            onFilterSelection: (DocumentCard.Color) -> Void,
+            onCancelFilter: (DocumentCard.Color) -> Void,
             onAllFilterSelection: () -> Void,
             onClose: () -> Void
         )
         
         case folderDetails(
-            folder: FolderUI,
-            selectedTags: Binding<[DocumentCardUI.Color]>,
+            folder: FolderCard,
+            selectedTags: Binding<[DocumentCard.Color]>,
             onParentFolderTap: () -> Void,
             onHomeTap: () -> Void,
             onFilterTap: () -> Void

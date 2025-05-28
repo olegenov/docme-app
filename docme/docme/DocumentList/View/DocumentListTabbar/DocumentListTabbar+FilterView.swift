@@ -4,10 +4,10 @@ import SwiftUI
 
 extension DocumentListTabbarView {
     struct FilterView: View {
-        @Binding var selectedTags: [DocumentCardUI.Color]
+        @Binding var selectedTags: [DocumentCard.Color]
         
-        let onFilterSelection: (DocumentCardUI.Color) -> Void
-        let onCancelFilter: (DocumentCardUI.Color) -> Void
+        let onFilterSelection: (DocumentCard.Color) -> Void
+        let onCancelFilter: (DocumentCard.Color) -> Void
         let onAllFilterSelection: () -> Void
         let onClose: () -> Void
         
@@ -23,7 +23,7 @@ extension DocumentListTabbarView {
                     )
                 }
                 
-                ForEach(DocumentCardUI.Color.all, id: \.self) { tag in
+                ForEach(DocumentCard.Color.all, id: \.self) { tag in
                     let selected = selectedTags.contains(tag)
                     FabView(
                         content: .tags(selectedTags: [tag.toTagColor()]),

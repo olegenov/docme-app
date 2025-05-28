@@ -136,7 +136,7 @@ struct DocumentCreationView<ViewModel: DocumentCreationViewModel>: View {
     
     @ViewBuilder
     private var documentColorList: some View {
-        let items: [DocumentCardUI.Color] = [
+        let items: [DocumentCard.Color] = [
             .none,
             .red,
             .green,
@@ -179,7 +179,7 @@ struct DocumentCreationView<ViewModel: DocumentCreationViewModel>: View {
 
 
 struct TypeListData: Hashable {
-    let icon: DocumentCardUI.Icon
+    let icon: DocumentCard.Icon
     let title: String
 }
 

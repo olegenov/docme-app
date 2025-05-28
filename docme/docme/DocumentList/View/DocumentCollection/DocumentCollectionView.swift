@@ -3,11 +3,11 @@ import SwiftUI
 
 
 struct DocumentCollectionView: View {
-    let documents: [DocumentCardUI]
+    let documents: [DocumentCard]
     let imageService: ImageService
     
-    var onFavoriteToggle: ((DocumentCardUI) -> Void)? = nil
-    var onDocumentTap: ((DocumentCardUI) -> Void)? = nil
+    var onFavoriteToggle: ((DocumentCard) -> Void)? = nil
+    var onDocumentTap: ((DocumentCard) -> Void)? = nil
     
     var body: some View {
         HStack(alignment: .top, spacing: DS.Spacing.m4) {
@@ -41,13 +41,13 @@ struct DocumentCollectionView: View {
         }
     }
 
-    private var leftColumnItems: [DocumentCardUI] {
+    private var leftColumnItems: [DocumentCard] {
         documents.enumerated().compactMap { index, element in
             index % 2 == 0 ? element : nil
         }
     }
 
-    private var rightColumnItems: [DocumentCardUI] {
+    private var rightColumnItems: [DocumentCard] {
         documents.enumerated().compactMap { index, element in
             index % 2 != 0 ? element : nil
         }

@@ -1,6 +1,6 @@
 import Foundation
 
-struct FolderUI: Identifiable, Hashable {
+struct FolderCard: Identifiable, Hashable {
     let id: UUID
     let name: String
     let documentCount: Int
@@ -23,7 +23,7 @@ struct FolderUI: Identifiable, Hashable {
 }
 
 extension Folder {
-    func toUI(with count: Int = 0) -> FolderUI {
+    func toUI(with count: Int = 0) -> FolderCard {
         .init(
             id: uuid,
             name: name,

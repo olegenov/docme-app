@@ -10,11 +10,11 @@ struct DocumentCollectionItemView: View {
     }
     
     let displayType: DisplayType
-    let document: DocumentCardUI
+    let document: DocumentCard
     let imageService: ImageService
     
-    var onFavoriteToggle: ((DocumentCardUI) -> Void)? = nil
-    var onDocumentTap: ((DocumentCardUI) -> Void)? = nil
+    var onFavoriteToggle: ((DocumentCard) -> Void)? = nil
+    var onDocumentTap: ((DocumentCard) -> Void)? = nil
     
     var body: some View {
         DocumentCardView(
@@ -53,7 +53,7 @@ struct DocumentCollectionItemView: View {
     }
 }
 
-private extension DocumentCardUI.Color {
+private extension DocumentCard.Color {
     func toIconColor() -> Color {
         switch self {
         case .none: DS.theme.colors.outline
