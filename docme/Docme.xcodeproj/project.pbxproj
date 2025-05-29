@@ -68,12 +68,12 @@
 		0D362F8A2DE7B0BE003E9262 /* FieldRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D362F892DE7B0BE003E9262 /* FieldRepository.swift */; };
 		0D362F8C2DE7B24F003E9262 /* FieldStorageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D362F8B2DE7B24F003E9262 /* FieldStorageRepository.swift */; };
 		0D362F8E2DE7C58D003E9262 /* DSButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D362F8D2DE7C586003E9262 /* DSButton.swift */; };
+		0D362F982DE7E7B1003E9262 /* TokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D362F972DE7E7AF003E9262 /* TokenManager.swift */; };
 		0D3EA0A92DCBEA4400D987F0 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3EA0A82DCBEA4200D987F0 /* Router.swift */; };
 		0D3EA0B12DCBF59100D987F0 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3EA0B02DCBF58C00D987F0 /* MainView.swift */; };
 		0D3EA0C22DCCC85B00D987F0 /* DocumentCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3EA0C12DCCC85200D987F0 /* DocumentCollectionView.swift */; };
 		0D3EA0C42DCCC8FF00D987F0 /* DocumentCollectionItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3EA0C32DCCC8F700D987F0 /* DocumentCollectionItemView.swift */; };
 		0DC4139E2DCE193E00CABC15 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC4139D2DCE193B00CABC15 /* StorageService.swift */; };
-		0DC413AC2DCE1AFC00CABC15 /* ServerChangesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC413AB2DCE1AF700CABC15 /* ServerChangesResponse.swift */; };
 		0DC413AF2DCE1C2B00CABC15 /* AppLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC413AE2DCE1C2900CABC15 /* AppLogger.swift */; };
 		0DC413B42DCE202500CABC15 /* DocumentStorageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC413B32DCE201E00CABC15 /* DocumentStorageRepository.swift */; };
 		0DC413B62DCE203100CABC15 /* FolderStorageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC413B52DCE202900CABC15 /* FolderStorageRepository.swift */; };
@@ -166,12 +166,13 @@
 		0D362F892DE7B0BE003E9262 /* FieldRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldRepository.swift; sourceTree = "<group>"; };
 		0D362F8B2DE7B24F003E9262 /* FieldStorageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldStorageRepository.swift; sourceTree = "<group>"; };
 		0D362F8D2DE7C586003E9262 /* DSButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSButton.swift; sourceTree = "<group>"; };
+		0D362F972DE7E7AF003E9262 /* TokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenManager.swift; sourceTree = "<group>"; };
+		0D362F992DE7E849003E9262 /* Untitled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Untitled.swift; sourceTree = "<group>"; };
 		0D3EA0A82DCBEA4200D987F0 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		0D3EA0B02DCBF58C00D987F0 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		0D3EA0C12DCCC85200D987F0 /* DocumentCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCollectionView.swift; sourceTree = "<group>"; };
 		0D3EA0C32DCCC8F700D987F0 /* DocumentCollectionItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCollectionItemView.swift; sourceTree = "<group>"; };
 		0DC4139D2DCE193B00CABC15 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
-		0DC413AB2DCE1AF700CABC15 /* ServerChangesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerChangesResponse.swift; sourceTree = "<group>"; };
 		0DC413AE2DCE1C2900CABC15 /* AppLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogger.swift; sourceTree = "<group>"; };
 		0DC413B32DCE201E00CABC15 /* DocumentStorageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentStorageRepository.swift; sourceTree = "<group>"; };
 		0DC413B52DCE202900CABC15 /* FolderStorageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderStorageRepository.swift; sourceTree = "<group>"; };
@@ -354,6 +355,7 @@
 		0D102E032DC8D69C0017073B /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				0D362F962DE7E7A5003E9262 /* TokenManager */,
 				0D362F532DE652C0003E9262 /* Toast */,
 				0D3EA0AD2DCBEF2100D987F0 /* Router */,
 			);
@@ -379,6 +381,7 @@
 				0D102E222DCA31940017073B /* Request */,
 				0D102E202DCA31550017073B /* NetworkingService.swift */,
 				0DC413B72DCE255A00CABC15 /* DefaultNetworkingServce.swift */,
+				0DCEF11A2DD007910073ED13 /* NetworkingModels */,
 			);
 			path = NetworkingService;
 			sourceTree = "<group>";
@@ -394,7 +397,6 @@
 		0D102E232DCA319B0017073B /* Reponse */ = {
 			isa = PBXGroup;
 			children = (
-				0DC413AB2DCE1AF700CABC15 /* ServerChangesResponse.swift */,
 				0D102E262DCA31B40017073B /* Response.swift */,
 			);
 			path = Reponse;
@@ -417,7 +419,6 @@
 			isa = PBXGroup;
 			children = (
 				0DCEF1182DCFFD6F0073ED13 /* UUIDModel.swift */,
-				0DCEF11A2DD007910073ED13 /* Networking */,
 				0DCEF1052DCE38F10073ED13 /* Folder.swift */,
 				0D362F872DE79C79003E9262 /* DocumentField.swift */,
 				0DCEF1032DCE38D60073ED13 /* Document.swift */,
@@ -577,6 +578,14 @@
 			path = PhotoPicker;
 			sourceTree = "<group>";
 		};
+		0D362F962DE7E7A5003E9262 /* TokenManager */ = {
+			isa = PBXGroup;
+			children = (
+				0D362F972DE7E7AF003E9262 /* TokenManager.swift */,
+			);
+			path = TokenManager;
+			sourceTree = "<group>";
+		};
 		0D3EA0AD2DCBEF2100D987F0 /* Router */ = {
 			isa = PBXGroup;
 			children = (
@@ -624,6 +633,7 @@
 		0DC413B92DCE282500CABC15 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				0D362F992DE7E849003E9262 /* Untitled.swift */,
 				0DCEF0F92DCE28E00073ED13 /* FolderNetworkingRepository.swift */,
 				0DC413BA2DCE282D00CABC15 /* DocumentNetworkingRepository.swift */,
 			);
@@ -650,13 +660,13 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		0DCEF11A2DD007910073ED13 /* Networking */ = {
+		0DCEF11A2DD007910073ED13 /* NetworkingModels */ = {
 			isa = PBXGroup;
 			children = (
 				0DCEF11D2DD007B00073ED13 /* DocumentNetworking.swift */,
 				0DCEF11B2DD007A60073ED13 /* FolderNetworking.swift */,
 			);
-			path = Networking;
+			path = NetworkingModels;
 			sourceTree = "<group>";
 		};
 		0DCEF11F2DDBAEF80073ED13 /* ImageService */ = {
@@ -815,6 +825,7 @@
 				0D362F292DE1EA9E003E9262 /* View+HideKeybpard.swift in Sources */,
 				0DC413B62DCE203100CABC15 /* FolderStorageRepository.swift in Sources */,
 				0D362F522DE64DE5003E9262 /* DocumentScreen.swift in Sources */,
+				0D362F982DE7E7B1003E9262 /* TokenManager.swift in Sources */,
 				0D362F4A2DE631F5003E9262 /* DocumentScreenViewModel.swift in Sources */,
 				0DCEF12D2DDBCB3D0073ED13 /* ProfileViewModel.swift in Sources */,
 				0D102DF92DC815EA0017073B /* TitleView.swift in Sources */,
@@ -868,7 +879,6 @@
 				0D102DE62DC7FBDE0017073B /* DS.swift in Sources */,
 				0D102E402DCA508D0017073B /* DocumentListCoordinator.swift in Sources */,
 				0D102E142DC934130017073B /* TagsView.swift in Sources */,
-				0DC413AC2DCE1AFC00CABC15 /* ServerChangesResponse.swift in Sources */,
 				0DC413B42DCE202500CABC15 /* DocumentStorageRepository.swift in Sources */,
 				0D362F8E2DE7C58D003E9262 /* DSButton.swift in Sources */,
 				0D362F862DE78AD9003E9262 /* DocumentEditTabbarView.swift in Sources */,

@@ -20,7 +20,7 @@ final class DocumentStorageRepositoryImpl: DocumentStorageRepository {
     }
 
     func fetch() async throws -> [Document] {
-        try await service.fetchAll()
+        try await service.fetchAll().filter { !$0.isDeleted }
     }
     
     func fetch(by uuid: UUID) async throws -> Document? {
@@ -28,6 +28,7 @@ final class DocumentStorageRepositoryImpl: DocumentStorageRepository {
     }
 
     func delete(_ entity: Document) async throws {
+        entity.deleted = true
         try await service.delete(entity)
     }
 

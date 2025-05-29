@@ -1,27 +1,29 @@
 import Foundation
 
 final class DocumentNetworkingRepository {
-    private let networkingService: NetworkingService
-    
+    private let service: NetworkingService
+
     init(service: NetworkingService) {
-        self.networkingService = service
+        self.service = service
     }
-    
-    func fetchAll() async throws -> [DocumentNetworking] {
-        return [
-            
-        ]
+
+    func fetchAll(completion: @escaping (Result<[DocumentNetworking], Error>) async -> Void) async {
+        await service.get(path: "/documents", completion: completion)
     }
-    
-    func update(_ doc: DocumentNetworking) async throws {
-        return
+
+    func fetchChanges(completion: @escaping (Result<[DocumentNetworking], Error>) async -> Void) async {
+        await service.get(path: "/documents/changes", completion: completion)
     }
-    
-    func create(_ doc: DocumentNetworking) async throws {
-        return
+
+    func create(document: DocumentNetworking, completion: @escaping (Result<DocumentNetworking, Error>) async -> Void) async {
+        await service.post(path: "/documents", requestObject: document, completion: completion)
     }
-    
-    func delete(uuid: UUID) async throws {
-        return
+
+    func update(document: DocumentNetworking, completion: @escaping (Result<DocumentNetworking, Error>) async -> Void) async {
+        await service.patch(path: "/documents/\(document.uuid)", requestObject: document, completion: completion)
+    }
+
+    func delete(document: DocumentNetworking, completion: @escaping (Result<DocumentNetworking, Error>) async -> Void) async {
+        await service.delete(path: "/documents/\(document.uuid)", requestObject: document, completion: completion)
     }
 }

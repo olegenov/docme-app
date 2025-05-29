@@ -25,6 +25,11 @@ final class AppDIContainer {
             api: folderNetworking
         )
         
+        // Field
+        let fieldStorage = FieldStorageRepositoryImpl(context: modelContext)
+        
+        self.fieldRepository = FieldRepositoryImpl(storage: fieldStorage)
+        
         // Document
         let documentStorage = DocumentStorageRepositoryImpl(context: modelContext)
         let documentNetworking = DocumentNetworkingRepository(service: networking)
@@ -33,12 +38,8 @@ final class AppDIContainer {
             storage: documentStorage,
             api: documentNetworking,
             folderRepository: folderRepository,
+            fieldRepository: fieldRepository,
             imageService: imageService
         )
-        
-        // Field
-        let fieldStorage = FieldStorageRepositoryImpl(context: modelContext)
-        
-        self.fieldRepository = FieldRepositoryImpl(storage: fieldStorage)
     }
 }

@@ -9,6 +9,7 @@ final class Folder: UUIDModel {
     var updatedAt: Date
     var isDirty: Bool
     var deleted: Bool
+    var isNew: Bool
     
     @Relationship(inverse: \Folder.parentFolder)
     var subfolders: [Folder] = []
@@ -23,7 +24,8 @@ final class Folder: UUIDModel {
         updatedAt: Date = Date(),
         parentFolder: Folder? = nil,
         isDirty: Bool = false,
-        deleted: Bool = false
+        deleted: Bool = false,
+        isNew: Bool = false
     ) {
         self.uuid = id
         self.name = name
@@ -32,5 +34,6 @@ final class Folder: UUIDModel {
         self.parentFolder = parentFolder
         self.isDirty = isDirty
         self.deleted = deleted
+        self.isNew = isNew
     }
 }

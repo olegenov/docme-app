@@ -14,9 +14,9 @@ class DefaultNetworkingService: NetworkingService {
         self.baseURL = baseURL
     }
     
-    func get<T: Response>(
+    func get<T: Decodable>(
         path: String,
-        completion: @escaping (Result<T, Error>) -> Void
+        completion: @escaping (Result<T, Error>) async -> Void
     ) async {
         let url = baseURL.appendingPathComponent(path)
         var request = URLRequest(url: url)
@@ -26,10 +26,10 @@ class DefaultNetworkingService: NetworkingService {
         await performRequest(request, completion: completion)
     }
     
-    func post<T: Request, U: Response> (
+    func post<T: Codable, U: Decodable> (
         path: String,
         requestObject: T,
-        completion: @escaping (Result<U, Error>) -> Void
+        completion: @escaping (Result<U, Error>) async -> Void
     ) async {
         let url = baseURL.appendingPathComponent(path)
         var request = URLRequest(url: url)
@@ -43,16 +43,16 @@ class DefaultNetworkingService: NetworkingService {
                 AppLogger.shared.error(error.localizedDescription)
             }
             
-            completion(.failure(error))
+            await completion(.failure(error))
         }
         
         await performRequest(request, completion: completion)
     }
     
-    func delete<T: Request, U: Response>(
+    func delete<T: Codable, U: Decodable>(
         path: String,
         requestObject: T,
-        completion: @escaping (Result<U, Error>) -> Void
+        completion: @escaping (Result<U, Error>) async -> Void
     ) async {
         let url = baseURL.appendingPathComponent(path)
         var request = URLRequest(url: url)
@@ -62,10 +62,10 @@ class DefaultNetworkingService: NetworkingService {
         await performRequest(request, completion: completion)
     }
     
-    func put<T: Request, U: Response>(
+    func put<T: Codable, U: Decodable>(
         path: String,
         requestObject: T,
-        completion: @escaping (Result<U, Error>) -> Void
+        completion: @escaping (Result<U, Error>) async -> Void
     ) async {
         let url = baseURL.appendingPathComponent(path)
         var request = URLRequest(url: url)
@@ -79,16 +79,16 @@ class DefaultNetworkingService: NetworkingService {
                 AppLogger.shared.error(error.localizedDescription)
             }
             
-            completion(.failure(error))
+            await completion(.failure(error))
         }
         
         await performRequest(request, completion: completion)
     }
     
-    func patch<T: Request, U: Response>(
+    func patch<T: Codable, U: Decodable>(
         path: String,
         requestObject: T,
-        completion: @escaping (Result<U, Error>) -> Void
+        completion: @escaping (Result<U, Error>) async -> Void
     ) async {
         let url = baseURL.appendingPathComponent(path)
         var request = URLRequest(url: url)
@@ -102,38 +102,38 @@ class DefaultNetworkingService: NetworkingService {
                 AppLogger.shared.error(error.localizedDescription)
             }
             
-            completion(.failure(error))
+            await completion(.failure(error))
         }
         
         await performRequest(request, completion: completion)
     }
     
-    private func performRequest<T: Response>(
+    private func performRequest<T: Decodable>(
         _ request: URLRequest,
-        completion: @escaping (Result<T, Error>) -> Void
+        completion: @escaping (Result<T, Error>) async -> Void
     ) async {
         var requestToPerform = request
         
-        //    guard let token = TokenManager.shared.retrieve() else {
-        //      completion(.failure(Errors.invalidToken))
-        //      return
-        //    }
-        //
-        //    requestToPerform.setValue(
-        //      "Bearer \(token)",
-        //      forHTTPHeaderField: "Authorization"
-        //    )
+        guard let token = TokenManager.shared.retrieve() else {
+          await completion(.failure(Errors.invalidToken))
+          return
+        }
+    
+        requestToPerform.setValue(
+          "Bearer \(token)",
+          forHTTPHeaderField: "Authorization"
+        )
         
         do {
             let (data, _) = try await urlSession.dataTask(for: requestToPerform)
             let decodedData = try JSONDecoder().decode(T.self, from: data)
             
-            completion(.success(decodedData))
+            await completion(.success(decodedData))
         } catch {
             if let error = error as? URLError {
                 AppLogger.shared.error(error.localizedDescription)
             }
-            completion(.failure(error))
+            await completion(.failure(error))
         }
     }
 }

@@ -23,7 +23,7 @@ final class FolderStorageRepositoryImpl: FolderStorageRepository {
     }
 
     func fetch() async throws -> [Folder] {
-        try await service.fetchAll()
+        try await service.fetchAll().filter { !$0.isDeleted }
     }
     
     func fetch(by uuid: UUID) async throws -> Folder? {
@@ -31,7 +31,8 @@ final class FolderStorageRepositoryImpl: FolderStorageRepository {
     }
     
     func delete(_ entity: Folder) async throws {
-        try await service.delete(entity)
+        entity.deleted = true
+        try await service.update(entity)
     }
 
     func update(_ entity: Folder) async throws {
@@ -61,7 +62,7 @@ final class FolderStorageRepositoryImpl: FolderStorageRepository {
             )
         }
         
-        return try await service.fetch(descriptor: descriptor)
+        return try await service.fetch(descriptor: descriptor).filter { !$0.isDeleted }
     }
     
     func countDocuments(in folder: Folder) async throws -> Int {

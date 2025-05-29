@@ -23,7 +23,7 @@ final class StorageServiceImpl<T: PersistentModel>: StorageService where T: UUID
 
     func fetchAll() async throws -> [T] {
         let descriptor = FetchDescriptor<T>()
-        return try context.fetch(descriptor)
+        return try context.fetch(descriptor).filter { !$0.isDeleted }
     }
     
     func fetch(by uuid: UUID) async throws -> T? {

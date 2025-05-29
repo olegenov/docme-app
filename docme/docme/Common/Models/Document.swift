@@ -16,6 +16,7 @@ final class Document: UUIDModel {
     var updatedAt: Date
     var isDirty: Bool
     var deleted: Bool
+    var isNew: Bool
     
     @Relationship(deleteRule: .cascade) var folder: Folder?
     
@@ -50,7 +51,8 @@ final class Document: UUIDModel {
         updatedAt: Date = Date(),
         isDirty: Bool = false,
         folder: Folder? = nil,
-        deleted: Bool = false
+        deleted: Bool = false,
+        isNew: Bool = false
     ) {
         self.uuid = id
         self.title = title
@@ -65,5 +67,6 @@ final class Document: UUIDModel {
         self.isDirty = isDirty
         self.folder = folder
         self.deleted = deleted
+        self.isNew = isNew
     }
 }
