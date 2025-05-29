@@ -49,6 +49,29 @@ class DefaultNetworkingService: NetworkingService {
         await performRequest(request, completion: completion)
     }
     
+    func postIgnoringToken<T: Codable, U: Decodable> (
+        path: String,
+        requestObject: T,
+        completion: @escaping (Result<U, Error>) async -> Void
+    ) async {
+        let url = baseURL.appendingPathComponent(path)
+        var request = URLRequest(url: url)
+        
+        request.httpMethod = "POST"
+        
+        do {
+            request.httpBody = try JSONEncoder().encode(requestObject)
+        } catch {
+            if let error = error as? URLError {
+                AppLogger.shared.error(error.localizedDescription)
+            }
+            
+            await completion(.failure(error))
+        }
+        
+        await performRequest(request, completion: completion, ignoreToken: true)
+    }
+    
     func delete<T: Codable, U: Decodable>(
         path: String,
         requestObject: T,
@@ -110,19 +133,22 @@ class DefaultNetworkingService: NetworkingService {
     
     private func performRequest<T: Decodable>(
         _ request: URLRequest,
-        completion: @escaping (Result<T, Error>) async -> Void
+        completion: @escaping (Result<T, Error>) async -> Void,
+        ignoreToken: Bool = false
     ) async {
         var requestToPerform = request
         
-        guard let token = TokenManager.shared.retrieve() else {
-          await completion(.failure(Errors.invalidToken))
-          return
+        if !ignoreToken {
+            guard let token = TokenManager.shared.retrieve() else {
+              await completion(.failure(Errors.invalidToken))
+              return
+            }
+        
+            requestToPerform.setValue(
+              "Bearer \(token)",
+              forHTTPHeaderField: "Authorization"
+            )
         }
-    
-        requestToPerform.setValue(
-          "Bearer \(token)",
-          forHTTPHeaderField: "Authorization"
-        )
         
         do {
             let (data, _) = try await urlSession.dataTask(for: requestToPerform)

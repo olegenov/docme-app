@@ -100,6 +100,11 @@ struct DocumentScreenView<ViewModel: DocumentScreenViewModel>: View {
                 showDeleteAlert = false
             }
         )
+        .sheet(isPresented: $viewModel.isSharing) {
+            if let fileURL = viewModel.textFileURL {
+                ShareSheet(activityItems: [fileURL])
+            }
+        }
     }
     
     private var tabbarView: some View {

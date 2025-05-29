@@ -69,6 +69,15 @@
 		0D362F8C2DE7B24F003E9262 /* FieldStorageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D362F8B2DE7B24F003E9262 /* FieldStorageRepository.swift */; };
 		0D362F8E2DE7C58D003E9262 /* DSButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D362F8D2DE7C586003E9262 /* DSButton.swift */; };
 		0D362F982DE7E7B1003E9262 /* TokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D362F972DE7E7AF003E9262 /* TokenManager.swift */; };
+		0D362FA42DE7EDA5003E9262 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D362FA02DE7EDA5003E9262 /* AuthViewModel.swift */; };
+		0D362FA62DE7EDA5003E9262 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D362FA22DE7EDA5003E9262 /* AuthCoordinator.swift */; };
+		0D362FA72DE7EDA5003E9262 /* AuthProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D362F9E2DE7EDA5003E9262 /* AuthProvider.swift */; };
+		0D362FA92DE7F064003E9262 /* AuthNetworkingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D362F992DE7E849003E9262 /* AuthNetworkingRepository.swift */; };
+		0D362FAC2DE7F233003E9262 /* LoginData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D362FAB2DE7F231003E9262 /* LoginData.swift */; };
+		0D362FAE2DE7F25D003E9262 /* SignupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D362FAD2DE7F25D003E9262 /* SignupData.swift */; };
+		0D362FB12DE7F35F003E9262 /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D362FB02DE7F35B003E9262 /* AccountManager.swift */; };
+		0D362FB42DE7F6B2003E9262 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D362FB32DE7F6B0003E9262 /* AuthView.swift */; };
+		0D362FB62DE8103E003E9262 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D362FB52DE81037003E9262 /* ShareSheet.swift */; };
 		0D3EA0A92DCBEA4400D987F0 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3EA0A82DCBEA4200D987F0 /* Router.swift */; };
 		0D3EA0B12DCBF59100D987F0 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3EA0B02DCBF58C00D987F0 /* MainView.swift */; };
 		0D3EA0C22DCCC85B00D987F0 /* DocumentCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3EA0C12DCCC85200D987F0 /* DocumentCollectionView.swift */; };
@@ -167,7 +176,15 @@
 		0D362F8B2DE7B24F003E9262 /* FieldStorageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldStorageRepository.swift; sourceTree = "<group>"; };
 		0D362F8D2DE7C586003E9262 /* DSButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSButton.swift; sourceTree = "<group>"; };
 		0D362F972DE7E7AF003E9262 /* TokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenManager.swift; sourceTree = "<group>"; };
-		0D362F992DE7E849003E9262 /* Untitled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Untitled.swift; sourceTree = "<group>"; };
+		0D362F992DE7E849003E9262 /* AuthNetworkingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthNetworkingRepository.swift; sourceTree = "<group>"; };
+		0D362F9E2DE7EDA5003E9262 /* AuthProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthProvider.swift; sourceTree = "<group>"; };
+		0D362FA02DE7EDA5003E9262 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		0D362FA22DE7EDA5003E9262 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
+		0D362FAB2DE7F231003E9262 /* LoginData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginData.swift; sourceTree = "<group>"; };
+		0D362FAD2DE7F25D003E9262 /* SignupData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupData.swift; sourceTree = "<group>"; };
+		0D362FB02DE7F35B003E9262 /* AccountManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
+		0D362FB32DE7F6B0003E9262 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
+		0D362FB52DE81037003E9262 /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		0D3EA0A82DCBEA4200D987F0 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		0D3EA0B02DCBF58C00D987F0 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		0D3EA0C12DCCC85200D987F0 /* DocumentCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCollectionView.swift; sourceTree = "<group>"; };
@@ -233,6 +250,7 @@
 		0D102DD12DC7F5F30017073B /* docme */ = {
 			isa = PBXGroup;
 			children = (
+				0D362F9A2DE7ED88003E9262 /* Auth */,
 				0D362F252DE0FDE4003E9262 /* AppTabbar */,
 				0DCEF1242DDBCABC0073ED13 /* Profile */,
 				0D362F212DE0FBCB003E9262 /* DocumentScreen */,
@@ -355,6 +373,7 @@
 		0D102E032DC8D69C0017073B /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				0D362FAF2DE7F352003E9262 /* AccountManager */,
 				0D362F962DE7E7A5003E9262 /* TokenManager */,
 				0D362F532DE652C0003E9262 /* Toast */,
 				0D3EA0AD2DCBEF2100D987F0 /* Router */,
@@ -503,6 +522,7 @@
 		0D362F3A2DE62581003E9262 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0D362FB52DE81037003E9262 /* ShareSheet.swift */,
 				0D362F842DE78405003E9262 /* PhotoPicker */,
 				0D362F832DE783EE003E9262 /* Tabbar */,
 				0D362F3E2DE62BEC003E9262 /* DocumentScreenView.swift */,
@@ -586,6 +606,67 @@
 			path = TokenManager;
 			sourceTree = "<group>";
 		};
+		0D362F9A2DE7ED88003E9262 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				0D362FB22DE7F6AA003E9262 /* View */,
+				0D362FAA2DE7F22C003E9262 /* Models */,
+				0D362F9F2DE7EDA5003E9262 /* Provider */,
+				0D362FA12DE7EDA5003E9262 /* ViewModel */,
+				0D362FA32DE7EDA5003E9262 /* Coordinator */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		0D362F9F2DE7EDA5003E9262 /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+				0D362F9E2DE7EDA5003E9262 /* AuthProvider.swift */,
+			);
+			path = Provider;
+			sourceTree = "<group>";
+		};
+		0D362FA12DE7EDA5003E9262 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0D362FA02DE7EDA5003E9262 /* AuthViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		0D362FA32DE7EDA5003E9262 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				0D362FA22DE7EDA5003E9262 /* AuthCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		0D362FAA2DE7F22C003E9262 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0D362FAB2DE7F231003E9262 /* LoginData.swift */,
+				0D362FAD2DE7F25D003E9262 /* SignupData.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		0D362FAF2DE7F352003E9262 /* AccountManager */ = {
+			isa = PBXGroup;
+			children = (
+				0D362FB02DE7F35B003E9262 /* AccountManager.swift */,
+			);
+			path = AccountManager;
+			sourceTree = "<group>";
+		};
+		0D362FB22DE7F6AA003E9262 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0D362FB32DE7F6B0003E9262 /* AuthView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		0D3EA0AD2DCBEF2100D987F0 /* Router */ = {
 			isa = PBXGroup;
 			children = (
@@ -633,7 +714,7 @@
 		0DC413B92DCE282500CABC15 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
-				0D362F992DE7E849003E9262 /* Untitled.swift */,
+				0D362F992DE7E849003E9262 /* AuthNetworkingRepository.swift */,
 				0DCEF0F92DCE28E00073ED13 /* FolderNetworkingRepository.swift */,
 				0DC413BA2DCE282D00CABC15 /* DocumentNetworkingRepository.swift */,
 			);
@@ -827,6 +908,7 @@
 				0D362F522DE64DE5003E9262 /* DocumentScreen.swift in Sources */,
 				0D362F982DE7E7B1003E9262 /* TokenManager.swift in Sources */,
 				0D362F4A2DE631F5003E9262 /* DocumentScreenViewModel.swift in Sources */,
+				0D362FB12DE7F35F003E9262 /* AccountManager.swift in Sources */,
 				0DCEF12D2DDBCB3D0073ED13 /* ProfileViewModel.swift in Sources */,
 				0D102DF92DC815EA0017073B /* TitleView.swift in Sources */,
 				0DCEF11E2DD007B70073ED13 /* DocumentNetworking.swift in Sources */,
@@ -839,6 +921,7 @@
 				0D362F422DE62D10003E9262 /* DocumentImageEdit.swift in Sources */,
 				0DCEF1232DDBAF1E0073ED13 /* ImageService.swift in Sources */,
 				0DC413BB2DCE283300CABC15 /* DocumentNetworkingRepository.swift in Sources */,
+				0D362FB62DE8103E003E9262 /* ShareSheet.swift in Sources */,
 				0D362F7D2DE6681D003E9262 /* DocumentViewTabbarView.swift in Sources */,
 				0D3EA0B12DCBF59100D987F0 /* MainView.swift in Sources */,
 				0DCEF0FA2DCE28E30073ED13 /* FolderNetworkingRepository.swift in Sources */,
@@ -847,6 +930,7 @@
 				0DCEF1102DCFDDA80073ED13 /* DocumentRepository.swift in Sources */,
 				0D102DEB2DC806DF0017073B /* Text+.swift in Sources */,
 				0DCEF13D2DDD15A50073ED13 /* Profile.swift in Sources */,
+				0D362FAE2DE7F25D003E9262 /* SignupData.swift in Sources */,
 				0D102E162DC93B550017073B /* ItemsListView.swift in Sources */,
 				0D362F552DE652CB003E9262 /* ToastManager.swift in Sources */,
 				0D362F882DE79C80003E9262 /* DocumentField.swift in Sources */,
@@ -868,11 +952,13 @@
 				0DCEF1342DDBD47F0073ED13 /* BaseCoordinatorRouting.swift in Sources */,
 				0DCEF1272DDBCAD20073ED13 /* ProfileCoordinator.swift in Sources */,
 				0DCEF1042DCE38D80073ED13 /* Document.swift in Sources */,
+				0D362FB42DE7F6B2003E9262 /* AuthView.swift in Sources */,
 				0D3EA0C42DCCC8FF00D987F0 /* DocumentCollectionItemView.swift in Sources */,
 				0DCEF12A2DDBCAFD0073ED13 /* ProfileProvider.swift in Sources */,
 				0D102DF12DC80C890017073B /* ImageIcon.swift in Sources */,
 				0D102E0F2DC8F22C0017073B /* Date+.swift in Sources */,
 				0D362F302DE1F9A6003E9262 /* DocumentListTabbar+SearchView.swift in Sources */,
+				0D362FAC2DE7F233003E9262 /* LoginData.swift in Sources */,
 				0D362F2C2DE1F97C003E9262 /* DocumentListTabbar+DefaultView.swift in Sources */,
 				0D102DE82DC806B70017073B /* Font.swift in Sources */,
 				0D362F372DE62441003E9262 /* PhotoPicker.swift in Sources */,
@@ -887,6 +973,7 @@
 				0DC413AF2DCE1C2B00CABC15 /* AppLogger.swift in Sources */,
 				0D362F8C2DE7B24F003E9262 /* FieldStorageRepository.swift in Sources */,
 				0DCEF1362DDBD6BD0073ED13 /* AppTabbarView.swift in Sources */,
+				0D362FA92DE7F064003E9262 /* AuthNetworkingRepository.swift in Sources */,
 				0D102DEF2DC80C110017073B /* FabView.swift in Sources */,
 				0D362F272DE11510003E9262 /* View+ApplyIf.swift in Sources */,
 				0D102DD72DC7F6510017073B /* Theme.swift in Sources */,
@@ -896,6 +983,9 @@
 				0D102E422DCA50950017073B /* DocumentListProvider.swift in Sources */,
 				0DCEF1152DCFDFE20073ED13 /* FolderRepository.swift in Sources */,
 				0D3EA0C22DCCC85B00D987F0 /* DocumentCollectionView.swift in Sources */,
+				0D362FA42DE7EDA5003E9262 /* AuthViewModel.swift in Sources */,
+				0D362FA62DE7EDA5003E9262 /* AuthCoordinator.swift in Sources */,
+				0D362FA72DE7EDA5003E9262 /* AuthProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

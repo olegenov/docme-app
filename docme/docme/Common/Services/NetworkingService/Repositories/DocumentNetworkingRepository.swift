@@ -6,11 +6,6 @@ final class DocumentNetworkingRepository {
     init(service: NetworkingService) {
         self.service = service
     }
-
-    func fetchAll(completion: @escaping (Result<[DocumentNetworking], Error>) async -> Void) async {
-        await service.get(path: "/documents", completion: completion)
-    }
-
     func fetchChanges(completion: @escaping (Result<[DocumentNetworking], Error>) async -> Void) async {
         await service.get(path: "/documents/changes", completion: completion)
     }

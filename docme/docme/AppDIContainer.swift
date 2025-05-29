@@ -7,14 +7,18 @@ final class AppDIContainer {
     let folderRepository: FolderRepository
     let fieldRepository: FieldRepository
     let imageService: ImageService
+    let authNetworking: AuthNetworkingRepository
     
     init(modelContext: ModelContext) {
-        guard let apiURL = URL(string: "http://localhost:8080") else {
+        guard let apiURL = URL(string: "http://127.0.0.1:8080/api") else {
             fatalError("Invalid base URL")
         }
         
         imageService = ImageServiceImpl()
         let networking = DefaultNetworkingService(baseURL: apiURL)
+        
+        // Auth
+        self.authNetworking = AuthNetworkingRepository(networkingService: networking)
         
         // Folder
         let folderStorage = FolderStorageRepositoryImpl(context: modelContext)

@@ -34,6 +34,7 @@ protocol DocumentListViewModel: ObservableObject, AnyObject {
     
     func openDocument(_ document: DocumentCard)
     
+    func sync() async
     func loadData() async
 }
 
@@ -93,6 +94,10 @@ class DocumentListViewModelImpl: DocumentListViewModel {
         documents = allDocuments.filter {
             $0.title.lowercased().contains(query.lowercased())
         }
+    }
+    
+    func sync() async {
+        await provider.sync()
     }
     
     func cancelSearch() {
@@ -207,6 +212,12 @@ class DocumentListViewModelImpl: DocumentListViewModel {
             DocumentListRoutes.documentView(id: document.id),
             for: .documents
         )
+    }
+    
+    func syncData() {
+        Task {
+            await provider.sync()
+        }
     }
 }
 

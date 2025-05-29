@@ -8,10 +8,6 @@ final class FolderNetworkingRepository {
         self.service = service
     }
 
-    func fetchAll(completion: @escaping (Result<[FolderNetworking], Error>) -> Void) async {
-        await service.get(path: "/folders", completion: completion)
-    }
-
     func fetchChanges(completion: @escaping (Result<[FolderNetworking], Error>) -> Void) async {
         await service.get(path: "/folders/changes", completion: completion)
     }

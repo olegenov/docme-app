@@ -62,6 +62,15 @@ struct DocumentListView<ViewModel: DocumentListViewModel>: View {
             }
         }
         .hideKeyboardOnDrag()
+        .refreshable {
+            if AccountManager.shared.offlineMode {
+                return
+            }
+            
+            Task {
+                await viewModel.sync()
+            }
+        }
     }
     
     private var emptyView: some View {

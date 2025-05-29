@@ -13,6 +13,9 @@ protocol DocumentScreenViewModel: ObservableObject, AnyObject {
     var document: DocumentScreen { get set }
     var fields: [DocumentScreenField] { get set }
     
+    var isSharing: Bool { get set }
+    var textFileURL: URL? { get }
+    
     var showLoading: Bool { get }
     
     func createDocument()
@@ -42,6 +45,9 @@ class DocumentScreenViewModelImpl: DocumentScreenViewModel {
     private let documentId: UUID
     private let folderId: UUID?
     
+    var textFileURL: URL? = nil
+    
+    var isSharing: Bool = false
     var editMode: DocumentEditMode = .viewing
     var document: DocumentScreen
     var fields: [DocumentScreenField] = [] {
@@ -226,7 +232,24 @@ class DocumentScreenViewModelImpl: DocumentScreenViewModel {
     }
     
     func shareDocument() {
-        
+        let textContent = composeTextFileContent()
+
+        do {
+            let tempDir = FileManager.default.temporaryDirectory
+            let fileURL = tempDir.appendingPathComponent("export.txt")
+
+            try textContent.write(to: fileURL, atomically: true, encoding: .utf8)
+
+            textFileURL = fileURL
+            isSharing = true
+        } catch {
+            AppLogger.shared.error("Ошибка при записи файла: \(error)")
+            
+            ToastManager.shared.show(
+                message: "Ошибка при экспорте",
+                type: .error
+            )
+        }
     }
     
     func deleteField(_ field: DocumentScreenField) {
@@ -239,6 +262,16 @@ class DocumentScreenViewModelImpl: DocumentScreenViewModel {
         ToastManager.shared.show(
             message: Captions.fieldCopied(name: field.name)
         )
+    }
+    
+    func composeTextFileContent() -> String {
+        var result = ""
+        
+        for field in fields {
+            result += "\(field.name): \(field.value)\n"
+        }
+        
+        return result
     }
 }
 

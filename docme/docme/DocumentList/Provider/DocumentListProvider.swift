@@ -21,6 +21,8 @@ protocol DocumentListProvider {
     func getSelectedTags() -> [DocumentCard.Color]
     func setSelectedTags(_ tags: [DocumentCard.Color])
     func toggleFavortite(for document: DocumentCard) async
+    
+    func sync() async
 }
 
 final class DocumentListProviderImpl: DocumentListProvider {
@@ -85,6 +87,15 @@ final class DocumentListProviderImpl: DocumentListProvider {
             AppLogger.shared.error("Failed to fetch documents: \(error)")
             
             return []
+        }
+    }
+    
+    func sync() async {
+        do {
+            await folderRepository.syncFolders()
+            try await documentRepository.syncDocuments()
+        } catch {
+            
         }
     }
     

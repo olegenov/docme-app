@@ -81,4 +81,21 @@ enum Captions {
     
     static let nothingHere = "Здесь пока ничего нет"
     static let addNewDocument = "Добавить документ"
+    
+    static let loggingError = "Не получилось войти"
+    static let registerError = "Не получилось зарегистрироваться"
+    
+    static let welcome = "Добро пожаловать"
+    
+    static let signup = "Регистрация"
+    static let login = "Вход"
+    
+    static let username = "Логин"
+    static let password = "Пароль"
+    static let confirmPassword = "Повтор пароля"
+    static let email = "Почта"
+    static let name = "Имя"
+    
+    static let loginButtonTitle = "Войти"
+    static let registerButtonTitle = "Зарегистрироваться"
 }

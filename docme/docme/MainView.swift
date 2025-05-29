@@ -8,6 +8,7 @@ struct MainView: View {
     @Binding var documentListPath: NavigationPath
     @Binding var profilePath: NavigationPath
     
+    @StateObject private var authCoorinator: AuthCoordinator
     @StateObject private var documentListCoordinator: DocumentListCoordinator
     @StateObject private var profileCoordinator: ProfileCoordinator
     @StateObject private var toastManager = ToastManager.shared
@@ -17,6 +18,10 @@ struct MainView: View {
     @State private var currentTab: Router.Tab = .documents
     @State private var isTabbarVisible: Bool = true
     
+    private let di: AppDIContainer
+    
+    @State private var showLogin: Bool = false
+    
     init(
         documentListPath: Binding<NavigationPath>,
         profilePath: Binding<NavigationPath>,
@@ -25,6 +30,11 @@ struct MainView: View {
         self._documentListPath = documentListPath
         self._profilePath = profilePath
         
+        self.di = diContainer
+        
+        self._authCoorinator = StateObject(
+            wrappedValue: AuthCoordinator(container: diContainer)
+        )
         self._documentListCoordinator = StateObject(
             wrappedValue: DocumentListCoordinator(container: diContainer)
         )
@@ -34,26 +44,37 @@ struct MainView: View {
     }
     
     var body: some View {
-        tabView
-            .environment(
-                \.theme,
-                 themeController.currentTheme
-            )
-            .animation(.easeInOut, value: isTabbarVisible)
-            .background(theme.gradients.background)
-            .onReceive(DocumentListEventBus.shared.$event.compactMap { $0 }) { event in
-                switch event {
-                case .documentClosed:
-                    isTabbarVisible = true
-                case .documentOpened:
-                    isTabbarVisible = false
-                default:
-                    break
-                }
+        Group {
+            if showLogin {
+                authCoorinator.start(onSuccess: {
+                    showLogin = false
+                })
+            } else {
+                tabView
+                    .environment(
+                        \.theme,
+                         themeController.currentTheme
+                    )
+                    .animation(.easeInOut, value: isTabbarVisible)
+                    .background(theme.gradients.background)
+                    .onReceive(DocumentListEventBus.shared.$event.compactMap { $0 }) { event in
+                        switch event {
+                        case .documentClosed:
+                            isTabbarVisible = true
+                        case .documentOpened:
+                            isTabbarVisible = false
+                        default:
+                            break
+                        }
+                    }
             }
-            .overlay(alignment: .top) {
-                toastView
-            }
+        }
+        .overlay(alignment: .top) {
+            toastView
+        }
+        .task {
+            showLogin = await !di.authNetworking.currentUser()
+        }
     }
     
     private var toastView: some View {
