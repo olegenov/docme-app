@@ -21,7 +21,7 @@ struct ProfileView<ViewModel: ProfileViewModel>: View {
     
     private var tabbar: some View {
         ProfileTabbarView {
-            
+            viewModel.logout()
         }.padding(.horizontal, DS.Spacing.m8)
     }
     

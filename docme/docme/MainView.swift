@@ -45,8 +45,9 @@ struct MainView: View {
     
     var body: some View {
         Group {
-            if showLogin {
+            if !AccountManager.shared.isLoggedIn {
                 authCoorinator.start(onSuccess: {
+                    AccountManager.shared.isLoggedIn = true
                     showLogin = false
                 })
             } else {
@@ -73,7 +74,10 @@ struct MainView: View {
             toastView
         }
         .task {
-            showLogin = await !di.authNetworking.currentUser()
+            AccountManager.shared.isLoggedIn = await di.authNetworking.currentUser()
+        }
+        .onChange(of: AccountManager.shared.isLoggedIn) {
+            
         }
     }
     

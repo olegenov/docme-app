@@ -4,6 +4,7 @@ import Foundation
 protocol ProfileViewModel: ObservableObject, AnyObject {
     var profile: Profile { get }
     var offlineMode: Bool { get set }
+    func logout()
 }
 
 class ProfileViewModelImpl: ProfileViewModel {
@@ -24,5 +25,11 @@ class ProfileViewModelImpl: ProfileViewModel {
             name: AccountManager.shared.name,
             username: AccountManager.shared.username
         )
+    }
+    
+    func logout() {
+        AccountManager.shared.logout()
+        
+        ToastManager.shared.show(message: "Вы вышли из аккаунта", type: .error)
     }
 }
